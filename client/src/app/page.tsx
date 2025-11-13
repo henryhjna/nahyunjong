@@ -45,25 +45,39 @@ export default function Home() {
               { title: 'Lab', href: '/lab', icon: '🏢', desc: 'Laboratory Information', disabled: true },
               { title: 'Education', href: '/education', icon: '📚', desc: 'Courses & Lectures', disabled: false },
               { title: 'Book', href: '/book', icon: '📖', desc: 'Published Books', disabled: true },
-            ].map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className={`p-8 rounded-2xl border-2 transition-all ${
-                  item.disabled
-                    ? 'bg-gray-50 border-gray-200 opacity-50 cursor-not-allowed'
-                    : 'bg-white border-primary-200 hover:border-primary-400 hover:shadow-xl hover:-translate-y-1'
-                }`}
-                onClick={(e) => item.disabled && e.preventDefault()}
-              >
-                <div className="text-5xl mb-4">{item.icon}</div>
-                <h2 className="text-2xl font-bold mb-2">{item.title}</h2>
-                <p className="text-gray-600">{item.desc}</p>
-                {item.disabled && (
-                  <span className="text-xs text-gray-400 mt-2 block">Coming Soon</span>
-                )}
-              </Link>
-            ))}
+            ].map((item) => {
+              const content = (
+                <>
+                  <div className="text-5xl mb-4">{item.icon}</div>
+                  <h2 className="text-2xl font-bold mb-2">{item.title}</h2>
+                  <p className="text-gray-600">{item.desc}</p>
+                  {item.disabled && (
+                    <span className="text-xs text-gray-400 mt-2 block">Coming Soon</span>
+                  )}
+                </>
+              )
+
+              if (item.disabled) {
+                return (
+                  <div
+                    key={item.title}
+                    className="p-8 rounded-2xl border-2 bg-gray-50 border-gray-200 opacity-50 cursor-not-allowed"
+                  >
+                    {content}
+                  </div>
+                )
+              }
+
+              return (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  className="p-8 rounded-2xl border-2 transition-all bg-white border-primary-200 hover:border-primary-400 hover:shadow-xl hover:-translate-y-1"
+                >
+                  {content}
+                </Link>
+              )
+            })}
           </div>
         </div>
       </main>
