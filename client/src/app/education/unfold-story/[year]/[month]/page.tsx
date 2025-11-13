@@ -27,6 +27,13 @@ interface Transaction {
   concept?: string;
 }
 
+interface Scene {
+  date: string;
+  transactionId?: string;
+  story: string;
+  learningPoint?: string;
+}
+
 interface MonthData {
   month: string;
   monthLabel: string;
@@ -104,6 +111,7 @@ export default function StoryPage({ params }: PageProps) {
       scenes: [
         {
           date: '2022-03-02',
+          transactionId: '2022-03-02-001',
           story: `📅 2022년 3월 2일, 목요일 오전 9시
 
 은행 창구 앞. 유진은 새로 만든 법인 도장을 손에 쥐고 있었다. 아직 잉크 냄새가 났다.
@@ -138,6 +146,7 @@ export default function StoryPage({ params }: PageProps) {
         },
         {
           date: '2022-03-02',
+          transactionId: '2022-03-02-002',
           story: `📅 같은 날 오후 2시
 
 휴대폰이 울렸다. 기술보증기금 담당자였다.
@@ -174,6 +183,7 @@ export default function StoryPage({ params }: PageProps) {
         },
         {
           date: '2022-03-05',
+          transactionId: '2022-03-05-001',
           story: `📅 3월 5일, 토요일 오전 11시
 
 강남역 3번 출구. 유진은 부동산 중개인을 따라 좁은 골목길을 걸었다.
@@ -217,6 +227,7 @@ export default function StoryPage({ params }: PageProps) {
         },
         {
           date: '2022-03-10',
+          transactionId: '2022-03-10-001',
           story: `📅 3월 10일, 목요일 오후 3시
 
 사무실 책상 위엔 아직 아무것도 없었다. 유진은 노트북을 주문하기 위해 애플 스토어를 검색했다.
@@ -258,6 +269,7 @@ export default function StoryPage({ params }: PageProps) {
         },
         {
           date: '2022-03-15',
+          transactionId: '2022-03-15-001',
           story: `📅 3월 15일, 화요일 오전 10시
 
 경기도 파주. 유진은 OEM 제조업체 '뷰티팩토리'를 찾아왔다.
@@ -305,6 +317,7 @@ export default function StoryPage({ params }: PageProps) {
         },
         {
           date: '2022-03-20',
+          transactionId: '2022-03-20-001',
           story: `📅 3월 20일, 일요일 저녁 8시
 
 카톡 알림이 울렸다. 외주 개발사 '코드크래프트'의 이민준 대표였다.
@@ -361,6 +374,7 @@ export default function StoryPage({ params }: PageProps) {
         },
         {
           date: '2022-03-25',
+          transactionId: '2022-03-25-001',
           story: `📅 3월 25일, 금요일 오전 10시
 
 휴대폰 알람이 울렸다.
@@ -404,6 +418,7 @@ export default function StoryPage({ params }: PageProps) {
         },
         {
           date: '2022-03-31',
+          transactionId: '2022-03-31-001',
           story: `📅 3월 31일, 목요일 밤 11시 30분
 
 침대에 누워 있던 유진의 휴대폰이 미친 듯이 울리기 시작했다.
@@ -590,8 +605,9 @@ export default function StoryPage({ params }: PageProps) {
 
         {/* Story Scenes */}
         {story.scenes.map((scene, index) => {
+          // Match by transactionId first (more precise), fallback to date matching
           const transaction = monthData.transactions.find(
-            (t) => t.date === scene.date
+            (t) => scene.transactionId ? t.id === scene.transactionId : t.date === scene.date
           );
           const isLastScene = index === story.scenes.length - 1;
 
