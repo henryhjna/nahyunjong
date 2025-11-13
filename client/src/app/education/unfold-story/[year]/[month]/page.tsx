@@ -63,6 +63,33 @@ interface MonthData {
   };
 }
 
+// 계정과목의 유형과 증감을 판단하는 함수
+function getAccountTypeDescription(account: string, side: '차변' | '대변'): string {
+  // 자산 계정
+  const assetAccounts = ['현금', '임차보증금', '선급비용', '비품', '무형자산', '상품', '매출채권'];
+  // 부채 계정
+  const liabilityAccounts = ['단기차입금', '매입채무', '미지급금', '감가상각누계액_비품', '감가상각누계액_무형자산'];
+  // 자본 계정
+  const equityAccounts = ['자본금', '이익잉여금'];
+  // 수익 계정
+  const revenueAccounts = ['매출'];
+  // 비용 계정
+  const expenseAccounts = ['매출원가', '감가상각비', '무형자산상각비', '임차료', '이자비용'];
+
+  if (assetAccounts.includes(account)) {
+    return side === '차변' ? '→ 자산 증가' : '→ 자산 감소';
+  } else if (liabilityAccounts.includes(account)) {
+    return side === '차변' ? '→ 부채 감소' : '→ 부채 증가';
+  } else if (equityAccounts.includes(account)) {
+    return side === '차변' ? '→ 자본 감소' : '→ 자본 증가';
+  } else if (revenueAccounts.includes(account)) {
+    return side === '차변' ? '→ 수익 감소' : '→ 수익 증가';
+  } else if (expenseAccounts.includes(account)) {
+    return side === '차변' ? '→ 비용 증가' : '→ 비용 감소';
+  }
+  return ''; // 알 수 없는 계정
+}
+
 export default function StoryPage({ params }: PageProps) {
   const router = useRouter();
   const { year, month } = params;
@@ -682,14 +709,19 @@ export default function StoryPage({ params }: PageProps) {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.5 + i * 0.1 }}
-                            className="flex justify-between items-center mb-2"
+                            className="mb-3"
                           >
-                            <span className="text-gray-700 font-medium">
-                              {entry.account}
-                            </span>
-                            <span className="font-bold text-gray-900">
-                              {entry.amount.toLocaleString()}원
-                            </span>
+                            <div className="flex justify-between items-center">
+                              <span className="text-gray-700 font-medium">
+                                {entry.account}
+                              </span>
+                              <span className="font-bold text-gray-900">
+                                {entry.amount.toLocaleString()}원
+                              </span>
+                            </div>
+                            <div className="text-xs text-red-600 mt-1">
+                              {getAccountTypeDescription(entry.account, '차변')}
+                            </div>
                           </motion.div>
                         ))}
                     </motion.div>
@@ -714,14 +746,19 @@ export default function StoryPage({ params }: PageProps) {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.5 + i * 0.1 }}
-                            className="flex justify-between items-center mb-2"
+                            className="mb-3"
                           >
-                            <span className="text-gray-700 font-medium">
-                              {entry.account}
-                            </span>
-                            <span className="font-bold text-gray-900">
-                              {entry.amount.toLocaleString()}원
-                            </span>
+                            <div className="flex justify-between items-center">
+                              <span className="text-gray-700 font-medium">
+                                {entry.account}
+                              </span>
+                              <span className="font-bold text-gray-900">
+                                {entry.amount.toLocaleString()}원
+                              </span>
+                            </div>
+                            <div className="text-xs text-blue-600 mt-1">
+                              {getAccountTypeDescription(entry.account, '대변')}
+                            </div>
                           </motion.div>
                         ))}
                     </motion.div>
