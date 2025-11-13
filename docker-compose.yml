@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: nahyunjong-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nahyunjong_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password_change_in_production
+    ports:
+      - "7342:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - nahyunjong-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: nahyunjong-server
+    restart: unless-stopped
+    ports:
+      - "7341:7341"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: nahyunjong_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres_password_change_in_production
+      SERVER_PORT: 7341
+      NODE_ENV: development
+    depends_on:
+      - db
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - nahyunjong-network
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    container_name: nahyunjong-client
+    restart: unless-stopped
+    ports:
+      - "7340:7340"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:7341
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - nahyunjong-network
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:
+
+networks:
+  nahyunjong-network:
+    driver: bridge
