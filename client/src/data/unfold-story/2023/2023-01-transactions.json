@@ -1,0 +1,276 @@
+{
+  "month": "2023-01",
+  "monthLabel": "2023년 1월",
+  "transactions": [
+    {
+      "id": "2023-01-05-001",
+      "date": "2023-01-05",
+      "description": "OEM 상품 대량 매입 300개 (외상)",
+      "entries": [
+        {
+          "account": "상품",
+          "side": "차변",
+          "amount": 4500000
+        },
+        {
+          "account": "매입채무",
+          "side": "대변",
+          "amount": 4500000
+        }
+      ],
+      "week": 5,
+      "concept": "외상 매입"
+    },
+    {
+      "id": "2023-01-10-001",
+      "date": "2023-01-10",
+      "description": "광고선전비 지출 (인플루언서 마케팅)",
+      "entries": [
+        {
+          "account": "광고선전비",
+          "side": "차변",
+          "amount": 3000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 3000000
+        }
+      ],
+      "week": 8,
+      "concept": "광고선전비"
+    },
+    {
+      "id": "2023-01-15-001",
+      "date": "2023-01-15",
+      "description": "상품 판매 200개 (현금)",
+      "entries": [
+        {
+          "account": "현금",
+          "side": "차변",
+          "amount": 9800000
+        },
+        {
+          "account": "매출",
+          "side": "대변",
+          "amount": 9800000
+        }
+      ],
+      "week": 5,
+      "concept": "현금 매출"
+    },
+    {
+      "id": "2023-01-15-002",
+      "date": "2023-01-15",
+      "description": "매출원가 인식 200개",
+      "entries": [
+        {
+          "account": "매출원가",
+          "side": "차변",
+          "amount": 3000000
+        },
+        {
+          "account": "상품",
+          "side": "대변",
+          "amount": 3000000
+        }
+      ],
+      "week": 5,
+      "concept": "매출원가"
+    },
+    {
+      "id": "2023-01-20-001",
+      "date": "2023-01-20",
+      "description": "매입채무 지급 (2022년 12월분)",
+      "entries": [
+        {
+          "account": "매입채무",
+          "side": "차변",
+          "amount": 1500000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 1500000
+        }
+      ],
+      "week": 2,
+      "concept": "채무 지급"
+    },
+    {
+      "id": "2023-01-31-001",
+      "date": "2023-01-31",
+      "description": "급여 지급 (직원 2명)",
+      "entries": [
+        {
+          "account": "급여",
+          "side": "차변",
+          "amount": 6000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 6000000
+        }
+      ],
+      "week": 8,
+      "concept": "급여"
+    },
+    {
+      "id": "2023-01-31-002",
+      "date": "2023-01-31",
+      "description": "임차료 비용화",
+      "entries": [
+        {
+          "account": "임차료",
+          "side": "차변",
+          "amount": 1500000
+        },
+        {
+          "account": "선급비용",
+          "side": "대변",
+          "amount": 1500000
+        }
+      ],
+      "week": 2,
+      "concept": "선급비용"
+    },
+    {
+      "id": "2023-01-31-003",
+      "date": "2023-01-31",
+      "description": "감가상각비 (비품)",
+      "entries": [
+        {
+          "account": "감가상각비",
+          "side": "차변",
+          "amount": 583333
+        },
+        {
+          "account": "감가상각누계액_비품",
+          "side": "대변",
+          "amount": 583333
+        }
+      ],
+      "week": 9,
+      "concept": "감가상각"
+    },
+    {
+      "id": "2023-01-31-004",
+      "date": "2023-01-31",
+      "description": "감가상각비 (기계장치)",
+      "entries": [
+        {
+          "account": "감가상각비",
+          "side": "차변",
+          "amount": 666667
+        },
+        {
+          "account": "감가상각누계액_기계장치",
+          "side": "대변",
+          "amount": 666667
+        }
+      ],
+      "week": 9,
+      "concept": "감가상각"
+    },
+    {
+      "id": "2023-01-31-005",
+      "date": "2023-01-31",
+      "description": "무형자산상각비",
+      "entries": [
+        {
+          "account": "무형자산상각비",
+          "side": "차변",
+          "amount": 222222
+        },
+        {
+          "account": "무형자산상각누계액",
+          "side": "대변",
+          "amount": 222222
+        }
+      ],
+      "week": 9,
+      "concept": "무형자산 상각"
+    },
+    {
+      "id": "2023-01-31-006",
+      "date": "2023-01-31",
+      "description": "이자비용 계상",
+      "entries": [
+        {
+          "account": "이자비용",
+          "side": "차변",
+          "amount": 750000
+        },
+        {
+          "account": "미지급이자",
+          "side": "대변",
+          "amount": 750000
+        }
+      ],
+      "week": 12,
+      "concept": "이자비용"
+    }
+  ],
+  "financials": {
+    "statementOfFinancialPosition": {
+      "assets": {
+        "현금": 201571000,
+        "임차보증금": 10000000,
+        "선급비용": 4500000,
+        "비품": 35000000,
+        "상품": 900000,
+        "무형자산": 8000000,
+        "감가상각누계액_비품": -2916663,
+        "무형자산상각누계액": -2444442,
+        "매출채권": -9261000,
+        "기계장치": 80000000,
+        "감가상각누계액_기계장치": -4000002,
+        "대손충당금": -300000,
+        "FVOCI금융자산": 50000000
+      },
+      "liabilities": {
+        "단기차입금": 200000000,
+        "매입채무": 3000000,
+        "미지급금": 0,
+        "미지급이자": 750000,
+        "선수금": 0,
+        "미지급급여": 0
+      },
+      "equity": {
+        "자본금": 150000000,
+        "주식발행초과금": 10000000
+      },
+      "totalAssets": 371048893,
+      "totalLiabilities": 203750000,
+      "totalEquity": 160000000,
+      "balanced": false,
+      "totalAssetsFormatted": "3.7억원",
+      "totalLiabilitiesFormatted": "2.0억원",
+      "totalEquityFormatted": "1.6억원"
+    },
+    "incomeStatement": {
+      "revenues": {
+        "매출": 119560000
+      },
+      "expenses": {
+        "매출원가": 36600000,
+        "감가상각비": 6916665,
+        "무형자산상각비": 2444442,
+        "임차료": 16500000,
+        "이자비용": 8250000,
+        "광고선전비": 16000000,
+        "급여": 24000000,
+        "잡손실": 500000,
+        "대손상각비": 300000,
+        "재고감모손실": 750000
+      },
+      "totalRevenue": 119560000,
+      "totalExpenses": 112261107,
+      "netIncome": 7298893,
+      "totalRevenueFormatted": "1.2억원",
+      "totalExpensesFormatted": "1.1억원",
+      "netIncomeFormatted": "730만원"
+    }
+  }
+}

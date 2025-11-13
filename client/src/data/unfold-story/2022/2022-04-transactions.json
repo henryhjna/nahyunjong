@@ -1,0 +1,212 @@
+{
+  "month": "2022-04",
+  "monthLabel": "2022년 4월",
+  "transactions": [
+    {
+      "id": "2022-04-05-001",
+      "date": "2022-04-05",
+      "description": "상품 150개 매입 (외상)",
+      "entries": [
+        {
+          "account": "상품",
+          "side": "차변",
+          "amount": 2250000
+        },
+        {
+          "account": "매입채무",
+          "side": "대변",
+          "amount": 2250000
+        }
+      ],
+      "week": 5,
+      "concept": "외상 매입"
+    },
+    {
+      "id": "2022-04-15-001",
+      "date": "2022-04-15",
+      "description": "3월 매입채무 지급",
+      "entries": [
+        {
+          "account": "매입채무",
+          "side": "차변",
+          "amount": 1500000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 1500000
+        }
+      ],
+      "week": 2,
+      "concept": "채무 지급"
+    },
+    {
+      "id": "2022-04-30-001",
+      "date": "2022-04-30",
+      "description": "판매 80개 (현금 50%, 외상 50%)",
+      "entries": [
+        {
+          "account": "현금",
+          "side": "차변",
+          "amount": 1960000
+        },
+        {
+          "account": "매출채권",
+          "side": "차변",
+          "amount": 1960000
+        },
+        {
+          "account": "매출",
+          "side": "대변",
+          "amount": 3920000
+        }
+      ],
+      "week": 5,
+      "concept": "현금+외상 매출"
+    },
+    {
+      "id": "2022-04-30-002",
+      "date": "2022-04-30",
+      "description": "매출원가 인식 80개",
+      "entries": [
+        {
+          "account": "매출원가",
+          "side": "차변",
+          "amount": 1200000
+        },
+        {
+          "account": "상품",
+          "side": "대변",
+          "amount": 1200000
+        }
+      ],
+      "week": 5,
+      "concept": "매출원가"
+    },
+    {
+      "id": "2022-04-30-003",
+      "date": "2022-04-30",
+      "description": "감가상각비 (비품)",
+      "entries": [
+        {
+          "account": "감가상각비",
+          "side": "차변",
+          "amount": 83333
+        },
+        {
+          "account": "감가상각누계액_비품",
+          "side": "대변",
+          "amount": 83333
+        }
+      ],
+      "week": 9,
+      "concept": "감가상각"
+    },
+    {
+      "id": "2022-04-30-004",
+      "date": "2022-04-30",
+      "description": "무형자산상각비",
+      "entries": [
+        {
+          "account": "무형자산상각비",
+          "side": "차변",
+          "amount": 222222
+        },
+        {
+          "account": "무형자산상각누계액",
+          "side": "대변",
+          "amount": 222222
+        }
+      ],
+      "week": 9,
+      "concept": "무형자산 상각"
+    },
+    {
+      "id": "2022-04-30-005",
+      "date": "2022-04-30",
+      "description": "선급임차료 비용화",
+      "entries": [
+        {
+          "account": "임차료",
+          "side": "차변",
+          "amount": 1500000
+        },
+        {
+          "account": "선급비용",
+          "side": "대변",
+          "amount": 1500000
+        }
+      ],
+      "week": 2,
+      "concept": "선급비용"
+    },
+    {
+      "id": "2022-04-30-006",
+      "date": "2022-04-30",
+      "description": "이자비용 계상",
+      "entries": [
+        {
+          "account": "이자비용",
+          "side": "차변",
+          "amount": 750000
+        },
+        {
+          "account": "미지급이자",
+          "side": "대변",
+          "amount": 750000
+        }
+      ],
+      "week": 12,
+      "concept": "이자비용"
+    }
+  ],
+  "financials": {
+    "statementOfFinancialPosition": {
+      "assets": {
+        "현금": 270910000,
+        "임차보증금": 10000000,
+        "선급비용": 6000000,
+        "비품": 5000000,
+        "상품": 1800000,
+        "무형자산": 8000000,
+        "감가상각누계액_비품": -166666,
+        "무형자산상각누계액": -444444,
+        "매출채권": 1960000
+      },
+      "liabilities": {
+        "단기차입금": 200000000,
+        "매입채무": 2250000,
+        "미지급금": 0,
+        "미지급이자": 1500000
+      },
+      "equity": {
+        "자본금": 100000000
+      },
+      "totalAssets": 303058890,
+      "totalLiabilities": 203750000,
+      "totalEquity": 100000000,
+      "balanced": false,
+      "totalAssetsFormatted": "3.0억원",
+      "totalLiabilitiesFormatted": "2.0억원",
+      "totalEquityFormatted": "1.0억원"
+    },
+    "incomeStatement": {
+      "revenues": {
+        "매출": 6370000
+      },
+      "expenses": {
+        "매출원가": 1950000,
+        "감가상각비": 166666,
+        "무형자산상각비": 444444,
+        "임차료": 3000000,
+        "이자비용": 1500000
+      },
+      "totalRevenue": 6370000,
+      "totalExpenses": 7061110,
+      "netIncome": -691110,
+      "totalRevenueFormatted": "637만원",
+      "totalExpensesFormatted": "706만원",
+      "netIncomeFormatted": "-691,110원"
+    }
+  }
+}

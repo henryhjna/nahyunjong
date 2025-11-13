@@ -1,0 +1,371 @@
+{
+  "month": "2022-12",
+  "monthLabel": "2022년 12월",
+  "transactions": [
+    {
+      "id": "2022-12-01-001",
+      "date": "2022-12-01",
+      "description": "상품 추가 매입 400개",
+      "entries": [
+        {
+          "account": "상품",
+          "side": "차변",
+          "amount": 6000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 6000000
+        }
+      ],
+      "week": 5,
+      "concept": "현금 매입"
+    },
+    {
+      "id": "2022-12-05-001",
+      "date": "2022-12-05",
+      "description": "선수금 해소 (500개 납품)",
+      "entries": [
+        {
+          "account": "선수금",
+          "side": "차변",
+          "amount": 24500000
+        },
+        {
+          "account": "매출",
+          "side": "대변",
+          "amount": 24500000
+        }
+      ],
+      "week": 5,
+      "concept": "선수금 매출 전환"
+    },
+    {
+      "id": "2022-12-05-002",
+      "date": "2022-12-05",
+      "description": "매출원가 인식 500개",
+      "entries": [
+        {
+          "account": "매출원가",
+          "side": "차변",
+          "amount": 7500000
+        },
+        {
+          "account": "상품",
+          "side": "대변",
+          "amount": 7500000
+        }
+      ],
+      "week": 5,
+      "concept": "매출원가"
+    },
+    {
+      "id": "2022-12-10-001",
+      "date": "2022-12-10",
+      "description": "11월 매출채권 회수",
+      "entries": [
+        {
+          "account": "현금",
+          "side": "차변",
+          "amount": 2450000
+        },
+        {
+          "account": "매출채권",
+          "side": "대변",
+          "amount": 2450000
+        }
+      ],
+      "week": 5,
+      "concept": "채권 회수"
+    },
+    {
+      "id": "2022-12-15-001",
+      "date": "2022-12-15",
+      "description": "연간 이자비용 일괄 지급 (3~12월 10개월분)",
+      "entries": [
+        {
+          "account": "미지급이자",
+          "side": "차변",
+          "amount": 7500000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 7500000
+        }
+      ],
+      "week": 12,
+      "concept": "이자 지급"
+    },
+    {
+      "id": "2022-12-20-001",
+      "date": "2022-12-20",
+      "description": "11월 매입채무 지급",
+      "entries": [
+        {
+          "account": "매입채무",
+          "side": "차변",
+          "amount": 4500000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 4500000
+        }
+      ],
+      "week": 2,
+      "concept": "채무 지급"
+    },
+    {
+      "id": "2022-12-28-001",
+      "date": "2022-12-28",
+      "description": "금융자산 투자 (FVOCI, 삼성전자 주식)",
+      "entries": [
+        {
+          "account": "FVOCI금융자산",
+          "side": "차변",
+          "amount": 50000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 50000000
+        }
+      ],
+      "week": 10,
+      "concept": "금융자산"
+    },
+    {
+      "id": "2022-12-31-001",
+      "date": "2022-12-31",
+      "description": "판매 150개",
+      "entries": [
+        {
+          "account": "현금",
+          "side": "차변",
+          "amount": 7350000
+        },
+        {
+          "account": "매출",
+          "side": "대변",
+          "amount": 7350000
+        }
+      ],
+      "week": 5,
+      "concept": "현금 매출"
+    },
+    {
+      "id": "2022-12-31-002",
+      "date": "2022-12-31",
+      "description": "매출원가 인식 150개",
+      "entries": [
+        {
+          "account": "매출원가",
+          "side": "차변",
+          "amount": 2250000
+        },
+        {
+          "account": "상품",
+          "side": "대변",
+          "amount": 2250000
+        }
+      ],
+      "week": 5,
+      "concept": "매출원가"
+    },
+    {
+      "id": "2022-12-31-003",
+      "date": "2022-12-31",
+      "description": "재고 실사 - 재고감모손실 50개",
+      "entries": [
+        {
+          "account": "재고감모손실",
+          "side": "차변",
+          "amount": 750000
+        },
+        {
+          "account": "상품",
+          "side": "대변",
+          "amount": 750000
+        }
+      ],
+      "week": 6,
+      "concept": "재고감모손실"
+    },
+    {
+      "id": "2022-12-31-004",
+      "date": "2022-12-31",
+      "description": "급여 지급",
+      "entries": [
+        {
+          "account": "급여",
+          "side": "차변",
+          "amount": 3000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 3000000
+        }
+      ],
+      "week": 8,
+      "concept": "급여"
+    },
+    {
+      "id": "2022-12-31-005",
+      "date": "2022-12-31",
+      "description": "감가상각비 (비품)",
+      "entries": [
+        {
+          "account": "감가상각비",
+          "side": "차변",
+          "amount": 583333
+        },
+        {
+          "account": "감가상각누계액_비품",
+          "side": "대변",
+          "amount": 583333
+        }
+      ],
+      "week": 9,
+      "concept": "감가상각"
+    },
+    {
+      "id": "2022-12-31-006",
+      "date": "2022-12-31",
+      "description": "감가상각비 (기계장치)",
+      "entries": [
+        {
+          "account": "감가상각비",
+          "side": "차변",
+          "amount": 666667
+        },
+        {
+          "account": "감가상각누계액_기계장치",
+          "side": "대변",
+          "amount": 666667
+        }
+      ],
+      "week": 9,
+      "concept": "감가상각"
+    },
+    {
+      "id": "2022-12-31-007",
+      "date": "2022-12-31",
+      "description": "무형자산상각비",
+      "entries": [
+        {
+          "account": "무형자산상각비",
+          "side": "차변",
+          "amount": 222222
+        },
+        {
+          "account": "무형자산상각누계액",
+          "side": "대변",
+          "amount": 222222
+        }
+      ],
+      "week": 9,
+      "concept": "무형자산 상각"
+    },
+    {
+      "id": "2022-12-31-008",
+      "date": "2022-12-31",
+      "description": "선급임차료 비용화",
+      "entries": [
+        {
+          "account": "임차료",
+          "side": "차변",
+          "amount": 1500000
+        },
+        {
+          "account": "선급비용",
+          "side": "대변",
+          "amount": 1500000
+        }
+      ],
+      "week": 2,
+      "concept": "선급비용"
+    },
+    {
+      "id": "2022-12-31-009",
+      "date": "2022-12-31",
+      "description": "이자비용 계상",
+      "entries": [
+        {
+          "account": "이자비용",
+          "side": "차변",
+          "amount": 750000
+        },
+        {
+          "account": "미지급이자",
+          "side": "대변",
+          "amount": 750000
+        }
+      ],
+      "week": 12,
+      "concept": "이자비용"
+    }
+  ],
+  "financials": {
+    "statementOfFinancialPosition": {
+      "assets": {
+        "현금": 202271000,
+        "임차보증금": 10000000,
+        "선급비용": 6000000,
+        "비품": 35000000,
+        "상품": -600000,
+        "무형자산": 8000000,
+        "감가상각누계액_비품": -2333330,
+        "무형자산상각누계액": -2222220,
+        "매출채권": -9261000,
+        "기계장치": 80000000,
+        "감가상각누계액_기계장치": -3333335,
+        "대손충당금": -300000,
+        "FVOCI금융자산": 50000000
+      },
+      "liabilities": {
+        "단기차입금": 200000000,
+        "매입채무": 0,
+        "미지급금": 0,
+        "미지급이자": 0,
+        "선수금": 0,
+        "미지급급여": 0
+      },
+      "equity": {
+        "자본금": 150000000,
+        "주식발행초과금": 10000000
+      },
+      "totalAssets": 373221115,
+      "totalLiabilities": 200000000,
+      "totalEquity": 160000000,
+      "balanced": false,
+      "totalAssetsFormatted": "3.7억원",
+      "totalLiabilitiesFormatted": "2.0억원",
+      "totalEquityFormatted": "1.6억원"
+    },
+    "incomeStatement": {
+      "revenues": {
+        "매출": 109760000
+      },
+      "expenses": {
+        "매출원가": 33600000,
+        "감가상각비": 5666665,
+        "무형자산상각비": 2222220,
+        "임차료": 15000000,
+        "이자비용": 7500000,
+        "광고선전비": 13000000,
+        "급여": 18000000,
+        "잡손실": 500000,
+        "대손상각비": 300000,
+        "재고감모손실": 750000
+      },
+      "totalRevenue": 109760000,
+      "totalExpenses": 96538885,
+      "netIncome": 13221115,
+      "totalRevenueFormatted": "1.1억원",
+      "totalExpensesFormatted": "9654만원",
+      "netIncomeFormatted": "1322만원"
+    }
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "month": "2022-09",
+  "monthLabel": "2022년 9월",
+  "transactions": [
+    {
+      "id": "2022-09-01-001",
+      "date": "2022-09-01",
+      "description": "포장 디자인 리뉴얼",
+      "entries": [
+        {
+          "account": "광고선전비",
+          "side": "차변",
+          "amount": 3000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 3000000
+        }
+      ],
+      "week": 8,
+      "concept": "광고선전비"
+    },
+    {
+      "id": "2022-09-05-001",
+      "date": "2022-09-05",
+      "description": "상품 200개 매입 (외상)",
+      "entries": [
+        {
+          "account": "상품",
+          "side": "차변",
+          "amount": 3000000
+        },
+        {
+          "account": "매입채무",
+          "side": "대변",
+          "amount": 3000000
+        }
+      ],
+      "week": 5,
+      "concept": "외상 매입"
+    },
+    {
+      "id": "2022-09-12-001",
+      "date": "2022-09-12",
+      "description": "현금 도난 사건",
+      "entries": [
+        {
+          "account": "잡손실",
+          "side": "차변",
+          "amount": 500000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 500000
+        }
+      ],
+      "week": 6,
+      "concept": "잡손실"
+    },
+    {
+      "id": "2022-09-15-001",
+      "date": "2022-09-15",
+      "description": "8월 매입채무 지급",
+      "entries": [
+        {
+          "account": "매입채무",
+          "side": "차변",
+          "amount": 3000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 3000000
+        }
+      ],
+      "week": 2,
+      "concept": "채무 지급"
+    },
+    {
+      "id": "2022-09-20-001",
+      "date": "2022-09-20",
+      "description": "8월 매출채권 회수",
+      "entries": [
+        {
+          "account": "현금",
+          "side": "차변",
+          "amount": 2205000
+        },
+        {
+          "account": "매출채권",
+          "side": "대변",
+          "amount": 2205000
+        }
+      ],
+      "week": 5,
+      "concept": "채권 회수"
+    },
+    {
+      "id": "2022-09-25-001",
+      "date": "2022-09-25",
+      "description": "선급임차료 재지급 (6개월분)",
+      "entries": [
+        {
+          "account": "선급비용",
+          "side": "차변",
+          "amount": 9000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 9000000
+        }
+      ],
+      "week": 2,
+      "concept": "선급비용"
+    },
+    {
+      "id": "2022-09-30-001",
+      "date": "2022-09-30",
+      "description": "판매 160개",
+      "entries": [
+        {
+          "account": "현금",
+          "side": "차변",
+          "amount": 7840000
+        },
+        {
+          "account": "매출",
+          "side": "대변",
+          "amount": 7840000
+        }
+      ],
+      "week": 5,
+      "concept": "현금 매출"
+    },
+    {
+      "id": "2022-09-30-002",
+      "date": "2022-09-30",
+      "description": "매출원가 인식 160개",
+      "entries": [
+        {
+          "account": "매출원가",
+          "side": "차변",
+          "amount": 2400000
+        },
+        {
+          "account": "상품",
+          "side": "대변",
+          "amount": 2400000
+        }
+      ],
+      "week": 5,
+      "concept": "매출원가"
+    },
+    {
+      "id": "2022-09-30-003",
+      "date": "2022-09-30",
+      "description": "급여 지급",
+      "entries": [
+        {
+          "account": "급여",
+          "side": "차변",
+          "amount": 3000000
+        },
+        {
+          "account": "현금",
+          "side": "대변",
+          "amount": 3000000
+        }
+      ],
+      "week": 8,
+      "concept": "급여"
+    },
+    {
+      "id": "2022-09-30-004",
+      "date": "2022-09-30",
+      "description": "감가상각비 (비품)",
+      "entries": [
+        {
+          "account": "감가상각비",
+          "side": "차변",
+          "amount": 83333
+        },
+        {
+          "account": "감가상각누계액_비품",
+          "side": "대변",
+          "amount": 83333
+        }
+      ],
+      "week": 9,
+      "concept": "감가상각"
+    },
+    {
+      "id": "2022-09-30-005",
+      "date": "2022-09-30",
+      "description": "감가상각비 (기계장치)",
+      "entries": [
+        {
+          "account": "감가상각비",
+          "side": "차변",
+          "amount": 666667
+        },
+        {
+          "account": "감가상각누계액_기계장치",
+          "side": "대변",
+          "amount": 666667
+        }
+      ],
+      "week": 9,
+      "concept": "감가상각"
+    },
+    {
+      "id": "2022-09-30-006",
+      "date": "2022-09-30",
+      "description": "무형자산상각비",
+      "entries": [
+        {
+          "account": "무형자산상각비",
+          "side": "차변",
+          "amount": 222222
+        },
+        {
+          "account": "무형자산상각누계액",
+          "side": "대변",
+          "amount": 222222
+        }
+      ],
+      "week": 9,
+      "concept": "무형자산 상각"
+    },
+    {
+      "id": "2022-09-30-007",
+      "date": "2022-09-30",
+      "description": "선급임차료 비용화",
+      "entries": [
+        {
+          "account": "임차료",
+          "side": "차변",
+          "amount": 1500000
+        },
+        {
+          "account": "선급비용",
+          "side": "대변",
+          "amount": 1500000
+        }
+      ],
+      "week": 2,
+      "concept": "선급비용"
+    },
+    {
+      "id": "2022-09-30-008",
+      "date": "2022-09-30",
+      "description": "이자비용 계상",
+      "entries": [
+        {
+          "account": "이자비용",
+          "side": "차변",
+          "amount": 750000
+        },
+        {
+          "account": "미지급이자",
+          "side": "대변",
+          "amount": 750000
+        }
+      ],
+      "week": 12,
+      "concept": "이자비용"
+    }
+  ],
+  "financials": {
+    "statementOfFinancialPosition": {
+      "assets": {
+        "현금": 261535000,
+        "임차보증금": 10000000,
+        "선급비용": 10500000,
+        "비품": 5000000,
+        "상품": 2400000,
+        "무형자산": 8000000,
+        "감가상각누계액_비품": -583331,
+        "무형자산상각누계액": -1555554,
+        "매출채권": -3675000,
+        "기계장치": 80000000,
+        "감가상각누계액_기계장치": -1333334
+      },
+      "liabilities": {
+        "단기차입금": 200000000,
+        "매입채무": 3000000,
+        "미지급금": 0,
+        "미지급이자": 5250000,
+        "선수금": 0,
+        "미지급급여": 0
+      },
+      "equity": {
+        "자본금": 150000000,
+        "주식발행초과금": 10000000
+      },
+      "totalAssets": 370287781,
+      "totalLiabilities": 208250000,
+      "totalEquity": 160000000,
+      "balanced": false,
+      "totalAssetsFormatted": "3.7억원",
+      "totalLiabilitiesFormatted": "2.1억원",
+      "totalEquityFormatted": "1.6억원"
+    },
+    "incomeStatement": {
+      "revenues": {
+        "매출": 55860000
+      },
+      "expenses": {
+        "매출원가": 17100000,
+        "감가상각비": 1916665,
+        "무형자산상각비": 1555554,
+        "임차료": 10500000,
+        "이자비용": 5250000,
+        "광고선전비": 8000000,
+        "급여": 9000000,
+        "잡손실": 500000
+      },
+      "totalRevenue": 55860000,
+      "totalExpenses": 53822219,
+      "netIncome": 2037781,
+      "totalRevenueFormatted": "5586만원",
+      "totalExpensesFormatted": "5382만원",
+      "netIncomeFormatted": "204만원"
+    }
+  }
+}
