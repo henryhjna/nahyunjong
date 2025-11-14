@@ -53,6 +53,7 @@ services:
       - ./client:/app
       - /app/node_modules
       - /app/.next
+      - ../nahyunjong-content:/nahyunjong-content
     networks:
       - nahyunjong-network
     depends_on:

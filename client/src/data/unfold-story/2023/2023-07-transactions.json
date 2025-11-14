@@ -3,7 +3,7 @@
   "monthLabel": "2023년 7월",
   "transactions": [
     {
-      "id": "2023-07-05-001",
+      "transactionId": "2023-07-05-001",
       "date": "2023-07-05",
       "description": "원재료 매입 (부가세 포함)",
       "entries": [
@@ -27,7 +27,7 @@
       "concept": "부가세 매입"
     },
     {
-      "id": "2023-07-10-001",
+      "transactionId": "2023-07-10-001",
       "date": "2023-07-10",
       "description": "제조경비 지출 (포장재, 가공비)",
       "entries": [
@@ -46,7 +46,7 @@
       "concept": "제조경비"
     },
     {
-      "id": "2023-07-15-001",
+      "transactionId": "2023-07-15-001",
       "date": "2023-07-15",
       "description": "제품 완성 (원재료 → 제품 대체)",
       "entries": [
@@ -70,7 +70,7 @@
       "concept": "제조원가 흐름"
     },
     {
-      "id": "2023-07-20-001",
+      "transactionId": "2023-07-20-001",
       "date": "2023-07-20",
       "description": "제품 판매 500개 (부가세 포함)",
       "entries": [
@@ -94,7 +94,7 @@
       "concept": "부가세 매출"
     },
     {
-      "id": "2023-07-20-002",
+      "transactionId": "2023-07-20-002",
       "date": "2023-07-20",
       "description": "매출원가 인식 500개",
       "entries": [
@@ -113,7 +113,7 @@
       "concept": "매출원가"
     },
     {
-      "id": "2023-07-31-001",
+      "transactionId": "2023-07-31-001",
       "date": "2023-07-31",
       "description": "급여 지급 (직원 3명으로 증원)",
       "entries": [
@@ -132,7 +132,7 @@
       "concept": "급여"
     },
     {
-      "id": "2023-07-31-002",
+      "transactionId": "2023-07-31-002",
       "date": "2023-07-31",
       "description": "사무실 임차료 비용화",
       "entries": [
@@ -151,7 +151,7 @@
       "concept": "선급비용"
     },
     {
-      "id": "2023-07-31-003",
+      "transactionId": "2023-07-31-003",
       "date": "2023-07-31",
       "description": "공장 임차료 비용화",
       "entries": [
@@ -170,7 +170,7 @@
       "concept": "임차료"
     },
     {
-      "id": "2023-07-31-004",
+      "transactionId": "2023-07-31-004",
       "date": "2023-07-31",
       "description": "감가상각비 (비품)",
       "entries": [
@@ -189,7 +189,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2023-07-31-005",
+      "transactionId": "2023-07-31-005",
       "date": "2023-07-31",
       "description": "감가상각비 (기계장치, 내용연수 5년)",
       "entries": [
@@ -208,7 +208,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2023-07-31-006",
+      "transactionId": "2023-07-31-006",
       "date": "2023-07-31",
       "description": "무형자산상각비",
       "entries": [
@@ -227,7 +227,7 @@
       "concept": "무형자산 상각"
     },
     {
-      "id": "2023-07-31-007",
+      "transactionId": "2023-07-31-007",
       "date": "2023-07-31",
       "description": "이자비용 계상",
       "entries": [
@@ -284,7 +284,6 @@
       "totalAssets": 4376810004,
       "totalLiabilities": 209500000,
       "totalEquity": 4160000000,
-      "balanced": false,
       "totalAssetsFormatted": "43.8억원",
       "totalLiabilitiesFormatted": "2.1억원",
       "totalEquityFormatted": "41.6억원"

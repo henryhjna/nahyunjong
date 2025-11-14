@@ -1,0 +1,66 @@
+# Multi-stage build for production
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Install Python and pip (for story generation scripts)
+RUN apk add --no-cache python3 py3-pip
+
+# Install Python packages for story generation
+RUN pip3 install --break-system-packages anthropic python-dotenv
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package files
+COPY package.json pnpm-lock.yaml* ./
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source code
+COPY . .
+
+# Build Next.js application
+RUN pnpm build
+
+# Production stage
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+# Install Python runtime (for story generation)
+RUN apk add --no-cache python3 py3-pip && \
+    pip3 install --break-system-packages anthropic python-dotenv
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+# Copy necessary files from builder
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
+
+# Copy built application
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Copy public and .next/static directories to standalone output
+RUN mkdir -p /app/public
+COPY --from=builder /app/public /app/public
+
+# Create data directory for unfold-story
+RUN mkdir -p /app/src/data/unfold-story && \
+    chown -R nextjs:nodejs /app/src/data
+
+USER nextjs
+
+EXPOSE 7340
+
+ENV PORT 7340
+ENV NODE_ENV production
+
+CMD ["node", "server.js"]

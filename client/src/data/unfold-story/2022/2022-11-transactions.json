@@ -3,7 +3,7 @@
   "monthLabel": "2022년 11월",
   "transactions": [
     {
-      "id": "2022-11-05-001",
+      "transactionId": "2022-11-05-001",
       "date": "2022-11-05",
       "description": "상품 300개 매입 (외상)",
       "entries": [
@@ -22,7 +22,7 @@
       "concept": "외상 매입"
     },
     {
-      "id": "2022-11-10-001",
+      "transactionId": "2022-11-10-001",
       "date": "2022-11-10",
       "description": "올리브영 대량 주문 선수금",
       "entries": [
@@ -41,7 +41,7 @@
       "concept": "선수금"
     },
     {
-      "id": "2022-11-15-001",
+      "transactionId": "2022-11-15-001",
       "date": "2022-11-15",
       "description": "대손충당금 설정 (매출채권 × 5%)",
       "entries": [
@@ -60,7 +60,7 @@
       "concept": "대손충당금"
     },
     {
-      "id": "2022-11-20-001",
+      "transactionId": "2022-11-20-001",
       "date": "2022-11-20",
       "description": "10월 매출채권 회수",
       "entries": [
@@ -79,7 +79,7 @@
       "concept": "채권 회수"
     },
     {
-      "id": "2022-11-25-001",
+      "transactionId": "2022-11-25-001",
       "date": "2022-11-25",
       "description": "10월 매입채무 지급",
       "entries": [
@@ -98,7 +98,7 @@
       "concept": "채무 지급"
     },
     {
-      "id": "2022-11-30-001",
+      "transactionId": "2022-11-30-001",
       "date": "2022-11-30",
       "description": "판매 250개",
       "entries": [
@@ -117,7 +117,7 @@
       "concept": "현금 매출"
     },
     {
-      "id": "2022-11-30-002",
+      "transactionId": "2022-11-30-002",
       "date": "2022-11-30",
       "description": "매출원가 인식 250개",
       "entries": [
@@ -136,7 +136,7 @@
       "concept": "매출원가"
     },
     {
-      "id": "2022-11-30-003",
+      "transactionId": "2022-11-30-003",
       "date": "2022-11-30",
       "description": "급여 지급",
       "entries": [
@@ -155,7 +155,7 @@
       "concept": "급여"
     },
     {
-      "id": "2022-11-30-004",
+      "transactionId": "2022-11-30-004",
       "date": "2022-11-30",
       "description": "감가상각비 (비품)",
       "entries": [
@@ -174,7 +174,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2022-11-30-005",
+      "transactionId": "2022-11-30-005",
       "date": "2022-11-30",
       "description": "감가상각비 (기계장치)",
       "entries": [
@@ -193,7 +193,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2022-11-30-006",
+      "transactionId": "2022-11-30-006",
       "date": "2022-11-30",
       "description": "무형자산상각비",
       "entries": [
@@ -212,7 +212,7 @@
       "concept": "무형자산 상각"
     },
     {
-      "id": "2022-11-30-007",
+      "transactionId": "2022-11-30-007",
       "date": "2022-11-30",
       "description": "선급임차료 비용화",
       "entries": [
@@ -231,7 +231,7 @@
       "concept": "선급비용"
     },
     {
-      "id": "2022-11-30-008",
+      "transactionId": "2022-11-30-008",
       "date": "2022-11-30",
       "description": "이자비용 계상",
       "entries": [
@@ -281,7 +281,6 @@
       "totalAssets": 394343337,
       "totalLiabilities": 235750000,
       "totalEquity": 160000000,
-      "balanced": false,
       "totalAssetsFormatted": "3.9억원",
       "totalLiabilitiesFormatted": "2.4억원",
       "totalEquityFormatted": "1.6억원"

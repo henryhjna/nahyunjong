@@ -3,7 +3,7 @@
   "monthLabel": "2022년 8월",
   "transactions": [
     {
-      "id": "2022-08-05-001",
+      "transactionId": "2022-08-05-001",
       "date": "2022-08-05",
       "description": "상품 200개 매입 (외상)",
       "entries": [
@@ -22,7 +22,7 @@
       "concept": "외상 매입"
     },
     {
-      "id": "2022-08-10-001",
+      "transactionId": "2022-08-10-001",
       "date": "2022-08-10",
       "description": "기계장치 구입 (2023년 제조 전환 준비)",
       "entries": [
@@ -41,7 +41,7 @@
       "concept": "유형자산"
     },
     {
-      "id": "2022-08-15-001",
+      "transactionId": "2022-08-15-001",
       "date": "2022-08-15",
       "description": "7월 매입채무 지급",
       "entries": [
@@ -60,7 +60,7 @@
       "concept": "채무 지급"
     },
     {
-      "id": "2022-08-20-001",
+      "transactionId": "2022-08-20-001",
       "date": "2022-08-20",
       "description": "7월 매출채권 회수",
       "entries": [
@@ -79,7 +79,7 @@
       "concept": "채권 회수"
     },
     {
-      "id": "2022-08-31-001",
+      "transactionId": "2022-08-31-001",
       "date": "2022-08-31",
       "description": "판매 180개",
       "entries": [
@@ -98,7 +98,7 @@
       "concept": "현금 매출"
     },
     {
-      "id": "2022-08-31-002",
+      "transactionId": "2022-08-31-002",
       "date": "2022-08-31",
       "description": "매출원가 인식 180개",
       "entries": [
@@ -117,7 +117,7 @@
       "concept": "매출원가"
     },
     {
-      "id": "2022-08-31-003",
+      "transactionId": "2022-08-31-003",
       "date": "2022-08-31",
       "description": "급여 지급",
       "entries": [
@@ -136,7 +136,7 @@
       "concept": "급여"
     },
     {
-      "id": "2022-08-31-004",
+      "transactionId": "2022-08-31-004",
       "date": "2022-08-31",
       "description": "감가상각비 (비품)",
       "entries": [
@@ -155,7 +155,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2022-08-31-005",
+      "transactionId": "2022-08-31-005",
       "date": "2022-08-31",
       "description": "감가상각비 (기계장치, 내용연수 10년)",
       "entries": [
@@ -174,7 +174,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2022-08-31-006",
+      "transactionId": "2022-08-31-006",
       "date": "2022-08-31",
       "description": "무형자산상각비",
       "entries": [
@@ -193,7 +193,7 @@
       "concept": "무형자산 상각"
     },
     {
-      "id": "2022-08-31-007",
+      "transactionId": "2022-08-31-007",
       "date": "2022-08-31",
       "description": "임차료 현금 지급",
       "entries": [
@@ -212,7 +212,7 @@
       "concept": "임차료"
     },
     {
-      "id": "2022-08-31-008",
+      "transactionId": "2022-08-31-008",
       "date": "2022-08-31",
       "description": "이자비용 계상",
       "entries": [
@@ -261,7 +261,6 @@
       "totalAssets": 373820003,
       "totalLiabilities": 207500000,
       "totalEquity": 160000000,
-      "balanced": false,
       "totalAssetsFormatted": "3.7억원",
       "totalLiabilitiesFormatted": "2.1억원",
       "totalEquityFormatted": "1.6억원"

@@ -3,7 +3,7 @@
   "monthLabel": "2023년 10월",
   "transactions": [
     {
-      "id": "2023-10-01-001",
+      "transactionId": "2023-10-01-001",
       "date": "2023-10-01",
       "description": "배당금 지급 (9월 27일 결정분)",
       "entries": [
@@ -62,7 +62,6 @@
       "totalAssets": 4326810004,
       "totalLiabilities": 209500000,
       "totalEquity": 4110000000,
-      "balanced": false,
       "totalAssetsFormatted": "43.3억원",
       "totalLiabilitiesFormatted": "2.1억원",
       "totalEquityFormatted": "41.1억원"

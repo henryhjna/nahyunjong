@@ -3,7 +3,7 @@
   "monthLabel": "2022년 12월",
   "transactions": [
     {
-      "id": "2022-12-01-001",
+      "transactionId": "2022-12-01-001",
       "date": "2022-12-01",
       "description": "상품 추가 매입 400개",
       "entries": [
@@ -22,7 +22,7 @@
       "concept": "현금 매입"
     },
     {
-      "id": "2022-12-05-001",
+      "transactionId": "2022-12-05-001",
       "date": "2022-12-05",
       "description": "선수금 해소 (500개 납품)",
       "entries": [
@@ -41,7 +41,7 @@
       "concept": "선수금 매출 전환"
     },
     {
-      "id": "2022-12-05-002",
+      "transactionId": "2022-12-05-002",
       "date": "2022-12-05",
       "description": "매출원가 인식 500개",
       "entries": [
@@ -60,7 +60,7 @@
       "concept": "매출원가"
     },
     {
-      "id": "2022-12-10-001",
+      "transactionId": "2022-12-10-001",
       "date": "2022-12-10",
       "description": "11월 매출채권 회수",
       "entries": [
@@ -79,7 +79,7 @@
       "concept": "채권 회수"
     },
     {
-      "id": "2022-12-15-001",
+      "transactionId": "2022-12-15-001",
       "date": "2022-12-15",
       "description": "연간 이자비용 일괄 지급 (3~12월 10개월분)",
       "entries": [
@@ -98,7 +98,7 @@
       "concept": "이자 지급"
     },
     {
-      "id": "2022-12-20-001",
+      "transactionId": "2022-12-20-001",
       "date": "2022-12-20",
       "description": "11월 매입채무 지급",
       "entries": [
@@ -117,7 +117,7 @@
       "concept": "채무 지급"
     },
     {
-      "id": "2022-12-28-001",
+      "transactionId": "2022-12-28-001",
       "date": "2022-12-28",
       "description": "금융자산 투자 (FVOCI, 삼성전자 주식)",
       "entries": [
@@ -136,7 +136,7 @@
       "concept": "금융자산"
     },
     {
-      "id": "2022-12-31-001",
+      "transactionId": "2022-12-31-001",
       "date": "2022-12-31",
       "description": "판매 150개",
       "entries": [
@@ -155,7 +155,7 @@
       "concept": "현금 매출"
     },
     {
-      "id": "2022-12-31-002",
+      "transactionId": "2022-12-31-002",
       "date": "2022-12-31",
       "description": "매출원가 인식 150개",
       "entries": [
@@ -174,7 +174,7 @@
       "concept": "매출원가"
     },
     {
-      "id": "2022-12-31-003",
+      "transactionId": "2022-12-31-003",
       "date": "2022-12-31",
       "description": "재고 실사 - 재고감모손실 50개",
       "entries": [
@@ -193,7 +193,7 @@
       "concept": "재고감모손실"
     },
     {
-      "id": "2022-12-31-004",
+      "transactionId": "2022-12-31-004",
       "date": "2022-12-31",
       "description": "급여 지급",
       "entries": [
@@ -212,7 +212,7 @@
       "concept": "급여"
     },
     {
-      "id": "2022-12-31-005",
+      "transactionId": "2022-12-31-005",
       "date": "2022-12-31",
       "description": "감가상각비 (비품)",
       "entries": [
@@ -231,7 +231,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2022-12-31-006",
+      "transactionId": "2022-12-31-006",
       "date": "2022-12-31",
       "description": "감가상각비 (기계장치)",
       "entries": [
@@ -250,7 +250,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2022-12-31-007",
+      "transactionId": "2022-12-31-007",
       "date": "2022-12-31",
       "description": "무형자산상각비",
       "entries": [
@@ -269,7 +269,7 @@
       "concept": "무형자산 상각"
     },
     {
-      "id": "2022-12-31-008",
+      "transactionId": "2022-12-31-008",
       "date": "2022-12-31",
       "description": "선급임차료 비용화",
       "entries": [
@@ -288,7 +288,7 @@
       "concept": "선급비용"
     },
     {
-      "id": "2022-12-31-009",
+      "transactionId": "2022-12-31-009",
       "date": "2022-12-31",
       "description": "이자비용 계상",
       "entries": [
@@ -339,7 +339,6 @@
       "totalAssets": 373221115,
       "totalLiabilities": 200000000,
       "totalEquity": 160000000,
-      "balanced": false,
       "totalAssetsFormatted": "3.7억원",
       "totalLiabilitiesFormatted": "2.0억원",
       "totalEquityFormatted": "1.6억원"

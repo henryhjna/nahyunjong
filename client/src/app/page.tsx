@@ -1,32 +1,12 @@
+'use client';
+
 import Link from 'next/link'
+import { Header } from '@/components/Header'
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-      {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <nav className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold text-primary-700">
-              Nahyunjong
-            </div>
-            <div className="flex gap-8">
-              <Link href="/research" className="hover:text-primary-600 transition-colors">
-                Research
-              </Link>
-              <Link href="/lab" className="hover:text-primary-600 transition-colors">
-                Lab
-              </Link>
-              <Link href="/education" className="hover:text-primary-600 transition-colors font-semibold text-primary-600">
-                Education
-              </Link>
-              <Link href="/book" className="hover:text-primary-600 transition-colors">
-                Book
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <main className="max-w-7xl mx-auto px-6 py-20">

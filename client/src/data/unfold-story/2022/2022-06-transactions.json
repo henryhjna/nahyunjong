@@ -3,7 +3,7 @@
   "monthLabel": "2022년 6월",
   "transactions": [
     {
-      "id": "2022-06-01-001",
+      "transactionId": "2022-06-01-001",
       "date": "2022-06-01",
       "description": "상품 추가 매입 200개",
       "entries": [
@@ -22,7 +22,7 @@
       "concept": "현금 매입"
     },
     {
-      "id": "2022-06-05-001",
+      "transactionId": "2022-06-05-001",
       "date": "2022-06-05",
       "description": "선수금 해소 (300개 납품)",
       "entries": [
@@ -41,7 +41,7 @@
       "concept": "선수금 매출 전환"
     },
     {
-      "id": "2022-06-05-002",
+      "transactionId": "2022-06-05-002",
       "date": "2022-06-05",
       "description": "매출원가 인식 300개",
       "entries": [
@@ -60,7 +60,7 @@
       "concept": "매출원가"
     },
     {
-      "id": "2022-06-15-001",
+      "transactionId": "2022-06-15-001",
       "date": "2022-06-15",
       "description": "5월 매입채무 지급",
       "entries": [
@@ -79,7 +79,7 @@
       "concept": "채무 지급"
     },
     {
-      "id": "2022-06-20-001",
+      "transactionId": "2022-06-20-001",
       "date": "2022-06-20",
       "description": "5월 매출채권 회수",
       "entries": [
@@ -98,7 +98,7 @@
       "concept": "채권 회수"
     },
     {
-      "id": "2022-06-30-001",
+      "transactionId": "2022-06-30-001",
       "date": "2022-06-30",
       "description": "판매 100개 (현금 70%, 외상 30%)",
       "entries": [
@@ -122,7 +122,7 @@
       "concept": "현금+외상 매출"
     },
     {
-      "id": "2022-06-30-002",
+      "transactionId": "2022-06-30-002",
       "date": "2022-06-30",
       "description": "매출원가 인식 100개",
       "entries": [
@@ -141,7 +141,7 @@
       "concept": "매출원가"
     },
     {
-      "id": "2022-06-30-003",
+      "transactionId": "2022-06-30-003",
       "date": "2022-06-30",
       "description": "감가상각비 (비품)",
       "entries": [
@@ -160,7 +160,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2022-06-30-004",
+      "transactionId": "2022-06-30-004",
       "date": "2022-06-30",
       "description": "무형자산상각비",
       "entries": [
@@ -179,7 +179,7 @@
       "concept": "무형자산 상각"
     },
     {
-      "id": "2022-06-30-005",
+      "transactionId": "2022-06-30-005",
       "date": "2022-06-30",
       "description": "선급임차료 비용화",
       "entries": [
@@ -198,7 +198,7 @@
       "concept": "선급비용"
     },
     {
-      "id": "2022-06-30-006",
+      "transactionId": "2022-06-30-006",
       "date": "2022-06-30",
       "description": "이자비용 계상",
       "entries": [
@@ -243,7 +243,6 @@
       "totalAssets": 314877780,
       "totalLiabilities": 203000000,
       "totalEquity": 100000000,
-      "balanced": false,
       "totalAssetsFormatted": "3.1억원",
       "totalLiabilitiesFormatted": "2.0억원",
       "totalEquityFormatted": "1.0억원"

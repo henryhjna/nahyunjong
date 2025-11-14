@@ -3,7 +3,7 @@
   "monthLabel": "2022년 5월",
   "transactions": [
     {
-      "id": "2022-05-10-001",
+      "transactionId": "2022-05-10-001",
       "date": "2022-05-10",
       "description": "상품 200개 매입 (외상)",
       "entries": [
@@ -22,7 +22,7 @@
       "concept": "외상 매입"
     },
     {
-      "id": "2022-05-15-001",
+      "transactionId": "2022-05-15-001",
       "date": "2022-05-15",
       "description": "4월 매입채무 지급",
       "entries": [
@@ -41,7 +41,7 @@
       "concept": "채무 지급"
     },
     {
-      "id": "2022-05-20-001",
+      "transactionId": "2022-05-20-001",
       "date": "2022-05-20",
       "description": "4월 매출채권 회수",
       "entries": [
@@ -60,7 +60,7 @@
       "concept": "채권 회수"
     },
     {
-      "id": "2022-05-25-001",
+      "transactionId": "2022-05-25-001",
       "date": "2022-05-25",
       "description": "선수금 수령 (6월 납품 예정 300개)",
       "entries": [
@@ -79,7 +79,7 @@
       "concept": "선수금"
     },
     {
-      "id": "2022-05-31-001",
+      "transactionId": "2022-05-31-001",
       "date": "2022-05-31",
       "description": "판매 120개 (현금 60%, 외상 40%)",
       "entries": [
@@ -103,7 +103,7 @@
       "concept": "현금+외상 매출"
     },
     {
-      "id": "2022-05-31-002",
+      "transactionId": "2022-05-31-002",
       "date": "2022-05-31",
       "description": "매출원가 인식 120개",
       "entries": [
@@ -122,7 +122,7 @@
       "concept": "매출원가"
     },
     {
-      "id": "2022-05-31-003",
+      "transactionId": "2022-05-31-003",
       "date": "2022-05-31",
       "description": "감가상각비 (비품)",
       "entries": [
@@ -141,7 +141,7 @@
       "concept": "감가상각"
     },
     {
-      "id": "2022-05-31-004",
+      "transactionId": "2022-05-31-004",
       "date": "2022-05-31",
       "description": "무형자산상각비",
       "entries": [
@@ -160,7 +160,7 @@
       "concept": "무형자산 상각"
     },
     {
-      "id": "2022-05-31-005",
+      "transactionId": "2022-05-31-005",
       "date": "2022-05-31",
       "description": "선급임차료 비용화",
       "entries": [
@@ -179,7 +179,7 @@
       "concept": "선급비용"
     },
     {
-      "id": "2022-05-31-006",
+      "transactionId": "2022-05-31-006",
       "date": "2022-05-31",
       "description": "이자비용 계상",
       "entries": [
@@ -224,7 +224,6 @@
       "totalAssets": 320783335,
       "totalLiabilities": 219950000,
       "totalEquity": 100000000,
-      "balanced": false,
       "totalAssetsFormatted": "3.2억원",
       "totalLiabilitiesFormatted": "2.2억원",
       "totalEquityFormatted": "1.0억원"

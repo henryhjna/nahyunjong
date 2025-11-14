@@ -3,7 +3,7 @@
   "monthLabel": "2023년 6월",
   "transactions": [
     {
-      "id": "2023-06-15-001",
+      "transactionId": "2023-06-15-001",
       "date": "2023-06-15",
       "description": "원재료 매입 (첫 제조용)",
       "entries": [
@@ -22,7 +22,7 @@
       "concept": "재고자산"
     },
     {
-      "id": "2023-06-30-001",
+      "transactionId": "2023-06-30-001",
       "date": "2023-06-30",
       "description": "공장 임차료 비용화 (4~6월 3개월분)",
       "entries": [
@@ -76,7 +76,6 @@
       "totalAssets": 4362048893,
       "totalLiabilities": 203750000,
       "totalEquity": 4160000000,
-      "balanced": false,
       "totalAssetsFormatted": "43.6억원",
       "totalLiabilitiesFormatted": "2.0억원",
       "totalEquityFormatted": "41.6억원"

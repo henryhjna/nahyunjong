@@ -1,0 +1,24 @@
+# AWS Configuration
+aws_region = "ap-northeast-2"
+environment = "production"
+project_name = "nahyunjong"
+
+# Domain Configuration
+domain_name = "nahyunjong.com"
+domain_name_kr = "nahyunjong.co.kr"
+
+# EC2 Configuration
+ec2_instance_type = "t3.medium"
+ec2_key_name = "nahyunjong-key"  # Change this to your EC2 key pair name
+
+# RDS Configuration
+db_instance_class = "db.t4g.micro"
+db_name = "nahyunjong_db"
+db_username = "postgres"
+db_password = "CHANGE_THIS_SECURE_PASSWORD"  # Change this!
+
+# Admin Configuration
+admin_email = "na.hyunjong@gmail.com"
+
+# Security Configuration
+allowed_ssh_cidr = ["0.0.0.0/0"]  # Change this to your IP address for better security

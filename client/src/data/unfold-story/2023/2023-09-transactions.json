@@ -3,7 +3,7 @@
   "monthLabel": "2023년 9월",
   "transactions": [
     {
-      "id": "2023-09-27-001",
+      "transactionId": "2023-09-27-001",
       "date": "2023-09-27",
       "description": "배당 결정 (주주총회)",
       "entries": [
@@ -62,7 +62,6 @@
       "totalAssets": 4376810004,
       "totalLiabilities": 259500000,
       "totalEquity": 4110000000,
-      "balanced": false,
       "totalAssetsFormatted": "43.8억원",
       "totalLiabilitiesFormatted": "2.6억원",
       "totalEquityFormatted": "41.1억원"

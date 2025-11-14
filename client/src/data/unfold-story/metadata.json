@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "generatedAt": "2025-11-13T17:31:08.047676",
+  "version": "2.0.0",
+  "generatedAt": "2025-11-13T14:11:29.233188",
   "years": [
     2022,
     2023
@@ -9,5 +9,31 @@
   "files": {
     "2022": "unfold-2022.json",
     "2023": "unfold-2023.json"
+  },
+  "monthlyFiles": {
+    "2022": [
+      "2022-03-transactions.json",
+      "2022-04-transactions.json",
+      "2022-05-transactions.json",
+      "2022-06-transactions.json",
+      "2022-07-transactions.json",
+      "2022-08-transactions.json",
+      "2022-09-transactions.json",
+      "2022-10-transactions.json",
+      "2022-11-transactions.json",
+      "2022-12-transactions.json"
+    ],
+    "2023": [
+      "2023-01-transactions.json",
+      "2023-03-transactions.json",
+      "2023-04-transactions.json",
+      "2023-05-transactions.json",
+      "2023-06-transactions.json",
+      "2023-07-transactions.json",
+      "2023-09-transactions.json",
+      "2023-10-transactions.json",
+      "2023-11-transactions.json",
+      "2023-12-transactions.json"
+    ]
   }
 }

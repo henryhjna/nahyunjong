@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import Quiz from '@/components/unfold-story/Quiz';
@@ -106,6 +106,164 @@ function getAccountTypeDescription(account: string, side: '차변' | '대변'): 
     return side === '차변' ? '→ 비용 증가' : '→ 비용 감소';
   }
   return ''; // 알 수 없는 계정
+}
+
+// SceneSection 컴포넌트 - useState를 사용하기 위해 분리
+function SceneSection({ scene, transaction, index }: {
+  scene: Scene;
+  transaction: Transaction | undefined;
+  index: number;
+}) {
+  const [showDetails, setShowDetails] = useState(false);
+
+  return (
+    <section className="container mx-auto px-6 py-8">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Story - Full Width */}
+          <div className="bg-gradient-to-br from-amber-50 to-white rounded-2xl p-8 shadow-lg border border-amber-100">
+            <div className="mb-6">
+              <div className="inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                Scene {index + 1}
+              </div>
+            </div>
+            <div className="text-gray-800 leading-relaxed whitespace-pre-line text-lg">
+              {scene.story}
+            </div>
+
+            {/* Accordion Toggle Button */}
+            <button
+              onClick={() => setShowDetails(!showDetails)}
+              className="mt-8 w-full flex items-center justify-between px-6 py-4 bg-blue-100 hover:bg-blue-200 rounded-xl transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{showDetails ? '📖' : '📚'}</span>
+                <span className="font-semibold text-blue-900">
+                  {showDetails ? '회계 정보 닫기' : '💡 학습 포인트 & 분개장 보기'}
+                </span>
+              </div>
+              <svg
+                className={`w-6 h-6 text-blue-900 transition-transform ${
+                  showDetails ? 'rotate-180' : ''
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            {/* Accordion Content */}
+            {showDetails && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mt-6"
+              >
+                {/* Learning Point */}
+                {scene.learningPoint && (
+                  <div className="mb-6 p-6 bg-blue-50 border-l-4 border-blue-400 rounded-r-xl">
+                    <div className="text-base text-gray-700 leading-relaxed whitespace-pre-line">
+                      {scene.learningPoint}
+                    </div>
+                  </div>
+                )}
+
+                {/* Transaction Journal Entry */}
+                {transaction && (
+                  <div className="bg-white rounded-xl p-6 border-2 border-gray-200">
+                    <div className="mb-4">
+                      <div className="inline-block bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold mb-2">
+                        📋 분개장 (Journal Entry)
+                      </div>
+                      <div className="text-sm text-gray-600 mt-2">
+                        {transaction.date} | {transaction.description}
+                      </div>
+                    </div>
+
+                    {/* Journal Entry Table */}
+                    <div className="overflow-hidden rounded-xl border border-gray-300">
+                      <table className="w-full">
+                        <thead className="bg-gray-100">
+                          <tr>
+                            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                              차변 (Debit)
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">
+                              금액
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {transaction.entries
+                            .filter((entry) => entry.side === '차변')
+                            .map((entry, idx) => (
+                              <tr key={idx} className="hover:bg-gray-50">
+                                <td className="px-4 py-3 text-sm text-gray-900">
+                                  {entry.account}
+                                  <span className="text-xs text-gray-500 ml-2">
+                                    {getAccountTypeDescription(entry.account, '차변')}
+                                  </span>
+                                </td>
+                                <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">
+                                  {entry.amount.toLocaleString()}원
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                      <table className="w-full mt-4">
+                        <thead className="bg-gray-100">
+                          <tr>
+                            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                              대변 (Credit)
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">
+                              금액
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {transaction.entries
+                            .filter((entry) => entry.side === '대변')
+                            .map((entry, idx) => (
+                              <tr key={idx} className="hover:bg-gray-50">
+                                <td className="px-4 py-3 text-sm text-gray-900">
+                                  {entry.account}
+                                  <span className="text-xs text-gray-500 ml-2">
+                                    {getAccountTypeDescription(entry.account, '대변')}
+                                  </span>
+                                </td>
+                                <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">
+                                  {entry.amount.toLocaleString()}원
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }
 
 export default function StoryPage({ params }: PageProps) {
@@ -225,113 +383,12 @@ export default function StoryPage({ params }: PageProps) {
         );
 
         return (
-          <section key={index} className="container mx-auto px-6 py-8">
-            <div className="max-w-5xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="grid md:grid-cols-2 gap-8">
-                  {/* Story */}
-                  <div className="bg-gradient-to-br from-amber-50 to-white rounded-2xl p-8 shadow-lg border border-amber-100">
-                    <div className="mb-6">
-                      <div className="inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                        Scene {index + 1}
-                      </div>
-                    </div>
-                    <div className="text-gray-800 leading-relaxed whitespace-pre-line">
-                      {scene.story}
-                    </div>
-                    {scene.learningPoint && (
-                      <div className="mt-6 p-6 bg-blue-50 border-l-4 border-blue-400 rounded-r-xl">
-                        <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                          {scene.learningPoint}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Transaction */}
-                  {transaction && (
-                    <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-                      <div className="mb-6">
-                        <div className="inline-block bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold mb-2">
-                          분개장 (Journal Entry)
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          {transaction.date} | {transaction.description}
-                        </div>
-                      </div>
-
-                      {/* Journal Entry Table */}
-                      <div className="overflow-hidden rounded-xl border border-gray-300">
-                        <table className="w-full">
-                          <thead className="bg-gray-100">
-                            <tr>
-                              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                                차변 (Debit)
-                              </th>
-                              <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">
-                                금액
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            {transaction.entries
-                              .filter((entry) => entry.side === '차변')
-                              .map((entry, idx) => (
-                                <tr key={idx} className="hover:bg-gray-50">
-                                  <td className="px-4 py-3 text-sm text-gray-900">
-                                    {entry.account}
-                                    <span className="text-xs text-gray-500 ml-2">
-                                      {getAccountTypeDescription(entry.account, '차변')}
-                                    </span>
-                                  </td>
-                                  <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">
-                                    {entry.amount.toLocaleString()}원
-                                  </td>
-                                </tr>
-                              ))}
-                          </tbody>
-                        </table>
-                        <table className="w-full mt-4">
-                          <thead className="bg-gray-100">
-                            <tr>
-                              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                                대변 (Credit)
-                              </th>
-                              <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">
-                                금액
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            {transaction.entries
-                              .filter((entry) => entry.side === '대변')
-                              .map((entry, idx) => (
-                                <tr key={idx} className="hover:bg-gray-50">
-                                  <td className="px-4 py-3 text-sm text-gray-900">
-                                    {entry.account}
-                                    <span className="text-xs text-gray-500 ml-2">
-                                      {getAccountTypeDescription(entry.account, '대변')}
-                                    </span>
-                                  </td>
-                                  <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">
-                                    {entry.amount.toLocaleString()}원
-                                  </td>
-                                </tr>
-                              ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            </div>
-          </section>
+          <SceneSection
+            key={index}
+            scene={scene}
+            transaction={transaction}
+            index={index}
+          />
         );
       })}
 

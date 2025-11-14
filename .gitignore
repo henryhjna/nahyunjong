@@ -6,6 +6,7 @@ node_modules/
 .env
 .env.local
 .env.*.local
+.env.production
 
 # Next.js
 client/.next/
@@ -42,15 +43,21 @@ coverage/
 docker-compose.override.yml
 
 # Terraform
-terraform/
 *.tfstate
 *.tfstate.*
 .terraform/
 .terraform.lock.hcl
+terraform/terraform.tfvars
+terraform/.terraform/
+terraform-outputs.txt
 
 # Misc
 *.pem
 *.key
+
+# Deployment
+certbot/
+backups/
 
 # Claude notes (internal development notes, not for git)
 claude.md
