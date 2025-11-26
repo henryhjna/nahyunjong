@@ -54,6 +54,11 @@ terraform-outputs.txt
 # Misc
 *.pem
 *.key
+nul
+
+# TypeScript build info
+*.tsbuildinfo
+client/tsconfig.tsbuildinfo
 
 # Deployment
 certbot/
@@ -61,6 +66,7 @@ backups/
 
 # Claude notes (internal development notes, not for git)
 claude.md
+CLAUDE.md
 
 # Claude Code directory
 .claude/

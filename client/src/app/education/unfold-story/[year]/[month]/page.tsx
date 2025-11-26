@@ -117,7 +117,7 @@ function SceneSection({ scene, transaction, index }: {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <section className="container mx-auto px-6 py-8">
+    <section className="container mx-auto px-4 sm:px-6 py-8">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -126,29 +126,29 @@ function SceneSection({ scene, transaction, index }: {
           transition={{ duration: 0.6 }}
         >
           {/* Story - Full Width */}
-          <div className="bg-gradient-to-br from-amber-50 to-white rounded-2xl p-8 shadow-lg border border-amber-100">
+          <div className="bg-surface rounded-2xl p-8 shadow-card border border-border">
             <div className="mb-6">
-              <div className="inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              <div className="inline-block bg-accent-cyan/10 text-accent-cyan px-4 py-2 rounded-full text-sm font-semibold mb-4">
                 Scene {index + 1}
               </div>
             </div>
-            <div className="text-gray-800 leading-relaxed whitespace-pre-line text-lg">
+            <div className="text-text-primary leading-relaxed whitespace-pre-line text-lg">
               {scene.story}
             </div>
 
             {/* Accordion Toggle Button */}
             <button
               onClick={() => setShowDetails(!showDetails)}
-              className="mt-8 w-full flex items-center justify-between px-6 py-4 bg-blue-100 hover:bg-blue-200 rounded-xl transition-colors group"
+              className="mt-8 w-full flex items-center justify-between px-6 py-4 bg-accent-blue/10 hover:bg-accent-blue/20 rounded-xl transition-colors group"
             >
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{showDetails ? '📖' : '📚'}</span>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-accent-blue">
                   {showDetails ? '회계 정보 닫기' : '💡 학습 포인트 & 분개장 보기'}
                 </span>
               </div>
               <svg
-                className={`w-6 h-6 text-blue-900 transition-transform ${
+                className={`w-6 h-6 text-accent-blue transition-transform ${
                   showDetails ? 'rotate-180' : ''
                 }`}
                 fill="none"
@@ -175,8 +175,8 @@ function SceneSection({ scene, transaction, index }: {
               >
                 {/* Learning Point */}
                 {scene.learningPoint && (
-                  <div className="mb-6 p-6 bg-blue-50 border-l-4 border-blue-400 rounded-r-xl">
-                    <div className="text-base text-gray-700 leading-relaxed whitespace-pre-line">
+                  <div className="mb-6 p-6 bg-accent-blue/5 border-l-4 border-accent-blue rounded-r-xl">
+                    <div className="text-base text-text-secondary leading-relaxed whitespace-pre-line">
                       {scene.learningPoint}
                     </div>
                   </div>
@@ -184,41 +184,41 @@ function SceneSection({ scene, transaction, index }: {
 
                 {/* Transaction Journal Entry */}
                 {transaction && (
-                  <div className="bg-white rounded-xl p-6 border-2 border-gray-200">
+                  <div className="bg-surface-elevated rounded-xl p-6 border-2 border-border">
                     <div className="mb-4">
-                      <div className="inline-block bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold mb-2">
+                      <div className="inline-block bg-surface-hover text-text-primary px-4 py-2 rounded-full text-sm font-semibold mb-2">
                         📋 분개장 (Journal Entry)
                       </div>
-                      <div className="text-sm text-gray-600 mt-2">
+                      <div className="text-sm text-text-secondary mt-2">
                         {transaction.date} | {transaction.description}
                       </div>
                     </div>
 
                     {/* Journal Entry Table */}
-                    <div className="overflow-hidden rounded-xl border border-gray-300">
+                    <div className="overflow-hidden rounded-xl border border-border">
                       <table className="w-full">
-                        <thead className="bg-gray-100">
+                        <thead className="bg-surface-hover">
                           <tr>
-                            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                            <th className="px-4 py-3 text-left text-sm font-semibold text-text-primary">
                               차변 (Debit)
                             </th>
-                            <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">
+                            <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">
                               금액
                             </th>
                           </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-surface divide-y divide-border">
                           {transaction.entries
                             .filter((entry) => entry.side === '차변')
                             .map((entry, idx) => (
-                              <tr key={idx} className="hover:bg-gray-50">
-                                <td className="px-4 py-3 text-sm text-gray-900">
+                              <tr key={idx} className="hover:bg-surface-hover">
+                                <td className="px-4 py-3 text-sm text-text-primary">
                                   {entry.account}
-                                  <span className="text-xs text-gray-500 ml-2">
+                                  <span className="text-xs text-text-tertiary ml-2">
                                     {getAccountTypeDescription(entry.account, '차변')}
                                   </span>
                                 </td>
-                                <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">
+                                <td className="px-4 py-3 text-sm text-right text-text-primary font-mono">
                                   {entry.amount.toLocaleString()}원
                                 </td>
                               </tr>
@@ -226,28 +226,28 @@ function SceneSection({ scene, transaction, index }: {
                         </tbody>
                       </table>
                       <table className="w-full mt-4">
-                        <thead className="bg-gray-100">
+                        <thead className="bg-surface-hover">
                           <tr>
-                            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                            <th className="px-4 py-3 text-left text-sm font-semibold text-text-primary">
                               대변 (Credit)
                             </th>
-                            <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">
+                            <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">
                               금액
                             </th>
                           </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-surface divide-y divide-border">
                           {transaction.entries
                             .filter((entry) => entry.side === '대변')
                             .map((entry, idx) => (
-                              <tr key={idx} className="hover:bg-gray-50">
-                                <td className="px-4 py-3 text-sm text-gray-900">
+                              <tr key={idx} className="hover:bg-surface-hover">
+                                <td className="px-4 py-3 text-sm text-text-primary">
                                   {entry.account}
-                                  <span className="text-xs text-gray-500 ml-2">
+                                  <span className="text-xs text-text-tertiary ml-2">
                                     {getAccountTypeDescription(entry.account, '대변')}
                                   </span>
                                 </td>
-                                <td className="px-4 py-3 text-sm text-right text-gray-900 font-mono">
+                                <td className="px-4 py-3 text-sm text-right text-text-primary font-mono">
                                   {entry.amount.toLocaleString()}원
                                 </td>
                               </tr>
@@ -287,18 +287,18 @@ export default function StoryPage({ params }: PageProps) {
 
   if (!monthData || !story) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">📖</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-text-primary mb-2">
             스토리를 찾을 수 없습니다
           </h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-text-secondary mb-4">
             {year}년 {month}월 데이터를 불러올 수 없습니다.
           </p>
           <button
             onClick={() => router.push('/education/unfold-story')}
-            className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="mt-4 px-6 py-2 bg-accent-blue text-white rounded-lg hover:bg-accent-blue/90"
           >
             목록으로 돌아가기
           </button>
@@ -312,18 +312,18 @@ export default function StoryPage({ params }: PageProps) {
 
   if (!hasStoryContent) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">📝</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-text-primary mb-2">
             스토리 콘텐츠 준비중입니다
           </h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-text-secondary mb-4">
             {year}년 {month}월 스토리는 아직 작성 중입니다.
           </p>
           <button
             onClick={() => router.push('/education/unfold-story')}
-            className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="mt-4 px-6 py-2 bg-accent-blue text-white rounded-lg hover:bg-accent-blue/90"
           >
             목록으로 돌아가기
           </button>
@@ -333,43 +333,43 @@ export default function StoryPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-50">
+    <div className="min-h-screen bg-background">
       {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-blue to-accent-purple origin-left z-50"
         style={{ scaleX: scrollYProgress }}
       />
 
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10 shadow-sm">
-        <div className="container mx-auto px-6 py-4">
+      <header className="bg-surface/80 backdrop-blur-sm border-b border-border sticky top-0 z-10 shadow-sm">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <button
               onClick={() => router.push('/education/unfold-story')}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
             >
               <span>←</span>
               <span>목록으로</span>
             </button>
-            <h1 className="text-xl font-bold text-gray-900">{story.title}</h1>
+            <h1 className="text-xl font-bold text-text-primary">{story.title}</h1>
             <div className="w-24" />
           </div>
         </div>
       </header>
 
       {/* Intro Section */}
-      <section className="container mx-auto px-6 py-12">
+      <section className="container mx-auto px-4 sm:px-6 py-12">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
+            className="bg-surface rounded-2xl p-8 shadow-card border border-border"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="text-4xl">📅</div>
-              <h2 className="text-3xl font-bold text-gray-900">{story.title}</h2>
+              <h2 className="text-3xl font-bold text-text-primary">{story.title}</h2>
             </div>
-            <div className="text-lg text-gray-700 leading-relaxed whitespace-pre-line">
+            <div className="text-lg text-text-secondary leading-relaxed whitespace-pre-line">
               {story.intro}
             </div>
           </motion.div>
@@ -394,7 +394,7 @@ export default function StoryPage({ params }: PageProps) {
 
       {/* Quizzes */}
       {story.quizzes && story.quizzes.length > 0 && (
-        <section className="container mx-auto px-6 py-12">
+        <section className="container mx-auto px-4 sm:px-6 py-12">
           <div className="max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -403,10 +403,10 @@ export default function StoryPage({ params }: PageProps) {
             >
               <div className="text-center mb-8">
                 <div className="text-5xl mb-4">🎯</div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                <h2 className="text-3xl font-bold text-text-primary mb-2">
                   학습 점검 퀴즈
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-text-secondary">
                   {story.monthLabel} 스토리를 제대로 이해했는지 확인해보세요!
                 </p>
               </div>
@@ -425,7 +425,7 @@ export default function StoryPage({ params }: PageProps) {
       )}
 
       {/* Financial Summary */}
-      <section className="container mx-auto px-6 py-12 bg-gradient-to-br from-blue-50 to-purple-50">
+      <section className="container mx-auto px-4 sm:px-6 py-12 bg-gradient-to-br from-accent-blue/5 to-accent-purple/5">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -434,22 +434,22 @@ export default function StoryPage({ params }: PageProps) {
           >
             <div className="text-center mb-8">
               <div className="text-5xl mb-4">📊</div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              <h2 className="text-3xl font-bold text-text-primary mb-2">
                 {story.monthLabel} 재무 현황
               </h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* Statement of Financial Position */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <div className="bg-surface rounded-2xl p-8 shadow-card border border-border">
+                <h3 className="text-xl font-bold text-text-primary mb-6 flex items-center gap-2">
                   <span>🏛️</span>
                   <span>재무상태표</span>
                 </h3>
 
                 <div className="space-y-4 mb-6">
                   <div>
-                    <div className="text-sm font-semibold text-gray-600 mb-2">
+                    <div className="text-sm font-semibold text-text-secondary mb-2">
                       자산 (Assets)
                     </div>
                     {Object.entries(
@@ -457,7 +457,7 @@ export default function StoryPage({ params }: PageProps) {
                     ).map(([key, value]) => (
                       <div
                         key={key}
-                        className="flex justify-between text-sm text-gray-700 mb-1"
+                        className="flex justify-between text-sm text-text-secondary mb-1"
                       >
                         <span>{key}</span>
                         <span className="font-mono">
@@ -465,7 +465,7 @@ export default function StoryPage({ params }: PageProps) {
                         </span>
                       </div>
                     ))}
-                    <div className="border-t border-gray-300 mt-2 pt-2 flex justify-between text-sm font-bold text-gray-900">
+                    <div className="border-t border-border mt-2 pt-2 flex justify-between text-sm font-bold text-text-primary">
                       <span>총 자산</span>
                       <span className="font-mono">
                         {monthData.financials.statementOfFinancialPosition.totalAssets.toLocaleString()}
@@ -475,7 +475,7 @@ export default function StoryPage({ params }: PageProps) {
                   </div>
 
                   <div>
-                    <div className="text-sm font-semibold text-gray-600 mb-2">
+                    <div className="text-sm font-semibold text-text-secondary mb-2">
                       부채 (Liabilities)
                     </div>
                     {Object.entries(
@@ -483,7 +483,7 @@ export default function StoryPage({ params }: PageProps) {
                     ).map(([key, value]) => (
                       <div
                         key={key}
-                        className="flex justify-between text-sm text-gray-700 mb-1"
+                        className="flex justify-between text-sm text-text-secondary mb-1"
                       >
                         <span>{key}</span>
                         <span className="font-mono">
@@ -491,7 +491,7 @@ export default function StoryPage({ params }: PageProps) {
                         </span>
                       </div>
                     ))}
-                    <div className="border-t border-gray-300 mt-2 pt-2 flex justify-between text-sm font-bold text-gray-900">
+                    <div className="border-t border-border mt-2 pt-2 flex justify-between text-sm font-bold text-text-primary">
                       <span>총 부채</span>
                       <span className="font-mono">
                         {monthData.financials.statementOfFinancialPosition.totalLiabilities.toLocaleString()}
@@ -501,7 +501,7 @@ export default function StoryPage({ params }: PageProps) {
                   </div>
 
                   <div>
-                    <div className="text-sm font-semibold text-gray-600 mb-2">
+                    <div className="text-sm font-semibold text-text-secondary mb-2">
                       자본 (Equity)
                     </div>
                     {Object.entries(
@@ -509,7 +509,7 @@ export default function StoryPage({ params }: PageProps) {
                     ).map(([key, value]) => (
                       <div
                         key={key}
-                        className="flex justify-between text-sm text-gray-700 mb-1"
+                        className="flex justify-between text-sm text-text-secondary mb-1"
                       >
                         <span>{key}</span>
                         <span className="font-mono">
@@ -517,7 +517,7 @@ export default function StoryPage({ params }: PageProps) {
                         </span>
                       </div>
                     ))}
-                    <div className="border-t border-gray-300 mt-2 pt-2 flex justify-between text-sm font-bold text-gray-900">
+                    <div className="border-t border-border mt-2 pt-2 flex justify-between text-sm font-bold text-text-primary">
                       <span>총 자본</span>
                       <span className="font-mono">
                         {monthData.financials.statementOfFinancialPosition.totalEquity.toLocaleString()}
@@ -529,15 +529,15 @@ export default function StoryPage({ params }: PageProps) {
               </div>
 
               {/* Income Statement */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <div className="bg-surface rounded-2xl p-8 shadow-card border border-border">
+                <h3 className="text-xl font-bold text-text-primary mb-6 flex items-center gap-2">
                   <span>📈</span>
                   <span>손익계산서</span>
                 </h3>
 
                 <div className="space-y-4">
                   <div>
-                    <div className="text-sm font-semibold text-green-600 mb-2">
+                    <div className="text-sm font-semibold text-status-success mb-2">
                       수익 (Revenue)
                     </div>
                     {Object.entries(
@@ -545,15 +545,15 @@ export default function StoryPage({ params }: PageProps) {
                     ).map(([key, value]) => (
                       <div
                         key={key}
-                        className="flex justify-between text-sm text-gray-700 mb-1"
+                        className="flex justify-between text-sm text-text-secondary mb-1"
                       >
                         <span>{key}</span>
-                        <span className="font-mono text-green-600">
+                        <span className="font-mono text-status-success">
                           +{value.toLocaleString()}원
                         </span>
                       </div>
                     ))}
-                    <div className="border-t border-gray-300 mt-2 pt-2 flex justify-between text-sm font-bold text-green-600">
+                    <div className="border-t border-border mt-2 pt-2 flex justify-between text-sm font-bold text-status-success">
                       <span>총 수익</span>
                       <span className="font-mono">
                         {monthData.financials.incomeStatement.totalRevenue.toLocaleString()}
@@ -563,7 +563,7 @@ export default function StoryPage({ params }: PageProps) {
                   </div>
 
                   <div>
-                    <div className="text-sm font-semibold text-red-600 mb-2">
+                    <div className="text-sm font-semibold text-status-error mb-2">
                       비용 (Expenses)
                     </div>
                     {Object.entries(
@@ -571,15 +571,15 @@ export default function StoryPage({ params }: PageProps) {
                     ).map(([key, value]) => (
                       <div
                         key={key}
-                        className="flex justify-between text-sm text-gray-700 mb-1"
+                        className="flex justify-between text-sm text-text-secondary mb-1"
                       >
                         <span>{key}</span>
-                        <span className="font-mono text-red-600">
+                        <span className="font-mono text-status-error">
                           -{value.toLocaleString()}원
                         </span>
                       </div>
                     ))}
-                    <div className="border-t border-gray-300 mt-2 pt-2 flex justify-between text-sm font-bold text-red-600">
+                    <div className="border-t border-border mt-2 pt-2 flex justify-between text-sm font-bold text-status-error">
                       <span>총 비용</span>
                       <span className="font-mono">
                         {monthData.financials.incomeStatement.totalExpenses.toLocaleString()}
@@ -588,12 +588,12 @@ export default function StoryPage({ params }: PageProps) {
                     </div>
                   </div>
 
-                  <div className="border-t-2 border-gray-400 mt-4 pt-4">
+                  <div className="border-t-2 border-border-hover mt-4 pt-4">
                     <div
                       className={`flex justify-between text-lg font-bold ${
                         monthData.financials.incomeStatement.netIncome >= 0
-                          ? 'text-blue-600'
-                          : 'text-red-600'
+                          ? 'text-accent-blue'
+                          : 'text-status-error'
                       }`}
                     >
                       <span>당기순이익 (Net Income)</span>
@@ -614,11 +614,11 @@ export default function StoryPage({ params }: PageProps) {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="container mx-auto px-6 text-center">
+      <footer className="bg-surface-elevated border-t border-border py-8">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
           <button
             onClick={() => router.push('/education/unfold-story')}
-            className="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center gap-2 bg-accent-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent-blue/90 transition-colors"
           >
             <span>←</span>
             <span>다른 월 스토리 보러가기</span>

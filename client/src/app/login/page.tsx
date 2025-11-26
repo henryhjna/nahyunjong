@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -29,28 +30,36 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center px-6">
+    <div className="min-h-screen bg-background flex items-center justify-center px-6">
+      {/* Background Effects */}
+      <div className="fixed inset-0 bg-gradient-mesh pointer-events-none" />
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-glow pointer-events-none" />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-md w-full"
+        className="relative z-10 max-w-md w-full"
       >
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
+        <div className="glass-card p-8">
           <div className="text-center mb-8">
-            <div className="text-5xl mb-4">🔐</div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Login</h1>
-            <p className="text-gray-600">나현종 교수 웹사이트 관리</p>
+            <div className="w-16 h-16 rounded-2xl bg-gradient-primary flex items-center justify-center mx-auto mb-4 shadow-glow">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h1 className="text-3xl font-bold text-text-primary mb-2">Admin Login</h1>
+            <p className="text-text-secondary">LABA 웹사이트 관리</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-status-error/10 border border-status-error/30 text-status-error px-4 py-3 rounded-xl text-sm">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-text-secondary mb-2">
                 이메일
               </label>
               <input
@@ -58,14 +67,13 @@ export default function LoginPage() {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                placeholder="na.hyunjong@gmail.com"
+                className="input-field"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-text-secondary mb-2">
                 비밀번호
               </label>
               <input
@@ -73,7 +81,7 @@ export default function LoginPage() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="input-field"
                 placeholder="••••••••"
                 required
               />
@@ -82,10 +90,10 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-all ${
+              className={`w-full py-3 px-4 rounded-xl font-semibold text-white transition-all ${
                 loading
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl'
+                  ? 'bg-background-tertiary cursor-not-allowed text-text-muted'
+                  : 'bg-gradient-primary hover:shadow-glow'
               }`}
             >
               {loading ? '로그인 중...' : '로그인'}
@@ -93,12 +101,15 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <a
-              href="/education/unfold-story"
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+            <Link
+              href="/"
+              className="text-sm text-text-tertiary hover:text-text-primary transition-colors inline-flex items-center gap-2"
             >
-              ← 스토리 페이지로 돌아가기
-            </a>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              홈으로 돌아가기
+            </Link>
           </div>
         </div>
       </motion.div>

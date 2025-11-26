@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { query } from '../config/database';
+import { requireAuth, AuthRequest } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -18,8 +19,43 @@ router.get('/course/:courseId', async (req: Request, res: Response) => {
   }
 });
 
-// Get single lecture
+// Get single lecture (public)
 router.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await query(
+      'SELECT * FROM lectures WHERE id = $1 AND is_published = true',
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Lecture not found' });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error fetching lecture:', error);
+    res.status(500).json({ error: 'Failed to fetch lecture' });
+  }
+});
+
+// Get all lectures for a course (admin - including unpublished)
+router.get('/admin/course/:courseId', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const { courseId } = req.params;
+    const result = await query(
+      'SELECT * FROM lectures WHERE course_id = $1 ORDER BY week ASC, order_index ASC',
+      [courseId]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching all lectures:', error);
+    res.status(500).json({ error: 'Failed to fetch lectures' });
+  }
+});
+
+// Get single lecture (admin - including unpublished)
+router.get('/admin/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
     const result = await query('SELECT * FROM lectures WHERE id = $1', [id]);
@@ -35,8 +71,8 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Create lecture
-router.post('/', async (req: Request, res: Response) => {
+// Create lecture (admin only)
+router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { course_id, week, title, subtitle, mdx_content, order_index } = req.body;
 
@@ -54,8 +90,8 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-// Update lecture
-router.put('/:id', async (req: Request, res: Response) => {
+// Update lecture (admin only)
+router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
     const { week, title, subtitle, mdx_content, order_index, is_published } = req.body;
@@ -85,8 +121,8 @@ router.put('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Delete lecture
-router.delete('/:id', async (req: Request, res: Response) => {
+// Delete lecture (admin only)
+router.delete('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
     const result = await query('DELETE FROM lectures WHERE id = $1 RETURNING id', [id]);

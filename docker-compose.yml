@@ -31,11 +31,13 @@ services:
       DB_PASSWORD: postgres_password_change_in_production
       SERVER_PORT: 7341
       NODE_ENV: development
+      JWT_SECRET: dev_jwt_secret_change_this_in_production_at_least_32_chars
     depends_on:
       - db
     volumes:
       - ./server:/app
       - /app/node_modules
+      - uploads:/app/uploads
     networks:
       - nahyunjong-network
 
@@ -61,6 +63,7 @@ services:
 
 volumes:
   postgres_data:
+  uploads:
 
 networks:
   nahyunjong-network:

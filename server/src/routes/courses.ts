@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { query } from '../config/database';
+import { requireAuth, AuthRequest } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -33,8 +34,21 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Create course (admin only - add auth middleware later)
-router.post('/', async (req: Request, res: Response) => {
+// Get all courses including unpublished (admin)
+router.get('/admin/all', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const result = await query(
+      'SELECT * FROM courses ORDER BY created_at DESC'
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching all courses:', error);
+    res.status(500).json({ error: 'Failed to fetch courses' });
+  }
+});
+
+// Create course (admin only)
+router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { title, description, code, semester, thumbnail_url } = req.body;
 
@@ -52,8 +66,8 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-// Update course
-router.put('/:id', async (req: Request, res: Response) => {
+// Update course (admin only)
+router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
     const { title, description, code, semester, thumbnail_url, is_published } = req.body;
@@ -83,8 +97,8 @@ router.put('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Delete course
-router.delete('/:id', async (req: Request, res: Response) => {
+// Delete course (admin only)
+router.delete('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
     const result = await query('DELETE FROM courses WHERE id = $1 RETURNING id', [id]);

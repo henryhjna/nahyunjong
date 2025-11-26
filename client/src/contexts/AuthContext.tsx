@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const verifyToken = async (token: string) => {
     try {
-      const response = await fetch('/api/auth/verify', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -41,20 +41,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (response.ok) {
         const data = await response.json();
-        setUser(data.user);
+        // Server returns data.admin from JWT payload
+        if (data.admin) {
+          setUser({ email: data.admin.email || data.admin.username, role: 'admin' });
+        }
       } else {
         localStorage.removeItem('authToken');
+        setUser(null);
       }
     } catch (error) {
       console.error('Token verification failed:', error);
       localStorage.removeItem('authToken');
+      setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
   const login = async (email: string, password: string) => {
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -67,7 +72,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     localStorage.setItem('authToken', data.token);
-    setUser(data.user);
+    setUser({ email: data.admin.email, role: 'admin' });
   };
 
   const logout = () => {

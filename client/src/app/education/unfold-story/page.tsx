@@ -226,7 +226,7 @@ export default function UnfoldStoryPage() {
         </div>
       )}
       <div className={`bg-white/80 backdrop-blur-sm border-b border-gray-200 shadow-sm ${updateMessage ? 'mt-16' : ''}`}>
-        <div className="container mx-auto px-6 py-6">
+        <div className="container mx-auto px-4 sm:px-6 py-6">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-3">
               <div className="text-3xl">📖</div>
@@ -264,7 +264,7 @@ export default function UnfoldStoryPage() {
         </div>
       </div>
 
-      <main className="container mx-auto px-6 py-12 max-w-5xl">
+      <main className="container mx-auto px-4 sm:px-6 py-12 max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

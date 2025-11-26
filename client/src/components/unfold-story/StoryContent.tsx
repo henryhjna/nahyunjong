@@ -14,7 +14,7 @@ export default function StoryContent({ month, children }: StoryContentProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-xl shadow-md p-8 mb-8 prose prose-lg max-w-none"
+      className="glass-card p-8 mb-8 prose prose-lg max-w-none prose-headings:text-text-primary prose-p:text-text-primary prose-strong:text-text-primary"
     >
       {children}
     </motion.div>
