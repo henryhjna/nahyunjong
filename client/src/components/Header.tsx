@@ -41,8 +41,8 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/80 backdrop-blur-xl border-b border-border shadow-card'
+        scrolled || mobileMenuOpen
+          ? 'bg-background/95 backdrop-blur-xl border-b border-border shadow-card'
           : 'bg-transparent'
       }`}
     >
@@ -51,15 +51,10 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="group flex items-center gap-3"
+            className="group flex items-center"
           >
-            <div className="relative">
-              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow-sm group-hover:shadow-glow transition-shadow duration-300">
-                <span className="text-white font-bold text-lg">N</span>
-              </div>
-            </div>
             <span className="text-lg font-bold text-text-primary group-hover:text-accent-blue transition-colors">
-              나현종
+              나현종 교수 홈페이지
             </span>
           </Link>
 
