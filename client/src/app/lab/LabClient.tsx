@@ -163,6 +163,45 @@ export default function LabClient() {
           <p className="text-text-tertiary">회계 빅데이터 및 인공지능 연구실</p>
         </motion.div>
 
+        {/* LABA Website Banner */}
+        <motion.a
+          href="https://laba.co.kr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative block mb-10 overflow-hidden rounded-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          whileHover={{ scale: 1.01 }}
+        >
+          {/* Gradient background - solid colors for visibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-500" />
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          {/* Content */}
+          <div className="relative px-5 py-4 md:px-8 md:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex items-center gap-3 md:gap-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0
+                            group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <p className="text-white/90 text-xs md:text-sm font-medium">LABA 공식 웹사이트</p>
+                <p className="text-white text-base md:text-xl font-bold">laba.co.kr</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white group-hover:bg-gray-100 transition-all duration-300 self-end sm:self-auto flex-shrink-0">
+              <span className="text-sm md:text-base whitespace-nowrap font-bold text-blue-700">방문하기</span>
+              <svg className="w-4 h-4 md:w-5 md:h-5 text-blue-700 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </div>
+          </div>
+        </motion.a>
+
         <motion.div
           className="grid md:grid-cols-3 gap-6 mb-16"
           variants={containerVariants}
@@ -635,14 +674,6 @@ function MemberCard({ member }: { member: Member }) {
                 </span>
               </div>
             )}
-          </div>
-
-          <div className={`absolute -bottom-1 -right-1 w-7 h-7 rounded-full border-2 border-background
-                           flex items-center justify-center text-xs font-bold
-                           ${member.graduation_year
-                             ? 'bg-surface text-text-tertiary'
-                             : 'bg-gradient-to-br from-green-500 to-emerald-500 text-white'}`}>
-            {member.graduation_year ? '졸' : '재'}
           </div>
         </div>
 

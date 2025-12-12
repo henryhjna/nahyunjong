@@ -210,7 +210,7 @@ export default function UnfoldStoryPage() {
   const currentAvailable = availableMonths[selectedYear.toString()] || [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-blue-50">
+    <div className="min-h-screen bg-background">
       <Header />
 
       {/* Progress Banner */}
@@ -225,12 +225,12 @@ export default function UnfoldStoryPage() {
           {updateMessage}
         </div>
       )}
-      <div className={`bg-white/80 backdrop-blur-sm border-b border-gray-200 shadow-sm ${updateMessage ? 'mt-16' : ''}`}>
+      <div className={`bg-surface/80 backdrop-blur-sm border-b border-border shadow-sm ${updateMessage ? 'mt-16' : ''}`}>
         <div className="container mx-auto px-4 sm:px-6 py-6">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-3">
               <div className="text-3xl">📖</div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-text-primary">
                 언폴드의 창업 성공 스토리
               </h1>
             </div>
@@ -240,7 +240,7 @@ export default function UnfoldStoryPage() {
                 disabled={isUpdating}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2 ${
                   isUpdating
-                    ? 'bg-gray-400 text-white cursor-not-allowed'
+                    ? 'bg-text-muted text-white cursor-not-allowed'
                     : 'bg-gradient-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700 shadow-md'
                 }`}
               >
@@ -250,12 +250,12 @@ export default function UnfoldStoryPage() {
             )}
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-gray-600">
+            <p className="text-text-secondary">
               K-Beauty 스타트업의 3년 여정을 통해 배우는 회계원리 - 동화책처럼 읽는 회계 이야기
             </p>
             {updateMessage && (
               <p className={`text-sm font-semibold ${
-                updateMessage.startsWith('✅') ? 'text-green-600' : 'text-red-600'
+                updateMessage.startsWith('✅') ? 'text-status-success' : 'text-status-error'
               }`}>
                 {updateMessage}
               </p>
@@ -268,21 +268,21 @@ export default function UnfoldStoryPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl shadow-lg p-8 mb-12 border-2 border-purple-200"
+          className="bg-surface rounded-2xl shadow-card p-8 mb-12 border-2 border-accent-purple/30"
         >
           <div className="flex items-start gap-6">
             <div className="text-6xl">👩‍🔬</div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+              <h2 className="text-2xl font-bold text-text-primary mb-3">
                 주인공 소개
               </h2>
-              <p className="text-gray-700 leading-relaxed mb-2">
-                <strong className="text-purple-600">박유진</strong>은 대학에서 화학을 전공하고 석사까지 마친 후,
+              <p className="text-text-secondary leading-relaxed mb-2">
+                <strong className="text-accent-purple">박유진</strong>은 대학에서 화학을 전공하고 석사까지 마친 후,
                 유명 뷰티 대기업에서 5년간 연구원으로 근무했습니다.
               </p>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-text-secondary leading-relaxed">
                 자신의 피부 트러블을 해결하기 위해 직접 연구한 포뮬러가 주변 사람들에게
-                큰 호응을 얻으면서, <strong className="text-blue-600">언폴드(Unfold)</strong>를 창업하기로 결심합니다.
+                큰 호응을 얻으면서, <strong className="text-accent-blue">언폴드(Unfold)</strong>를 창업하기로 결심합니다.
               </p>
             </div>
           </div>
@@ -294,7 +294,7 @@ export default function UnfoldStoryPage() {
             className={`flex-1 px-8 py-6 rounded-xl font-bold text-lg transition-all ${
               selectedYear === 2022
                 ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
+                : 'bg-surface text-text-secondary hover:bg-surface-hover shadow-md border border-border'
             }`}
           >
             <div className="text-3xl mb-2">🚀</div>
@@ -306,7 +306,7 @@ export default function UnfoldStoryPage() {
             className={`flex-1 px-8 py-6 rounded-xl font-bold text-lg transition-all ${
               selectedYear === 2023
                 ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-xl scale-105'
-                : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md'
+                : 'bg-surface text-text-secondary hover:bg-surface-hover shadow-md border border-border'
             }`}
           >
             <div className="text-3xl mb-2">🏭</div>
@@ -320,9 +320,9 @@ export default function UnfoldStoryPage() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3 }}
-          className="bg-white rounded-xl shadow-md p-8"
+          className="bg-surface rounded-xl shadow-card p-8 border border-border"
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-2">
             <span>📚</span>
             <span>{selectedYear}년 이야기 선택하기</span>
           </h2>
@@ -338,7 +338,7 @@ export default function UnfoldStoryPage() {
                   whileTap={isAvailable ? { scale: 0.98 } : {}}
                 >
                   {isAvailable ? (
-                    <div className="p-6 rounded-lg border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50">
+                    <div className="p-6 rounded-lg border-2 border-accent-purple/30 bg-surface-hover">
                       <div className="flex items-center justify-between mb-4">
                         <Link
                           href={`/education/unfold-story/${selectedYear}/${month.month}`}
@@ -346,10 +346,10 @@ export default function UnfoldStoryPage() {
                         >
                           <div className="text-3xl">📖</div>
                           <div>
-                            <div className="font-bold text-gray-900">
+                            <div className="font-bold text-text-primary">
                               {month.label}
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-text-tertiary">
                               스토리 읽기 →
                             </div>
                           </div>
@@ -360,8 +360,8 @@ export default function UnfoldStoryPage() {
                             disabled={generatingMonth === `${selectedYear}-${month.month}`}
                             className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-1 ${
                               generatingMonth === `${selectedYear}-${month.month}`
-                                ? 'bg-gray-400 text-white cursor-not-allowed'
-                                : 'bg-white border-2 border-purple-300 text-purple-600 hover:bg-purple-50'
+                                ? 'bg-text-muted text-white cursor-not-allowed'
+                                : 'bg-surface border-2 border-accent-purple/30 text-accent-purple hover:bg-surface-hover'
                             }`}
                             title="스토리 재생성"
                           >
@@ -372,15 +372,15 @@ export default function UnfoldStoryPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="p-6 rounded-lg border-2 border-gray-200 bg-gray-50">
+                    <div className="p-6 rounded-lg border-2 border-border bg-background-secondary">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className="text-3xl grayscale">📖</div>
                           <div>
-                            <div className="font-bold text-gray-500">
+                            <div className="font-bold text-text-tertiary">
                               {month.label}
                             </div>
-                            <div className="text-sm text-gray-400">스토리 미생성</div>
+                            <div className="text-sm text-text-muted">스토리 미생성</div>
                           </div>
                         </div>
                         {isAdmin && (
@@ -389,7 +389,7 @@ export default function UnfoldStoryPage() {
                             disabled={generatingMonth === `${selectedYear}-${month.month}`}
                             className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                               generatingMonth === `${selectedYear}-${month.month}`
-                                ? 'bg-gray-400 text-white cursor-not-allowed'
+                                ? 'bg-text-muted text-white cursor-not-allowed'
                                 : 'bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:from-purple-600 hover:to-blue-600'
                             }`}
                           >
@@ -409,31 +409,31 @@ export default function UnfoldStoryPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8 border-2 border-blue-200"
+          className="mt-12 bg-surface rounded-xl p-8 border-2 border-accent-blue/30"
         >
-          <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-text-primary mb-4 flex items-center gap-2">
             <span>💡</span>
             <span>이렇게 학습하세요</span>
           </h3>
-          <ul className="space-y-3 text-gray-700">
+          <ul className="space-y-3 text-text-secondary">
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">1.</span>
+              <span className="text-accent-blue font-bold">1.</span>
               <span>위에서 읽고 싶은 월을 선택하세요</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">2.</span>
+              <span className="text-accent-blue font-bold">2.</span>
               <span>
                 동화책처럼 스토리를 읽어가면서, 각 거래마다 분개와 재무제표가 어떻게 변하는지 확인하세요
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">3.</span>
+              <span className="text-accent-blue font-bold">3.</span>
               <span>
                 중간중간 나오는 퀴즈를 풀면서 이해도를 체크하세요
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">4.</span>
+              <span className="text-accent-blue font-bold">4.</span>
               <span>
                 실제 스타트업이 겪는 회계 상황을 간접 경험하면서 자연스럽게 회계원리를 익힐 수 있습니다
               </span>

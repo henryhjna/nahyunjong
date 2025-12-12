@@ -3,6 +3,10 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Build-time environment variables (NEXT_PUBLIC_* must be available at build time)
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 # Install Python and pip (for story generation scripts)
 RUN apk add --no-cache python3 py3-pip
 

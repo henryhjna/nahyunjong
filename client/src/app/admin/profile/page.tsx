@@ -58,11 +58,8 @@ interface Profile {
 }
 
 export default function AdminProfilePage() {
-  const { user, loading: authLoading, isAdmin } = useAuth();
+  const { loading: authLoading, isAdmin, authFetch } = useAuth();
   const router = useRouter();
-
-  // Get token from localStorage for API calls
-  const getToken = () => typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -111,12 +108,9 @@ export default function AdminProfilePage() {
 
     setSaving(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile`, {
+      const res = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: profile.name,
           name_en: profile.name_en,
@@ -151,12 +145,9 @@ export default function AdminProfilePage() {
         ? `${process.env.NEXT_PUBLIC_API_URL}/api/profile/education/${data.id}`
         : `${process.env.NEXT_PUBLIC_API_URL}/api/profile/education`;
 
-      const res = await fetch(url, {
+      const res = await authFetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
@@ -178,9 +169,8 @@ export default function AdminProfilePage() {
     if (!confirm('정말 삭제하시겠습니까?')) return;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/education/${id}`, {
+      const res = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/education/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${getToken()}` },
       });
 
       if (res.ok) {
@@ -203,12 +193,9 @@ export default function AdminProfilePage() {
         ? `${process.env.NEXT_PUBLIC_API_URL}/api/profile/career/${data.id}`
         : `${process.env.NEXT_PUBLIC_API_URL}/api/profile/career`;
 
-      const res = await fetch(url, {
+      const res = await authFetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
@@ -230,9 +217,8 @@ export default function AdminProfilePage() {
     if (!confirm('정말 삭제하시겠습니까?')) return;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/career/${id}`, {
+      const res = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/career/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${getToken()}` },
       });
 
       if (res.ok) {
@@ -255,12 +241,9 @@ export default function AdminProfilePage() {
         ? `${process.env.NEXT_PUBLIC_API_URL}/api/profile/awards/${data.id}`
         : `${process.env.NEXT_PUBLIC_API_URL}/api/profile/awards`;
 
-      const res = await fetch(url, {
+      const res = await authFetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getToken()}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
@@ -282,9 +265,8 @@ export default function AdminProfilePage() {
     if (!confirm('정말 삭제하시겠습니까?')) return;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/awards/${id}`, {
+      const res = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/awards/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${getToken()}` },
       });
 
       if (res.ok) {

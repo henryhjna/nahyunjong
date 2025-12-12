@@ -60,10 +60,10 @@ export default function NewsDetailClient({ slug }: NewsDetailClientProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <div className="min-h-screen bg-background">
         <Header />
         <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-blue"></div>
         </div>
       </div>
     );
@@ -71,12 +71,12 @@ export default function NewsDetailClient({ slug }: NewsDetailClientProps) {
 
   if (error || !news) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <div className="min-h-screen bg-background">
         <Header />
         <main className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-12 text-center">
+          <div className="bg-status-error/10 border border-status-error/20 rounded-lg p-12 text-center">
             <div className="text-6xl mb-4">😕</div>
-            <p className="text-red-600 text-lg mb-4">{error || '뉴스를 찾을 수 없습니다.'}</p>
+            <p className="text-status-error text-lg mb-4">{error || '뉴스를 찾을 수 없습니다.'}</p>
             <Link
               href="/news"
               className="inline-block px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
@@ -90,20 +90,20 @@ export default function NewsDetailClient({ slug }: NewsDetailClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-background">
       <Header />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <Link
           href="/news"
-          className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-8 font-medium"
+          className="inline-flex items-center text-accent-blue hover:text-accent-blue/80 mb-8 font-medium"
         >
           ← 뉴스 목록
         </Link>
 
-        <article className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <article className="bg-surface rounded-xl shadow-card overflow-hidden border border-border">
           {news.image_url && (
-            <div className="aspect-video bg-gray-100">
+            <div className="aspect-video bg-background-secondary">
               <img
                 src={news.image_url}
                 alt={news.title}
@@ -115,21 +115,21 @@ export default function NewsDetailClient({ slug }: NewsDetailClientProps) {
           <div className="p-8">
             <div className="flex items-center gap-3 mb-4">
               {news.source && (
-                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                <span className="px-3 py-1 bg-accent-blue/10 text-accent-blue rounded-full text-sm font-medium">
                   {news.source}
                 </span>
               )}
-              <span className="text-gray-500">
+              <span className="text-text-tertiary">
                 {formatDate(news.published_at)}
               </span>
             </div>
 
-            <h1 className="text-3xl font-bold text-gray-900 mb-6">
+            <h1 className="text-3xl font-bold text-text-primary mb-6">
               {news.title}
             </h1>
 
             {news.content && (
-              <div className="prose prose-lg max-w-none text-gray-700 mb-8 whitespace-pre-wrap">
+              <div className="prose prose-lg dark:prose-invert max-w-none text-text-secondary mb-8 whitespace-pre-wrap">
                 {news.content}
               </div>
             )}

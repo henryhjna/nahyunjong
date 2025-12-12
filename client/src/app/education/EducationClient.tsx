@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { motion } from 'framer-motion';
 import { containerVariants, itemVariants } from '@/lib/animations';
@@ -58,64 +57,47 @@ export default function EducationClient() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <motion.div variants={itemVariants}>
-              <Link
-                href="/education/unfold-story"
-                className="group block relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent-purple/10 to-accent-blue/10 border border-accent-purple/30 p-8 hover:border-accent-purple/50 transition-all duration-300"
-              >
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-accent-purple/20 rounded-full blur-3xl group-hover:bg-accent-purple/30 transition-colors" />
-
-                <div className="relative">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-purple to-accent-blue flex items-center justify-center mb-4 shadow-glow-purple">
-                        <svg
-                          className="w-7 h-7 text-white"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1.5}
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                          />
-                        </svg>
-                      </div>
-                      <h3 className="text-2xl font-bold text-text-primary mb-1 group-hover:text-accent-purple transition-colors">
-                        Unfold Story
-                      </h3>
-                      <p className="text-sm text-accent-purple font-medium">
-                        Interactive Accounting Journey
-                      </p>
+              <div className="relative overflow-hidden rounded-2xl bg-surface border border-border p-8 opacity-50">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <div className="w-14 h-14 rounded-xl bg-background-tertiary flex items-center justify-center mb-4">
+                      <svg
+                        className="w-7 h-7 text-text-muted"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                        />
+                      </svg>
                     </div>
-                    <span className="px-3 py-1 bg-status-success/20 text-status-success border border-status-success/30 rounded-full text-xs font-medium">
-                      NEW
-                    </span>
+                    <h3 className="text-2xl font-bold text-text-primary mb-1">
+                      Unfold Story
+                    </h3>
+                    <p className="text-sm text-text-tertiary">
+                      Interactive Accounting Journey
+                    </p>
                   </div>
-
-                  <p className="text-text-secondary mb-6">
-                    K-Beauty 스타트업 이야기로 배우는 회계 원리 - 스토리북 방식의 인터랙티브 학습
-                  </p>
-
-                  <div className="flex items-center text-accent-purple font-medium group-hover:translate-x-2 transition-transform">
-                    Start Learning
-                    <svg
-                      className="w-5 h-5 ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </div>
+                  <span className="px-3 py-1 bg-surface border border-border rounded-full text-xs font-medium text-text-muted">
+                    Soon
+                  </span>
                 </div>
-              </Link>
+
+                <p className="text-text-tertiary mb-6">
+                  K-Beauty 스타트업 이야기로 배우는 회계 원리 - 스토리북 방식의 인터랙티브 학습
+                </p>
+
+                <button
+                  disabled
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-background-tertiary text-text-muted rounded-lg cursor-not-allowed"
+                >
+                  Coming Soon
+                </button>
+              </div>
             </motion.div>
 
             <motion.div variants={itemVariants}>
@@ -194,42 +176,29 @@ export default function EducationClient() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <motion.div variants={itemVariants}>
-              <div className="glass-card p-8 group hover:shadow-card-hover transition-all duration-300">
+              <div className="glass-card p-8 opacity-50">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-xl font-bold text-text-primary mb-1 group-hover:text-accent-blue transition-colors">
+                    <h3 className="text-xl font-bold text-text-primary mb-1">
                       Financial Accounting
                     </h3>
                     <p className="text-sm text-text-tertiary">BUS3001 · 2025 Spring</p>
                   </div>
-                  <span className="px-3 py-1 bg-status-success/20 text-status-success border border-status-success/30 rounded-full text-xs font-medium">
-                    Active
+                  <span className="px-3 py-1 bg-surface border border-border rounded-full text-xs font-medium text-text-muted">
+                    Upcoming
                   </span>
                 </div>
 
-                <p className="text-text-secondary mb-6">
+                <p className="text-text-tertiary mb-6">
                   Introduction to financial accounting principles and practices
                 </p>
 
-                <Link
-                  href="/education/courses/1"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-primary text-white rounded-lg hover:shadow-glow transition-all text-sm font-medium"
+                <button
+                  disabled
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-background-tertiary text-text-muted rounded-lg cursor-not-allowed text-sm"
                 >
-                  View Course
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </Link>
+                  Coming Soon
+                </button>
               </div>
             </motion.div>
 

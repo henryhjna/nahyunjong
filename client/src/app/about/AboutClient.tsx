@@ -102,11 +102,9 @@ export default function AboutClient() {
             <div className="relative flex-shrink-0">
               <div className="w-36 h-36 md:w-44 md:h-44 rounded-2xl bg-gradient-to-br from-accent-cyan/20 to-accent-blue/20 border border-border overflow-hidden">
                 {profile?.photo_url ? (
-                  <Image
+                  <img
                     src={profile.photo_url}
                     alt={profile.name}
-                    width={176}
-                    height={176}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -149,6 +147,30 @@ export default function AboutClient() {
                     {profile.email}
                   </a>
                 )}
+                {/* ORCID */}
+                <a
+                  href="https://orcid.org/0000-0002-6475-128X"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border text-text-secondary text-sm hover:border-[#a6ce39] hover:text-[#a6ce39] transition-colors"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 256 256" fill="currentColor">
+                    <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zM86.3 186.2H70.9V79.1h15.4v107.1zM78.6 70.8c-5.4 0-9.8-4.4-9.8-9.8s4.4-9.8 9.8-9.8 9.8 4.4 9.8 9.8-4.4 9.8-9.8 9.8zm94.8 115.4h-15.4v-49.5c0-17.2-6.1-25.9-18.4-25.9-13.5 0-20.3 8.8-20.3 26.3v49.1H104V79.1h15.4v14.6h.2c6.1-10.8 16.3-16.3 28.8-16.3 20.5 0 30.9 14.1 30.9 38.8v69.9h.1z"/>
+                  </svg>
+                  ORCID
+                </a>
+                {/* Google Scholar */}
+                <a
+                  href="https://scholar.google.com/citations?user=Y7ki3dEAAAAJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border text-text-secondary text-sm hover:border-[#4285f4] hover:text-[#4285f4] transition-colors"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 24a7 7 0 110-14 7 7 0 010 14zm0-24L0 9.5l4.838 3.94A8 8 0 0112 9a8 8 0 017.162 4.44L24 9.5z"/>
+                  </svg>
+                  Google Scholar
+                </a>
               </div>
 
               {/* Bio Detail */}
