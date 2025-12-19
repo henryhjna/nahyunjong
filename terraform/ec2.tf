@@ -1,11 +1,11 @@
-# Latest Ubuntu AMI
+# Latest Ubuntu AMI (ARM64 for t4g instances)
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]  # Canonical
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"]
   }
 
   filter {
@@ -113,8 +113,8 @@ locals {
     # Install Git
     apt-get install -y git
 
-    # Install CloudWatch agent
-    wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
+    # Install CloudWatch agent (ARM64)
+    wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb
     dpkg -i -E ./amazon-cloudwatch-agent.deb
     rm amazon-cloudwatch-agent.deb
 

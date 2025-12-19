@@ -55,36 +55,12 @@ variable "private_subnet_cidrs" {
 variable "ec2_instance_type" {
   description = "EC2 instance type"
   type        = string
-  default     = "t3.micro"  # Free tier: 2 vCPU, 1 GB RAM
+  default     = "t4g.micro"  # ARM-based, cheaper than t3.micro
 }
 
 variable "ec2_key_name" {
   description = "EC2 key pair name"
   type        = string
-}
-
-variable "db_instance_class" {
-  description = "RDS instance class"
-  type        = string
-  default     = "db.t4g.micro"  # Free tier eligible
-}
-
-variable "db_name" {
-  description = "Database name"
-  type        = string
-  default     = "nahyunjong_db"
-}
-
-variable "db_username" {
-  description = "Database master username"
-  type        = string
-  default     = "postgres"
-}
-
-variable "db_password" {
-  description = "Database master password"
-  type        = string
-  sensitive   = true
 }
 
 variable "admin_email" {

@@ -23,17 +23,6 @@ output "ec2_public_ip" {
   value       = aws_eip.app.public_ip
 }
 
-output "rds_endpoint" {
-  description = "RDS endpoint"
-  value       = aws_db_instance.main.endpoint
-  sensitive   = true
-}
-
-output "rds_database_name" {
-  description = "RDS database name"
-  value       = aws_db_instance.main.db_name
-}
-
 output "route53_nameservers_com" {
   description = "Route53 nameservers for nahyunjong.com"
   value       = aws_route53_zone.main.name_servers
@@ -65,10 +54,10 @@ output "deployment_instructions" {
        git clone https://github.com/henryhjna/nahyunjong.git .
 
     3. Create .env.production file with these values:
-       DB_HOST=${split(":", aws_db_instance.main.endpoint)[0]}
+       DB_HOST=db  (Docker PostgreSQL container)
        DB_PORT=5432
-       DB_NAME=${aws_db_instance.main.db_name}
-       DB_USER=${var.db_username}
+       DB_NAME=nahyunjong_db
+       DB_USER=postgres
        DB_PASSWORD=<your-db-password>
 
        NEXT_PUBLIC_API_URL=https://${var.domain_name}/api

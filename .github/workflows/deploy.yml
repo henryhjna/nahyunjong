@@ -1,0 +1,105 @@
+name: Build and Deploy to ECR
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ap-northeast-2
+  ECR_REGISTRY: 025158345480.dkr.ecr.ap-northeast-2.amazonaws.com
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push client image (ARM64)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./client
+          file: ./client/Dockerfile.prod
+          platforms: linux/arm64
+          push: true
+          tags: ${{ env.ECR_REGISTRY }}/nahyunjong-client:latest
+          build-args: |
+            NEXT_PUBLIC_API_URL=https://nahyunjong.com
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push server image (ARM64)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./server
+          file: ./server/Dockerfile.prod
+          platforms: linux/arm64
+          push: true
+          tags: ${{ env.ECR_REGISTRY }}/nahyunjong-server:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get ECR login token
+        id: ecr-token
+        run: |
+          TOKEN=$(aws ecr get-login-password --region $AWS_REGION)
+          echo "::add-mask::$TOKEN"
+          echo "token=$TOKEN" >> $GITHUB_OUTPUT
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          ECR_TOKEN: ${{ steps.ecr-token.outputs.token }}
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          envs: ECR_TOKEN
+          script: |
+            cd /home/ubuntu/nahyunjong
+
+            # Login to ECR using token from GitHub Actions
+            echo "$ECR_TOKEN" | docker login --username AWS --password-stdin 025158345480.dkr.ecr.ap-northeast-2.amazonaws.com
+
+            # Pull latest images
+            docker compose -f docker-compose.prod.yml pull
+
+            # Restart services
+            set -a && source .env.production && set +a
+            docker compose -f docker-compose.prod.yml up -d
+
+            # Cleanup old images
+            docker image prune -f

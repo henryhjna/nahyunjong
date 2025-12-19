@@ -51,34 +51,3 @@ resource "aws_route53_record" "kr_www" {
   ttl     = 300
   records = [aws_eip.app.public_ip]
 }
-
-# Health Check for main domain
-resource "aws_route53_health_check" "main" {
-  fqdn              = var.domain_name
-  port              = 443
-  type              = "HTTPS"
-  resource_path     = "/"
-  failure_threshold = "3"
-  request_interval  = "30"
-
-  tags = {
-    Name = "${var.project_name}-health-check"
-  }
-}
-
-# CloudWatch Alarm for Route53 Health Check
-resource "aws_cloudwatch_metric_alarm" "health_check" {
-  alarm_name          = "${var.project_name}-health-check-alarm"
-  comparison_operator = "LessThanThreshold"
-  evaluation_periods  = "1"
-  metric_name         = "HealthCheckStatus"
-  namespace           = "AWS/Route53"
-  period              = "60"
-  statistic           = "Minimum"
-  threshold           = "1"
-  alarm_description   = "This metric monitors website availability"
-
-  dimensions = {
-    HealthCheckId = aws_route53_health_check.main.id
-  }
-}
