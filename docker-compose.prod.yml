@@ -19,7 +19,7 @@ services:
       retries: 5
 
   server:
-    image: 025158345480.dkr.ecr.ap-northeast-2.amazonaws.com/nahyunjong-server:latest
+    image: ghcr.io/henryhjna/nahyunjong-server:latest
     container_name: nahyunjong-server-prod
     restart: always
     environment:
@@ -46,7 +46,7 @@ services:
       retries: 3
 
   client:
-    image: 025158345480.dkr.ecr.ap-northeast-2.amazonaws.com/nahyunjong-client:latest
+    image: ghcr.io/henryhjna/nahyunjong-client:latest
     container_name: nahyunjong-client-prod
     restart: always
     environment:
