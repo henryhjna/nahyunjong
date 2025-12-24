@@ -140,6 +140,44 @@ export interface BookForm {
 }
 
 // ============================================
+// Book Storybook Related Types
+// ============================================
+
+export interface BookChapter {
+  id: number;
+  book_id: number;
+  title: string;
+  cover_image_url?: string | null;
+  order_index: number;
+  pages?: BookPage[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BookPage {
+  id: number;
+  chapter_id: number;
+  image_url: string | null;
+  text_content: string | null;
+  order_index: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FlatPage extends BookPage {
+  chapterTitle: string;
+  chapterId: number;
+  globalIndex: number;
+  isChapterTitle: boolean;
+}
+
+export interface StorybookData {
+  book: Book;
+  chapters: BookChapter[];
+  totalPages: number;
+}
+
+// ============================================
 // Lab Related Types
 // ============================================
 

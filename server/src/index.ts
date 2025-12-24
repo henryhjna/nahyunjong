@@ -16,6 +16,7 @@ import publicationsRouter from './routes/publications';
 import labRouter from './routes/lab';
 import profileRouter from './routes/profile';
 import uploadRouter from './routes/upload';
+import bookStorybookRouter from './routes/bookStorybook';
 
 dotenv.config();
 
@@ -60,7 +61,17 @@ const authLimiter = rateLimit({
 });
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "blob:", "http://localhost:*", "https://*.kyobobook.co.kr", "https://nahyunjong.com", "https://*.nahyunjong.com", "https://nahyunjong.co.kr", "https://*.nahyunjong.co.kr"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+    },
+  },
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+}));
 app.use(generalLimiter); // Apply rate limiting to all routes
 app.use(cors({
   origin: process.env.NODE_ENV === 'production'
@@ -85,6 +96,7 @@ app.use('/api/courses', coursesRouter);
 app.use('/api/lectures', lecturesRouter);
 app.use('/api/news', newsRouter);
 app.use('/api/books', booksRouter);
+app.use('/api/books', bookStorybookRouter);
 app.use('/api/publications', publicationsRouter);
 app.use('/api/lab', labRouter);
 app.use('/api/profile', profileRouter);

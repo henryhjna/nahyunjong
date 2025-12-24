@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
 interface ImageUploadProps {
-  category: 'profile' | 'books' | 'lab-members' | 'lab-batches';
+  category: 'profile' | 'books' | 'lab-members' | 'lab-batches' | 'book-pages';
   currentUrl?: string;
   onUpload: (url: string) => void;
   onDelete?: () => void;

@@ -448,6 +448,12 @@ export default function AdminBooksPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex justify-end gap-2">
+                        <Link
+                          href={`/admin/books/${book.id}/storybook`}
+                          className="text-accent-purple hover:text-accent-purple/80 font-medium transition-colors whitespace-nowrap"
+                        >
+                          Storybook
+                        </Link>
                         <button
                           onClick={() => handleEdit(book)}
                           className="text-accent-blue hover:text-accent-cyan font-medium transition-colors whitespace-nowrap"

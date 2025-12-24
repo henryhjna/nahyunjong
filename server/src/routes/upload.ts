@@ -15,6 +15,7 @@ const categoryDirs: Record<string, string> = {
   'books': 'books',
   'lab-members': 'lab-members',
   'lab-batches': 'lab-batches',
+  'book-pages': 'book-pages',
 };
 
 // multer 스토리지 설정

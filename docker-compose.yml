@@ -51,6 +51,7 @@ services:
       - "7340:7340"
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:7341
+      INTERNAL_API_URL: http://server:7341
     volumes:
       - ./client:/app
       - /app/node_modules

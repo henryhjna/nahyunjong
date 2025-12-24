@@ -149,16 +149,24 @@ export default function BookDetailClient({ id }: BookDetailClientProps) {
                 )}
               </div>
 
-              {book.purchase_url && (
-                <a
-                  href={book.purchase_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium mb-6"
+              <div className="flex flex-wrap gap-3 mb-6">
+                <Link
+                  href={`/book/${id}/storybook`}
+                  className="inline-flex items-center px-6 py-3 bg-accent-blue text-white rounded-lg hover:bg-accent-blue/90 transition-colors font-medium"
                 >
-                  구매하기 →
-                </a>
-              )}
+                  미리보기
+                </Link>
+                {book.purchase_url && (
+                  <a
+                    href={book.purchase_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                  >
+                    구매하기 →
+                  </a>
+                )}
+              </div>
 
               {book.description && (
                 <div className="mt-6">

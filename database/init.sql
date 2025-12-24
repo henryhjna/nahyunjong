@@ -369,6 +369,44 @@ COMMENT ON TABLE professor_education IS 'Professor education history';
 COMMENT ON TABLE professor_career IS 'Professor career history';
 COMMENT ON TABLE professor_awards IS 'Professor awards and honors';
 
+-- Book Chapters Table (Storybook feature)
+CREATE TABLE IF NOT EXISTS book_chapters (
+  id SERIAL PRIMARY KEY,
+  book_id INTEGER REFERENCES books(id) ON DELETE CASCADE,
+  title VARCHAR(255) NOT NULL,
+  cover_image_url TEXT,
+  order_index INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Book Pages Table (Storybook feature)
+CREATE TABLE IF NOT EXISTS book_pages (
+  id SERIAL PRIMARY KEY,
+  chapter_id INTEGER REFERENCES book_chapters(id) ON DELETE CASCADE,
+  image_url TEXT,
+  text_content TEXT,
+  order_index INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Book Storybook indexes
+CREATE INDEX IF NOT EXISTS idx_book_chapters_book_id ON book_chapters(book_id);
+CREATE INDEX IF NOT EXISTS idx_book_chapters_order ON book_chapters(order_index);
+CREATE INDEX IF NOT EXISTS idx_book_pages_chapter_id ON book_pages(chapter_id);
+CREATE INDEX IF NOT EXISTS idx_book_pages_order ON book_pages(order_index);
+
+-- Triggers for book_chapters and book_pages
+CREATE TRIGGER update_book_chapters_updated_at BEFORE UPDATE ON book_chapters
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_book_pages_updated_at BEFORE UPDATE ON book_pages
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+COMMENT ON TABLE book_chapters IS 'Chapters for book storybook preview feature';
+COMMENT ON TABLE book_pages IS 'Pages within book chapters for storybook viewing';
+
 -- Insert default professor profile
 INSERT INTO professor_profile (name, name_en, title, affiliation)
 VALUES ('나현종', 'Hyunjong Na', '회계학과 교수', '홍익대학교')

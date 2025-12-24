@@ -18,6 +18,18 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'nahyunjong.com',
       },
+      {
+        protocol: 'https',
+        hostname: '*.nahyunjong.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'nahyunjong.co.kr',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.nahyunjong.co.kr',
+      },
     ],
   },
 }
