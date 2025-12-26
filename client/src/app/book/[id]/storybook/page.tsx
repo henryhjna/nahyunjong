@@ -105,6 +105,7 @@ export default async function StorybookPage({
     <StorybookReader
       bookId={id}
       bookTitle={data.book.title}
+      bookAuthors={data.book.authors}
       chapters={data.chapters.map(ch => ({
         ...ch,
         book_id: data.book.id,

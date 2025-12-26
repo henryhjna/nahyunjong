@@ -8,11 +8,14 @@ import StorybookProgress from './StorybookProgress';
 import StorybookNav from './StorybookNav';
 import StorybookPage from './StorybookPage';
 import StorybookChapterList from './StorybookChapterList';
+import StorybookCover from './StorybookCover';
+import GeminiBadge from './GeminiBadge';
 import { BookChapter, FlatPage } from '@/lib/types';
 
 interface StorybookReaderProps {
   bookId: string;
   bookTitle: string;
+  bookAuthors?: string;
   chapters: BookChapter[];
   totalPages: number;
 }
@@ -20,10 +23,12 @@ interface StorybookReaderProps {
 export default function StorybookReader({
   bookId,
   bookTitle,
+  bookAuthors,
   chapters,
   totalPages,
 }: StorybookReaderProps) {
   const router = useRouter();
+  const [showCover, setShowCover] = useState(true);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -97,6 +102,7 @@ export default function StorybookReader({
       setCurrentPageIndex(startIndex);
     }
     setIsChapterListOpen(false);
+    setShowCover(false);
   }, [chapterStartIndices, currentPageIndex]);
 
   // Fullscreen handlers
@@ -163,31 +169,48 @@ export default function StorybookReader({
     );
   }
 
+  // Cover screen - chapter selection
+  if (showCover) {
+    return (
+      <StorybookCover
+        bookTitle={bookTitle}
+        authors={bookAuthors}
+        chapters={chapters}
+        onSelectChapter={goToChapter}
+        onClose={() => router.push(`/book/${bookId}`)}
+      />
+    );
+  }
+
   return (
     <div className="fixed inset-0 bg-background flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-30 bg-surface/80 backdrop-blur-sm border-b border-border/50">
         <div className="flex items-center justify-between px-4 py-2">
           <button
-            onClick={() => router.back()}
+            onClick={() => setShowCover(true)}
             className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors p-2 -ml-2"
           >
             <ArrowLeft className="w-5 h-5" />
-            <span className="hidden sm:inline">뒤로</span>
+            <span className="hidden sm:inline">목차</span>
           </button>
 
-          <h1 className="text-base font-medium text-text-primary truncate max-w-[40%]">
-            {bookTitle}
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-base font-medium text-text-primary truncate max-w-[200px] sm:max-w-[300px]">
+              {bookTitle}
+            </h1>
+            <GeminiBadge size="sm" variant="subtle" showText={false} />
+          </div>
 
           <div className="flex items-center gap-1">
             {chapters.length > 1 && (
               <button
                 onClick={() => setIsChapterListOpen(true)}
-                className="p-2 text-text-secondary hover:text-text-primary transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-border rounded-full text-text-secondary hover:text-text-primary hover:border-accent-blue/50 transition-all"
                 aria-label="목차"
               >
-                <List className="w-5 h-5" />
+                <List className="w-4 h-4" />
+                <span className="text-sm font-medium hidden sm:inline">목차</span>
               </button>
             )}
             <button
