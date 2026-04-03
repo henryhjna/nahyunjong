@@ -52,6 +52,8 @@ interface Profile {
   bio: string;
   bio_detail: string;
   research_interests: string[];
+  tagline: string;
+  tagline_en: string;
   education: Education[];
   career: Career[];
   awards: Award[];
@@ -283,7 +285,7 @@ export default function AdminProfilePage() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-12 h-12 rounded-xl bg-gradient-primary animate-pulse" />
+        <div className="w-12 h-12 rounded-xl bg-surface-hover animate-pulse" />
       </div>
     );
   }
@@ -299,10 +301,10 @@ export default function AdminProfilePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="fixed inset-0 bg-gradient-mesh pointer-events-none" />
+
       <Header />
 
-      <main className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-20">
+      <main className="max-w-5xl mx-auto px-6 pt-28 pb-20">
         {/* Header */}
         <motion.div
           className="mb-8"
@@ -364,7 +366,7 @@ export default function AdminProfilePage() {
             onSubmit={handleSaveBasic}
             className="space-y-6"
           >
-            <div className="glass-card p-6 space-y-6">
+            <div className="bg-surface border border-border rounded-xl p-6 space-y-6">
               <h2 className="text-xl font-semibold text-text-primary mb-4">기본 정보</h2>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -423,6 +425,29 @@ export default function AdminProfilePage() {
                 label="프로필 사진"
               />
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">한 문장 소개 (한국어)</label>
+                  <input
+                    type="text"
+                    value={profile.tagline || ''}
+                    onChange={(e) => setProfile({ ...profile, tagline: e.target.value })}
+                    placeholder="예: 기술과 자본의 작동 원리를 연구하고, 만들고, 씁니다."
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">Tagline (English)</label>
+                  <input
+                    type="text"
+                    value={profile.tagline_en || ''}
+                    onChange={(e) => setProfile({ ...profile, tagline_en: e.target.value })}
+                    placeholder="e.g., I research, build, and write about how technology and capital work."
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">간단 소개 (랜딩 페이지용)</label>
                 <textarea
@@ -464,7 +489,7 @@ export default function AdminProfilePage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-accent-cyan to-accent-blue text-white font-medium hover:shadow-glow disabled:opacity-50 transition-all"
+                className="px-6 py-3 rounded-xl bg-accent-blue text-white font-medium hover:bg-accent-blue/90 disabled:opacity-50 transition-all"
               >
                 {saving ? '저장 중...' : '저장'}
               </button>
@@ -482,7 +507,7 @@ export default function AdminProfilePage() {
                   open: true,
                   data: { degree: '', field: '', institution: '', institution_en: '', year_start: null, year_end: null, description: '', sort_order: 0 }
                 })}
-                className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:shadow-glow transition-all"
+                className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:bg-accent-blue/90 transition-all"
               >
                 + 추가
               </button>
@@ -490,7 +515,7 @@ export default function AdminProfilePage() {
 
             <div className="space-y-4">
               {profile?.education?.map((edu) => (
-                <div key={edu.id} className="glass-card p-6 flex items-start justify-between gap-4">
+                <div key={edu.id} className="bg-surface border border-border rounded-xl p-6 flex items-start justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="px-2 py-0.5 rounded-full bg-accent-blue/10 text-accent-blue text-xs font-medium">
@@ -544,7 +569,7 @@ export default function AdminProfilePage() {
                   open: true,
                   data: { position: '', organization: '', organization_en: '', year_start: null, year_end: null, is_current: false, description: '', sort_order: 0 }
                 })}
-                className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:shadow-glow transition-all"
+                className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:bg-accent-blue/90 transition-all"
               >
                 + 추가
               </button>
@@ -552,7 +577,7 @@ export default function AdminProfilePage() {
 
             <div className="space-y-4">
               {profile?.career?.map((career) => (
-                <div key={career.id} className="glass-card p-6 flex items-start justify-between gap-4">
+                <div key={career.id} className="bg-surface border border-border rounded-xl p-6 flex items-start justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       {career.is_current && (
@@ -606,7 +631,7 @@ export default function AdminProfilePage() {
                   open: true,
                   data: { title: '', organization: '', year: null, description: '', sort_order: 0 }
                 })}
-                className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:shadow-glow transition-all"
+                className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:bg-accent-blue/90 transition-all"
               >
                 + 추가
               </button>
@@ -614,7 +639,7 @@ export default function AdminProfilePage() {
 
             <div className="space-y-4">
               {profile?.awards?.map((award) => (
-                <div key={award.id} className="glass-card p-6 flex items-start justify-between gap-4">
+                <div key={award.id} className="bg-surface border border-border rounded-xl p-6 flex items-start justify-between gap-4">
                   <div>
                     <h3 className="font-semibold text-text-primary">{award.title}</h3>
                     <div className="flex items-center gap-2 text-sm text-text-secondary">

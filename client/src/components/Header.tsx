@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useDictionary } from '@/contexts/DictionaryContext';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import type { Locale } from '@/lib/i18n/config';
 
 export function Header() {
   const { user, isAdmin, logout } = useAuth();
@@ -14,10 +16,22 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Dictionary might not be available (e.g., admin pages outside [locale])
+  let dictionary: Record<string, any> | null = null;
+  let locale: Locale = 'ko';
+  try {
+    const ctx = useDictionary();
+    dictionary = ctx.dictionary;
+    locale = ctx.locale;
+  } catch {
+    // Outside DictionaryProvider (admin, login pages)
+  }
+
+  const nav = dictionary?.nav;
+  const otherLocale = locale === 'ko' ? 'en' : 'ko';
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -27,16 +41,23 @@ export function Header() {
     router.push('/');
   };
 
+  // Strip locale prefix to get bare path
+  const barePath = pathname.replace(/^\/(ko|en)/, '') || '/';
+
   const navLinks = [
-    { href: '/about', label: 'About' },
-    { href: '/research', label: 'Research' },
-    { href: '/lab', label: 'Lab' },
-    { href: '/education', label: 'Education' },
-    { href: '/book', label: 'Book' },
-    { href: '/news', label: 'News' },
+    { href: `/${locale}/thoughts`, label: nav?.thoughts ?? 'Thoughts' },
+    { href: `/${locale}/lab`, label: nav?.lab ?? 'Lab' },
+    { href: `/${locale}/research`, label: nav?.research ?? 'Research' },
+    { href: `/${locale}/book`, label: nav?.books ?? 'Books' },
+    { href: `/${locale}/about`, label: nav?.about ?? 'About' },
   ];
 
-  const isActive = (href: string) => pathname.startsWith(href);
+  const isActive = (href: string) => {
+    const hrefBare = href.replace(/^\/(ko|en)/, '');
+    return barePath.startsWith(hrefBare) && hrefBare !== '/';
+  };
+
+  const switchLocalePath = `/${otherLocale}${barePath}`;
 
   return (
     <header
@@ -49,12 +70,9 @@ export function Header() {
       <nav className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link
-            href="/"
-            className="group flex items-center"
-          >
+          <Link href={`/${locale}`} className="group flex items-center">
             <span className="text-lg font-bold text-text-primary group-hover:text-accent-blue transition-colors">
-              나현종 교수 홈페이지
+              {locale === 'ko' ? '나현종' : 'Hyunjong Na'}
             </span>
           </Link>
 
@@ -77,6 +95,17 @@ export function Header() {
               </Link>
             ))}
 
+            {/* Language Switcher */}
+            <Link
+              href={switchLocalePath}
+              className="px-3 py-2 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-all duration-200"
+              onClick={() => {
+                document.cookie = `NEXT_LOCALE=${otherLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
+              }}
+            >
+              {otherLocale === 'en' ? 'EN' : 'KO'}
+            </Link>
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
@@ -85,21 +114,11 @@ export function Header() {
             >
               {theme === 'dark' ? (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               ) : (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               )}
             </button>
@@ -114,40 +133,22 @@ export function Header() {
                   href="/admin"
                   className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-all duration-200"
                 >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  Admin
+                  {nav?.admin ?? 'Admin'}
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="px-4 py-2 rounded-lg text-sm font-medium text-status-error hover:bg-status-error/10 transition-all duration-200"
                 >
-                  로그아웃
+                  {nav?.logout ?? '로그아웃'}
                 </button>
               </div>
             ) : (
-              <Link
-                href="/login"
-                className="btn-ghost text-sm py-2"
-              >
-                로그인
+              <Link href="/login" className="btn-ghost text-sm py-2">
+                {nav?.login ?? '로그인'}
               </Link>
             )}
           </div>
@@ -157,26 +158,11 @@ export function Header() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-all duration-200"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {mobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
@@ -201,6 +187,18 @@ export function Header() {
                 </Link>
               ))}
 
+              {/* Language Switcher - Mobile */}
+              <Link
+                href={switchLocalePath}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  document.cookie = `NEXT_LOCALE=${otherLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
+                }}
+                className="px-4 py-3 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-all duration-200"
+              >
+                {otherLocale === 'en' ? '🌐 English' : '🌐 한국어'}
+              </Link>
+
               {/* Theme Toggle - Mobile */}
               <button
                 onClick={toggleTheme}
@@ -209,26 +207,16 @@ export function Header() {
                 {theme === 'dark' ? (
                   <>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
-                    <span>Light Mode</span>
+                    <span>{dictionary?.common?.lightMode ?? 'Light Mode'}</span>
                   </>
                 ) : (
                   <>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
-                    <span>Dark Mode</span>
+                    <span>{dictionary?.common?.darkMode ?? 'Dark Mode'}</span>
                   </>
                 )}
               </button>
@@ -242,7 +230,7 @@ export function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                     className="px-4 py-3 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-hover transition-all duration-200"
                   >
-                    Admin
+                    {nav?.admin ?? 'Admin'}
                   </Link>
                   <button
                     onClick={() => {
@@ -251,7 +239,7 @@ export function Header() {
                     }}
                     className="px-4 py-3 rounded-lg text-sm font-medium text-left text-status-error hover:bg-status-error/10 transition-all duration-200"
                   >
-                    로그아웃
+                    {nav?.logout ?? '로그아웃'}
                   </button>
                 </>
               ) : (
@@ -260,7 +248,7 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="px-4 py-3 rounded-lg text-sm font-medium text-accent-blue hover:bg-accent-blue/10 transition-all duration-200"
                 >
-                  로그인
+                  {nav?.login ?? '로그인'}
                 </Link>
               )}
             </div>

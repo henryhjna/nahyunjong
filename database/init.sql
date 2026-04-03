@@ -13,61 +13,6 @@ CREATE TABLE IF NOT EXISTS admins (
   updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- Courses Table
-CREATE TABLE IF NOT EXISTS courses (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  description TEXT,
-  code VARCHAR(50),                 -- Course code (e.g., 'BUS3001')
-  semester VARCHAR(50),              -- Semester (e.g., '2025-1')
-  thumbnail_url TEXT,
-  is_published BOOLEAN DEFAULT false,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-
--- Lectures Table
-CREATE TABLE IF NOT EXISTS lectures (
-  id SERIAL PRIMARY KEY,
-  course_id INTEGER REFERENCES courses(id) ON DELETE CASCADE,
-  week INTEGER NOT NULL,             -- Week number
-  title VARCHAR(255) NOT NULL,
-  subtitle VARCHAR(255),
-  mdx_file_path TEXT,                -- Path to MDX file
-  mdx_content TEXT,                  -- Optional: store content in DB
-  order_index INTEGER DEFAULT 0,
-  is_published BOOLEAN DEFAULT false,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-
--- Resources Table (files attached to lectures)
-CREATE TABLE IF NOT EXISTS resources (
-  id SERIAL PRIMARY KEY,
-  lecture_id INTEGER REFERENCES lectures(id) ON DELETE CASCADE,
-  title VARCHAR(255) NOT NULL,
-  description TEXT,
-  file_url TEXT NOT NULL,
-  file_type VARCHAR(50),             -- 'pdf', 'pptx', 'xlsx', etc.
-  file_size BIGINT,                  -- in bytes
-  download_count INTEGER DEFAULT 0,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Quizzes Table
-CREATE TABLE IF NOT EXISTS quizzes (
-  id SERIAL PRIMARY KEY,
-  lecture_id INTEGER REFERENCES lectures(id) ON DELETE CASCADE,
-  question TEXT NOT NULL,
-  type VARCHAR(50) NOT NULL,         -- 'multiple_choice', 'short_answer', 'essay'
-  options JSONB,                     -- For multiple choice: ["A", "B", "C", "D"]
-  correct_answer TEXT,
-  explanation TEXT,
-  points INTEGER DEFAULT 1,
-  order_index INTEGER DEFAULT 0,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
 -- News Table (언론 보도)
 CREATE TABLE IF NOT EXISTS news (
   id SERIAL PRIMARY KEY,
@@ -98,6 +43,8 @@ CREATE TABLE IF NOT EXISTS books (
   description TEXT,
   table_of_contents TEXT,
   purchase_url TEXT,
+  author_note TEXT,
+  author_note_en TEXT,
   is_published BOOLEAN DEFAULT true,
   order_index INTEGER DEFAULT 0,
   created_at TIMESTAMP DEFAULT NOW(),
@@ -157,10 +104,6 @@ CREATE TABLE IF NOT EXISTS lab_members (
 ALTER TABLE news ADD CONSTRAINT fk_news_group FOREIGN KEY (group_id) REFERENCES news(id) ON DELETE SET NULL;
 
 -- Indexes for performance
-CREATE INDEX idx_lectures_course_id ON lectures(course_id);
-CREATE INDEX idx_lectures_week ON lectures(week);
-CREATE INDEX idx_resources_lecture_id ON resources(lecture_id);
-CREATE INDEX idx_quizzes_lecture_id ON quizzes(lecture_id);
 CREATE INDEX idx_news_published_at ON news(published_at DESC);
 CREATE INDEX idx_news_slug ON news(slug);
 CREATE INDEX idx_news_group_id ON news(group_id);
@@ -178,8 +121,6 @@ CREATE INDEX idx_lab_members_order ON lab_members(order_index);
 -- Additional indexes for frequently filtered columns (is_published, is_active)
 CREATE INDEX IF NOT EXISTS idx_admins_email ON admins(email);
 CREATE INDEX IF NOT EXISTS idx_admins_username ON admins(username);
-CREATE INDEX IF NOT EXISTS idx_courses_is_published ON courses(is_published);
-CREATE INDEX IF NOT EXISTS idx_lectures_is_published ON lectures(is_published);
 CREATE INDEX IF NOT EXISTS idx_news_is_published ON news(is_published);
 CREATE INDEX IF NOT EXISTS idx_books_is_published ON books(is_published);
 CREATE INDEX IF NOT EXISTS idx_publications_is_published ON publications(is_published);
@@ -195,12 +136,6 @@ END;
 $$ language 'plpgsql';
 
 CREATE TRIGGER update_admins_updated_at BEFORE UPDATE ON admins
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
-CREATE TRIGGER update_courses_updated_at BEFORE UPDATE ON courses
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
-CREATE TRIGGER update_lectures_updated_at BEFORE UPDATE ON lectures
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER update_news_updated_at BEFORE UPDATE ON news
@@ -225,10 +160,6 @@ VALUES (
 ) ON CONFLICT (email) DO NOTHING;
 
 COMMENT ON TABLE admins IS 'Administrator accounts for managing the platform';
-COMMENT ON TABLE courses IS 'Courses offered by the professor';
-COMMENT ON TABLE lectures IS 'Individual lecture materials within courses';
-COMMENT ON TABLE resources IS 'Downloadable resources attached to lectures';
-COMMENT ON TABLE quizzes IS 'Quiz questions for lectures';
 COMMENT ON TABLE news IS 'Media coverage and press mentions';
 COMMENT ON TABLE books IS 'Published books by the professor';
 COMMENT ON TABLE publications IS 'Academic publications and research papers';
@@ -297,6 +228,8 @@ CREATE TABLE IF NOT EXISTS professor_profile (
   bio TEXT,                             -- 간단한 소개 (랜딩용)
   bio_detail TEXT,                      -- 상세 소개 (About용)
   research_interests TEXT[],            -- 연구 관심사 배열
+  tagline TEXT,                         -- 랜딩 페이지 한 문장
+  tagline_en TEXT,
   updated_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -407,7 +340,35 @@ CREATE TRIGGER update_book_pages_updated_at BEFORE UPDATE ON book_pages
 COMMENT ON TABLE book_chapters IS 'Chapters for book storybook preview feature';
 COMMENT ON TABLE book_pages IS 'Pages within book chapters for storybook viewing';
 
+-- Thoughts Table (에세이, 칼럼, 글)
+CREATE TABLE IF NOT EXISTS thoughts (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(500) NOT NULL,
+  title_en VARCHAR(500),
+  slug VARCHAR(255) UNIQUE NOT NULL,
+  excerpt TEXT,
+  excerpt_en TEXT,
+  content TEXT,
+  content_en TEXT,
+  category VARCHAR(100),
+  cover_image_url TEXT,
+  is_published BOOLEAN DEFAULT false,
+  published_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_thoughts_slug ON thoughts(slug);
+CREATE INDEX IF NOT EXISTS idx_thoughts_published_at ON thoughts(published_at DESC);
+CREATE INDEX IF NOT EXISTS idx_thoughts_is_published ON thoughts(is_published);
+CREATE INDEX IF NOT EXISTS idx_thoughts_category ON thoughts(category);
+
+CREATE TRIGGER update_thoughts_updated_at BEFORE UPDATE ON thoughts
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+COMMENT ON TABLE thoughts IS 'Essays, columns, and writings by the professor';
+
 -- Insert default professor profile
 INSERT INTO professor_profile (name, name_en, title, affiliation)
-VALUES ('나현종', 'Hyunjong Na', '회계학과 교수', '홍익대학교')
+VALUES ('나현종', 'Hyunjong Na', '경영대학 교수', '한양대학교')
 ON CONFLICT DO NOTHING;

@@ -456,7 +456,7 @@ export default function AdminLabPage() {
   if (authLoading || (loadingMembers && loadingProjects)) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-12 h-12 rounded-xl bg-gradient-primary animate-pulse" />
+        <div className="w-12 h-12 rounded-xl bg-surface-hover animate-pulse" />
       </div>
     );
   }
@@ -478,10 +478,10 @@ export default function AdminLabPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="fixed inset-0 bg-gradient-mesh pointer-events-none" />
+
       <Header />
 
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 pb-20">
+      <main className="max-w-5xl mx-auto px-6 pt-28 pb-20">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
             <Link href="/admin" className="text-accent-blue hover:text-accent-cyan text-sm mb-2 inline-block transition-colors">
@@ -543,14 +543,14 @@ export default function AdminLabPage() {
                   resetMemberForm();
                   setShowMemberForm(true);
                 }}
-                className="px-4 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all text-sm"
+                className="px-4 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all text-sm"
               >
                 + 새 구성원 추가
               </button>
             </div>
 
             {showMemberForm && (
-              <div className="mb-8 glass-card p-6">
+              <div className="mb-8 bg-surface border border-border rounded-xl p-6">
                 <h2 className="text-xl font-bold text-text-primary mb-4">
                   {editingMemberId ? '구성원 수정' : '새 구성원 추가'}
                 </h2>
@@ -702,7 +702,7 @@ export default function AdminLabPage() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="px-6 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all disabled:opacity-50"
+                      className="px-6 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all disabled:opacity-50"
                     >
                       {submitting ? '저장 중...' : (editingMemberId ? '수정' : '추가')}
                     </button>
@@ -718,7 +718,7 @@ export default function AdminLabPage() {
               </div>
             )}
 
-            <div className="glass-card overflow-hidden">
+            <div className="bg-surface border border-border rounded-xl overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-surface">
@@ -819,14 +819,14 @@ export default function AdminLabPage() {
                   resetProjectForm();
                   setShowProjectForm(true);
                 }}
-                className="px-4 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all text-sm"
+                className="px-4 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all text-sm"
               >
                 + 새 프로젝트 추가
               </button>
             </div>
 
             {showProjectForm && (
-              <div className="mb-8 glass-card p-6">
+              <div className="mb-8 bg-surface border border-border rounded-xl p-6">
                 <h2 className="text-xl font-bold text-text-primary mb-4">
                   {editingProjectId ? '프로젝트 수정' : '새 프로젝트 추가'}
                 </h2>
@@ -954,7 +954,7 @@ export default function AdminLabPage() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="px-6 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all disabled:opacity-50"
+                      className="px-6 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all disabled:opacity-50"
                     >
                       {submitting ? '저장 중...' : (editingProjectId ? '수정' : '추가')}
                     </button>
@@ -971,13 +971,13 @@ export default function AdminLabPage() {
             )}
 
             {sortedBatches.length === 0 ? (
-              <div className="glass-card p-12 text-center text-text-tertiary">
+              <div className="bg-surface border border-border rounded-xl p-12 text-center text-text-tertiary">
                 등록된 프로젝트가 없습니다.
               </div>
             ) : (
               <div className="space-y-6">
                 {sortedBatches.map(batch => (
-                  <div key={batch} className="glass-card overflow-hidden">
+                  <div key={batch} className="bg-surface border border-border rounded-xl overflow-hidden">
                     <div className="bg-surface px-6 py-3 border-b border-border">
                       <h3 className="font-bold text-text-primary">{batch}기 프로젝트</h3>
                     </div>
@@ -1056,14 +1056,14 @@ export default function AdminLabPage() {
                   resetBatchMetaForm();
                   setShowBatchMetaForm(true);
                 }}
-                className="px-4 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all text-sm"
+                className="px-4 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all text-sm"
               >
                 + 새 기수 메타 추가
               </button>
             </div>
 
             {showBatchMetaForm && (
-              <div className="mb-8 glass-card p-6">
+              <div className="mb-8 bg-surface border border-border rounded-xl p-6">
                 <h2 className="text-xl font-bold text-text-primary mb-4">
                   {editingBatchId ? '기수 메타 수정' : '새 기수 메타 추가'}
                 </h2>
@@ -1125,7 +1125,7 @@ export default function AdminLabPage() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="px-6 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all disabled:opacity-50"
+                      className="px-6 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all disabled:opacity-50"
                     >
                       {submitting ? '저장 중...' : (editingBatchId ? '수정' : '추가')}
                     </button>
@@ -1146,11 +1146,11 @@ export default function AdminLabPage() {
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-blue"></div>
               </div>
             ) : batchMetas.length === 0 ? (
-              <div className="glass-card p-12 text-center text-text-tertiary">
+              <div className="bg-surface border border-border rounded-xl p-12 text-center text-text-tertiary">
                 등록된 기수 메타 정보가 없습니다.
               </div>
             ) : (
-              <div className="glass-card overflow-hidden">
+              <div className="bg-surface border border-border rounded-xl overflow-hidden">
                 <table className="w-full">
                   <thead className="bg-surface">
                     <tr>

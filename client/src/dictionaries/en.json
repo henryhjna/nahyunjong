@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "thoughts": "Thoughts",
+    "lab": "Lab",
+    "research": "Research",
+    "books": "Books",
+    "about": "About",
+    "login": "Login",
+    "logout": "Logout",
+    "admin": "Admin"
+  },
+  "landing": {
+    "explore": "Explore",
+    "viewProfile": "View Profile",
+    "researchInterests": "Research Interests"
+  },
+  "thoughts": {
+    "title": "Thoughts",
+    "subtitle": "Essays, columns, and fragments of thought",
+    "readMore": "Read more",
+    "empty": "No posts yet.",
+    "allCategories": "All",
+    "publishedAt": "Published"
+  },
+  "lab": {
+    "title": "Lab",
+    "subtitle": "Lab for AI and Business Application",
+    "visitLaba": "Visit LABA",
+    "description": "We research the application of AI, big data, and robotics to business."
+  },
+  "research": {
+    "title": "Research",
+    "subtitle": "Academic publications and research projects",
+    "filterByYear": "Year",
+    "filterByTier": "Tier",
+    "filterByType": "Type",
+    "filterByCategory": "Category",
+    "all": "All",
+    "paper": "Paper",
+    "report": "Report",
+    "noResults": "No publications match the selected criteria."
+  },
+  "books": {
+    "title": "Books",
+    "subtitle": "Published works",
+    "authorNote": "Author's Note",
+    "purchaseLink": "Purchase",
+    "tableOfContents": "Table of Contents",
+    "noBooks": "No books available."
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "Background and activities",
+    "education": "Education",
+    "career": "Career",
+    "awards": "Awards",
+    "news": "Press Coverage",
+    "viewArticle": "View Article",
+    "noInfo": "No information available."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred.",
+    "backToHome": "Back to Home",
+    "notFound": "Page not found.",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode"
+  },
+  "footer": {
+    "copyright": "© 2025"
+  }
+}

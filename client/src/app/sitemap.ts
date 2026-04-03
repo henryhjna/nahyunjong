@@ -1,91 +1,91 @@
 import { MetadataRoute } from 'next';
+import { locales } from '@/lib/i18n/config';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nahyunjong.com';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7341';
 
-  // 정적 페이지
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/research`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/lab`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/education`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/book`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/news`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.6,
-    },
+  const staticPaths = [
+    { path: '', priority: 1.0, changeFrequency: 'monthly' as const },
+    { path: '/thoughts', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/lab', priority: 0.8, changeFrequency: 'monthly' as const },
+    { path: '/research', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/book', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/about', priority: 0.8, changeFrequency: 'monthly' as const },
   ];
 
-  // 동적 페이지 - books
+  const pages: MetadataRoute.Sitemap = [];
+
+  // Static pages for each locale
+  for (const locale of locales) {
+    for (const { path, priority, changeFrequency } of staticPaths) {
+      pages.push({
+        url: `${baseUrl}/${locale}${path}`,
+        lastModified: new Date(),
+        changeFrequency,
+        priority,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}${path}`])
+          ),
+        },
+      });
+    }
+  }
+
+  // Dynamic pages - books
   try {
-    const booksRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7341'}/api/books`, {
-      next: { revalidate: 3600 },
-    });
+    const booksRes = await fetch(`${apiUrl}/api/books`, { next: { revalidate: 3600 } });
     if (booksRes.ok) {
       const books = await booksRes.json();
-      const bookPages: MetadataRoute.Sitemap = books.map((book: { id: number; updated_at?: string }) => ({
-        url: `${baseUrl}/book/${book.id}`,
-        lastModified: book.updated_at ? new Date(book.updated_at) : new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-      }));
-      staticPages.push(...bookPages);
+      for (const book of books) {
+        for (const locale of locales) {
+          pages.push({
+            url: `${baseUrl}/${locale}/book/${book.id}`,
+            lastModified: book.updated_at ? new Date(book.updated_at) : new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.6,
+          });
+        }
+      }
     }
-  } catch {
-    // API 호출 실패 시 무시
-  }
+  } catch {}
 
-  // 동적 페이지 - news
+  // Dynamic pages - news
   try {
-    const newsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7341'}/api/news`, {
-      next: { revalidate: 3600 },
-    });
+    const newsRes = await fetch(`${apiUrl}/api/news`, { next: { revalidate: 3600 } });
     if (newsRes.ok) {
       const news = await newsRes.json();
-      const newsPages: MetadataRoute.Sitemap = news.map((item: { slug: string; updated_at?: string }) => ({
-        url: `${baseUrl}/news/${item.slug}`,
-        lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.5,
-      }));
-      staticPages.push(...newsPages);
+      for (const item of news) {
+        for (const locale of locales) {
+          pages.push({
+            url: `${baseUrl}/${locale}/news/${item.slug}`,
+            lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.5,
+          });
+        }
+      }
     }
-  } catch {
-    // API 호출 실패 시 무시
-  }
+  } catch {}
 
-  return staticPages;
+  // Dynamic pages - thoughts
+  try {
+    const thoughtsRes = await fetch(`${apiUrl}/api/thoughts`, { next: { revalidate: 3600 } });
+    if (thoughtsRes.ok) {
+      const thoughts = await thoughtsRes.json();
+      for (const thought of thoughts) {
+        for (const locale of locales) {
+          pages.push({
+            url: `${baseUrl}/${locale}/thoughts/${thought.slug}`,
+            lastModified: thought.updated_at ? new Date(thought.updated_at) : new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+          });
+        }
+      }
+    }
+  } catch {}
+
+  return pages;
 }

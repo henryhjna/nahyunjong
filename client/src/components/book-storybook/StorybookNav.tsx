@@ -108,7 +108,7 @@ export default function StorybookNav({
     rounded-full shadow-lg
     text-text-primary
     transition-all duration-200
-    hover:bg-surface hover:shadow-glow hover:scale-105
+    hover:bg-surface hover:scale-105
     disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none
     active:scale-95
   `;

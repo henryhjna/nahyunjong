@@ -11,32 +11,29 @@ export type OgImageType =
   | 'default'
   | 'profile'
   | 'research'
-  | 'education'
   | 'lab'
   | 'book'
   | 'news'
-  | 'unfold-story';
+  | 'thoughts';
 
 const gradients: Record<OgImageType, string> = {
   default: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)',
   profile: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%)',
   research: 'linear-gradient(135deg, #581c87 0%, #7c3aed 50%, #a78bfa 100%)',
-  education: 'linear-gradient(135deg, #0e7490 0%, #0891b2 50%, #22d3ee 100%)',
   lab: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 50%, #3b82f6 100%)',
   book: 'linear-gradient(135deg, #9a3412 0%, #ea580c 50%, #fb923c 100%)',
   news: 'linear-gradient(135deg, #166534 0%, #16a34a 50%, #4ade80 100%)',
-  'unfold-story': 'linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #f87171 100%)',
+  thoughts: 'linear-gradient(135deg, #0f766e 0%, #14b8a6 50%, #5eead4 100%)',
 };
 
 const icons: Record<OgImageType, string> = {
   default: 'HN',
   profile: '👤',
   research: '📄',
-  education: '📚',
   lab: '🔬',
   book: '📖',
   news: '📰',
-  'unfold-story': '📊',
+  thoughts: '✍️',
 };
 
 interface OgImageParams {
@@ -194,11 +191,10 @@ export function generateOgImageAlt(title: string, type: OgImageType = 'default')
     default: '',
     profile: '프로필',
     research: '연구',
-    education: '교육',
     lab: '연구실',
     book: '도서',
     news: '뉴스',
-    'unfold-story': '언폴드스토리',
+    thoughts: '생각',
   };
 
   const label = typeLabels[type];

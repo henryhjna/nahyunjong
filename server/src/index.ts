@@ -7,8 +7,6 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import { pool, testConnection } from './config/database';
 import path from 'path';
-import coursesRouter from './routes/courses';
-import lecturesRouter from './routes/lectures';
 import authRouter from './routes/auth';
 import newsRouter from './routes/news';
 import booksRouter from './routes/books';
@@ -17,6 +15,7 @@ import labRouter from './routes/lab';
 import profileRouter from './routes/profile';
 import uploadRouter from './routes/upload';
 import bookStorybookRouter from './routes/bookStorybook';
+import thoughtsRouter from './routes/thoughts';
 
 dotenv.config();
 
@@ -92,8 +91,6 @@ app.get('/health', (req: Request, res: Response) => {
 // API Routes
 app.use('/api/auth/login', authLimiter); // Stricter rate limit for login
 app.use('/api/auth', authRouter);
-app.use('/api/courses', coursesRouter);
-app.use('/api/lectures', lecturesRouter);
 app.use('/api/news', newsRouter);
 app.use('/api/books', bookStorybookRouter);
 app.use('/api/books', booksRouter);
@@ -101,6 +98,7 @@ app.use('/api/publications', publicationsRouter);
 app.use('/api/lab', labRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/upload', uploadRouter);
+app.use('/api/thoughts', thoughtsRouter);
 
 // 업로드된 파일 정적 서빙
 const uploadDir = process.env.UPLOAD_DIR || '/app/uploads';

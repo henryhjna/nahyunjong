@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import type { Locale } from '@/lib/i18n/config';
 
 // 사이트 기본 정보
 export const siteConfig = {
@@ -13,7 +14,7 @@ export const siteConfig = {
   jobTitle: '교수',
   lab: {
     name: 'LABA',
-    fullName: 'Lab for Accounting Big data and Artificial intelligence',
+    fullName: 'Lab for AI and Business Application',
   },
   researchAreas: ['재무회계', '공시', '인공지능', '머신러닝', '투자', '가치평가'],
   orcid: '0000-0002-6475-128X',
@@ -35,82 +36,54 @@ export const siteConfig = {
   ],
 };
 
-// 기본 메타데이터 생성
-export function generateBaseMetadata(overrides?: Partial<Metadata>): Metadata {
-  return {
-    metadataBase: new URL(siteConfig.url),
-    title: {
-      default: siteConfig.title,
-      template: `%s | ${siteConfig.name}`,
-    },
-    description: siteConfig.description,
-    keywords: siteConfig.keywords,
-    authors: [{ name: siteConfig.name }],
-    creator: siteConfig.name,
-    openGraph: {
-      type: 'website',
-      locale: siteConfig.locale,
-      url: siteConfig.url,
-      siteName: `${siteConfig.name} | 한양대학교`,
-      title: siteConfig.title,
-      description: siteConfig.description,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: siteConfig.title,
-      description: siteConfig.description,
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-    alternates: {
-      canonical: siteConfig.url,
-    },
-    ...overrides,
-  };
-}
-
 // 페이지별 메타데이터 생성 헬퍼
 export function generatePageMetadata({
   title,
+  titleEn,
   description,
+  descriptionEn,
   path,
+  locale = 'ko',
   ogType = 'website',
   keywords = [],
 }: {
   title: string;
+  titleEn?: string;
   description: string;
+  descriptionEn?: string;
   path: string;
+  locale?: Locale;
   ogType?: 'website' | 'article' | 'book' | 'profile';
   keywords?: string[];
 }): Metadata {
-  const url = `${siteConfig.url}${path}`;
+  const isKo = locale === 'ko';
+  const displayTitle = isKo ? title : (titleEn || title);
+  const displayDescription = isKo ? description : (descriptionEn || description);
+  const displayName = isKo ? siteConfig.name : siteConfig.nameEn;
+  const url = `${siteConfig.url}/${locale}${path}`;
 
   return {
-    title,
-    description,
+    title: displayTitle,
+    description: displayDescription,
     keywords: [...siteConfig.keywords, ...keywords],
     openGraph: {
       type: ogType,
       url,
-      title: `${title} | ${siteConfig.name}`,
-      description,
+      locale: isKo ? 'ko_KR' : 'en_US',
+      title: `${displayTitle} | ${displayName}`,
+      description: displayDescription,
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} | ${siteConfig.name}`,
-      description,
+      title: `${displayTitle} | ${displayName}`,
+      description: displayDescription,
     },
     alternates: {
       canonical: url,
+      languages: {
+        ko: `${siteConfig.url}/ko${path}`,
+        en: `${siteConfig.url}/en${path}`,
+      },
     },
   };
 }

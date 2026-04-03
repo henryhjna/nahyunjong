@@ -19,6 +19,8 @@ const initialForm: BookForm = {
   description: '',
   table_of_contents: '',
   purchase_url: '',
+  author_note: '',
+  author_note_en: '',
   is_published: true,
   order_index: 0
 };
@@ -114,6 +116,8 @@ export default function AdminBooksPage() {
       description: book.description || '',
       table_of_contents: book.table_of_contents || '',
       purchase_url: book.purchase_url || '',
+      author_note: book.author_note || '',
+      author_note_en: book.author_note_en || '',
       is_published: book.is_published,
       order_index: book.order_index
     });
@@ -170,7 +174,7 @@ export default function AdminBooksPage() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-12 h-12 rounded-xl bg-gradient-primary animate-pulse" />
+        <div className="w-12 h-12 rounded-xl bg-surface-hover animate-pulse" />
       </div>
     );
   }
@@ -179,10 +183,9 @@ export default function AdminBooksPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="fixed inset-0 bg-gradient-mesh pointer-events-none" />
       <Header />
 
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 pb-20">
+      <main className="max-w-5xl mx-auto px-6 pt-28 pb-20">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
             <Link href="/admin" className="text-accent-blue hover:text-accent-cyan text-sm mb-2 inline-block transition-colors">
@@ -195,7 +198,7 @@ export default function AdminBooksPage() {
               resetForm();
               setShowForm(true);
             }}
-            className="px-4 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all text-sm sm:text-base whitespace-nowrap"
+            className="px-4 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all text-sm sm:text-base whitespace-nowrap"
           >
             + 새 도서 추가
           </button>
@@ -209,7 +212,7 @@ export default function AdminBooksPage() {
         )}
 
         {showForm && (
-          <div className="mb-8 glass-card p-6">
+          <div className="mb-8 bg-surface border border-border rounded-xl p-6">
             <h2 className="text-xl font-bold text-text-primary mb-4">
               {editingId ? '도서 수정' : '새 도서 추가'}
             </h2>
@@ -328,6 +331,29 @@ export default function AdminBooksPage() {
                 />
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">저자의 말 (한국어)</label>
+                  <textarea
+                    value={form.author_note || ''}
+                    onChange={(e) => setForm({ ...form, author_note: e.target.value })}
+                    rows={2}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
+                    placeholder="왜 이 책을 썼는가"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">Author's Note (English)</label>
+                  <textarea
+                    value={form.author_note_en || ''}
+                    onChange={(e) => setForm({ ...form, author_note_en: e.target.value })}
+                    rows={2}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
+                    placeholder="Why I wrote this book"
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1">
                   책 소개
@@ -378,7 +404,7 @@ export default function AdminBooksPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all disabled:opacity-50"
+                  className="px-6 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all disabled:opacity-50"
                 >
                   {submitting ? '저장 중...' : (editingId ? '수정' : '추가')}
                 </button>
@@ -387,7 +413,7 @@ export default function AdminBooksPage() {
           </div>
         )}
 
-        <div className="glass-card overflow-hidden">
+        <div className="bg-surface border border-border rounded-xl overflow-hidden">
           <table className="w-full">
             <thead className="bg-surface">
               <tr>

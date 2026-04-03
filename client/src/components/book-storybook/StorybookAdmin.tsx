@@ -299,7 +299,7 @@ export default function StorybookAdmin({ bookId, bookTitle }: StorybookAdminProp
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              className="glass-card p-4"
+              className="bg-surface border border-border rounded-xl p-4"
             >
               <div className="flex gap-3">
                 <input
@@ -349,7 +349,7 @@ export default function StorybookAdmin({ bookId, bookTitle }: StorybookAdminProp
             <motion.div
               key={chapter.id}
               variants={itemVariants}
-              className="glass-card overflow-hidden"
+              className="bg-surface border border-border rounded-xl overflow-hidden"
             >
               {/* Chapter header */}
               <div className="flex items-center gap-3 p-4 border-b border-border/50">

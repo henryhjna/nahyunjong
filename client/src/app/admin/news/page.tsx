@@ -268,7 +268,7 @@ export default function AdminNewsPage() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-12 h-12 rounded-xl bg-gradient-primary animate-pulse" />
+        <div className="w-12 h-12 rounded-xl bg-surface-hover animate-pulse" />
       </div>
     );
   }
@@ -277,10 +277,9 @@ export default function AdminNewsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="fixed inset-0 bg-gradient-mesh pointer-events-none" />
       <Header />
 
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 pb-20">
+      <main className="max-w-5xl mx-auto px-6 pt-28 pb-20">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
             <Link href="/admin" className="text-accent-blue hover:text-accent-cyan text-sm mb-2 inline-block transition-colors">
@@ -293,7 +292,7 @@ export default function AdminNewsPage() {
               resetForm();
               setShowForm(true);
             }}
-            className="px-4 py-2 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all text-sm sm:text-base whitespace-nowrap"
+            className="px-4 py-2 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all text-sm sm:text-base whitespace-nowrap"
           >
             + 새 뉴스 추가
           </button>
@@ -307,7 +306,7 @@ export default function AdminNewsPage() {
         )}
 
         {showForm && (
-          <div className="mb-8 glass-card p-6">
+          <div className="mb-8 bg-surface border border-border rounded-xl p-6">
             <h2 className="text-xl font-bold text-text-primary mb-4">
               {editingId ? '뉴스 수정' : '새 뉴스 추가'}
             </h2>
@@ -329,7 +328,7 @@ export default function AdminNewsPage() {
                   type="button"
                   onClick={fetchOgTags}
                   disabled={fetchingOg || !ogUrl}
-                  className="px-4 py-3 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all disabled:opacity-50 whitespace-nowrap"
+                  className="px-4 py-3 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all disabled:opacity-50 whitespace-nowrap"
                 >
                   {fetchingOg ? '추출 중...' : '추출'}
                 </button>
@@ -444,7 +443,7 @@ export default function AdminNewsPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-3 bg-gradient-primary text-white rounded-xl hover:shadow-glow transition-all disabled:opacity-50"
+                  className="px-6 py-3 bg-accent-blue text-white rounded-xl hover:bg-accent-blue/90 transition-all disabled:opacity-50"
                 >
                   {submitting ? '저장 중...' : (editingId ? '수정' : '추가')}
                 </button>
@@ -460,7 +459,7 @@ export default function AdminNewsPage() {
           </div>
         )}
 
-        <div className="glass-card overflow-hidden overflow-x-auto">
+        <div className="bg-surface border border-border rounded-xl overflow-hidden overflow-x-auto">
           <table className="w-full min-w-[900px]">
             <thead className="bg-surface">
               <tr>
@@ -570,7 +569,7 @@ export default function AdminNewsPage() {
       {/* Group Selection Modal */}
       {showGroupModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="glass-card p-6 max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto">
+          <div className="bg-surface border border-border rounded-xl p-6 max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto">
             <h3 className="text-lg font-bold text-text-primary mb-4">그룹 지정</h3>
             <p className="text-sm text-text-secondary mb-4">
               이 뉴스를 어떤 대표 뉴스의 그룹에 넣을지 선택하세요.

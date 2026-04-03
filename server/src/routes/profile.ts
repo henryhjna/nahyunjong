@@ -52,7 +52,7 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/basic', async (req: Request, res: Response) => {
   try {
     const result = await query(
-      'SELECT id, name, name_en, title, affiliation, email, photo_url, bio, research_interests FROM professor_profile ORDER BY id LIMIT 1'
+      'SELECT id, name, name_en, title, affiliation, email, photo_url, bio, research_interests, tagline, tagline_en FROM professor_profile ORDER BY id LIMIT 1'
     );
 
     if (result.rows.length === 0) {
@@ -70,7 +70,7 @@ router.get('/basic', async (req: Request, res: Response) => {
 router.put('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const {
-      name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests
+      name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests, tagline, tagline_en
     } = req.body;
 
     // Get existing profile id
@@ -79,10 +79,10 @@ router.put('/', requireAuth, async (req: AuthRequest, res: Response) => {
     if (existingProfile.rows.length === 0) {
       // Create new profile if none exists
       const result = await query(
-        `INSERT INTO professor_profile (name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        `INSERT INTO professor_profile (name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests, tagline, tagline_en)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
          RETURNING *`,
-        [name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests || []]
+        [name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests || [], tagline, tagline_en]
       );
       return res.json(result.rows[0]);
     }
@@ -99,10 +99,12 @@ router.put('/', requireAuth, async (req: AuthRequest, res: Response) => {
            bio = $7,
            bio_detail = $8,
            research_interests = COALESCE($9, research_interests),
+           tagline = $10,
+           tagline_en = $11,
            updated_at = NOW()
-       WHERE id = $10
+       WHERE id = $12
        RETURNING *`,
-      [name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests, profileId]
+      [name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests, tagline, tagline_en, profileId]
     );
 
     res.json(result.rows[0]);

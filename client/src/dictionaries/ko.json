@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "thoughts": "생각",
+    "lab": "랩",
+    "research": "연구",
+    "books": "책",
+    "about": "소개",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "admin": "관리"
+  },
+  "landing": {
+    "explore": "보기",
+    "viewProfile": "소개 보기",
+    "researchInterests": "연구 관심사"
+  },
+  "thoughts": {
+    "title": "생각",
+    "subtitle": "에세이, 칼럼, 그리고 생각의 조각들",
+    "readMore": "더 읽기",
+    "empty": "아직 글이 없습니다.",
+    "allCategories": "전체",
+    "publishedAt": "발행일"
+  },
+  "lab": {
+    "title": "랩",
+    "subtitle": "Lab for AI and Business Application",
+    "visitLaba": "LABA 사이트 방문",
+    "description": "AI·빅데이터·로보틱스를 비즈니스에 적용하는 연구를 수행합니다."
+  },
+  "research": {
+    "title": "연구",
+    "subtitle": "학술 논문 및 연구 프로젝트",
+    "filterByYear": "연도",
+    "filterByTier": "등급",
+    "filterByType": "유형",
+    "filterByCategory": "분야",
+    "all": "전체",
+    "paper": "논문",
+    "report": "보고서",
+    "noResults": "해당 조건의 논문이 없습니다."
+  },
+  "books": {
+    "title": "책",
+    "subtitle": "저서 목록",
+    "authorNote": "저자의 말",
+    "purchaseLink": "구매하기",
+    "tableOfContents": "목차",
+    "noBooks": "등록된 도서가 없습니다."
+  },
+  "about": {
+    "title": "소개",
+    "subtitle": "이력과 활동",
+    "education": "학력",
+    "career": "경력",
+    "awards": "수상",
+    "news": "언론 보도",
+    "viewArticle": "기사 보기",
+    "noInfo": "등록된 정보가 없습니다."
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다.",
+    "backToHome": "홈으로",
+    "notFound": "페이지를 찾을 수 없습니다.",
+    "lightMode": "라이트 모드",
+    "darkMode": "다크 모드"
+  },
+  "footer": {
+    "copyright": "© 2025"
+  }
+}

@@ -118,6 +118,8 @@ export interface Book {
   description: string | null;
   table_of_contents: string | null;
   purchase_url: string | null;
+  author_note: string | null;
+  author_note_en: string | null;
   is_published: boolean;
   order_index: number;
   created_at: string;
@@ -135,6 +137,8 @@ export interface BookForm {
   description: string;
   table_of_contents: string;
   purchase_url: string;
+  author_note: string;
+  author_note_en: string;
   is_published: boolean;
   order_index: number;
 }
@@ -274,6 +278,41 @@ export interface NewsForm {
   image_url: string;
   published_at: string;
   is_published: boolean;
+}
+
+// ============================================
+// Thought Related Types
+// ============================================
+
+export interface Thought {
+  id: number;
+  title: string;
+  title_en: string | null;
+  slug: string;
+  excerpt: string | null;
+  excerpt_en: string | null;
+  content: string | null;
+  content_en: string | null;
+  category: string | null;
+  cover_image_url: string | null;
+  is_published: boolean;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ThoughtForm {
+  title: string;
+  title_en: string;
+  slug: string;
+  excerpt: string;
+  excerpt_en: string;
+  content: string;
+  content_en: string;
+  category: string;
+  cover_image_url: string;
+  is_published: boolean;
+  published_at: string;
 }
 
 // ============================================
