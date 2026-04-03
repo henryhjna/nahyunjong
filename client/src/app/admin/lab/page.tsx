@@ -62,11 +62,11 @@ const initialBatchMetaForm: BatchMetaForm = {
 };
 
 const defaultLinkTypes = [
-  { value: 'website', label: 'Website' },
+  { value: 'website', label: '웹사이트' },
   { value: 'youtube', label: 'YouTube' },
   { value: 'github', label: 'GitHub' },
-  { value: 'paper', label: 'Paper/논문' },
-  { value: 'presentation', label: 'Presentation' },
+  { value: 'paper', label: '논문' },
+  { value: 'presentation', label: '발표자료' },
   { value: 'other', label: '기타' }
 ];
 
@@ -485,9 +485,9 @@ export default function AdminLabPage() {
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
             <Link href="/admin" className="text-accent-blue hover:text-accent-cyan text-sm mb-2 inline-block transition-colors">
-              ← Admin Dashboard
+              ← 대시보드
             </Link>
-            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">Lab Management</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">연구실 관리</h1>
           </div>
         </div>
 
@@ -736,7 +736,7 @@ export default function AdminLabPage() {
                         상태
                       </th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-text-secondary uppercase tracking-wider w-24 whitespace-nowrap">
-                        Actions
+                        관리
                       </th>
                     </tr>
                   </thead>
@@ -1167,7 +1167,7 @@ export default function AdminLabPage() {
                         설명
                       </th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-text-secondary uppercase tracking-wider w-24 whitespace-nowrap">
-                        Actions
+                        관리
                       </th>
                     </tr>
                   </thead>

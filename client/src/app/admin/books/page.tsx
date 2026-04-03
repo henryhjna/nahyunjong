@@ -189,9 +189,9 @@ export default function AdminBooksPage() {
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
             <Link href="/admin" className="text-accent-blue hover:text-accent-cyan text-sm mb-2 inline-block transition-colors">
-              ← Admin Dashboard
+              ← 대시보드
             </Link>
-            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">Books Management</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">도서 관리</h1>
           </div>
           <button
             onClick={() => {
@@ -343,13 +343,13 @@ export default function AdminBooksPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-1">Author's Note (English)</label>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">저자의 말 (영문)</label>
                   <textarea
                     value={form.author_note_en || ''}
                     onChange={(e) => setForm({ ...form, author_note_en: e.target.value })}
                     rows={2}
                     className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
-                    placeholder="Why I wrote this book"
+                    placeholder="왜 이 책을 썼는가 (영문)"
                   />
                 </div>
               </div>
@@ -430,7 +430,7 @@ export default function AdminBooksPage() {
                   상태
                 </th>
                 <th className="px-6 py-4 text-right text-xs font-medium text-text-secondary uppercase tracking-wider w-24 whitespace-nowrap">
-                  Actions
+                  관리
                 </th>
               </tr>
             </thead>
@@ -478,7 +478,7 @@ export default function AdminBooksPage() {
                           href={`/admin/books/${book.id}/storybook`}
                           className="text-accent-purple hover:text-accent-purple/80 font-medium transition-colors whitespace-nowrap"
                         >
-                          Storybook
+                          미리보기
                         </Link>
                         <button
                           onClick={() => handleEdit(book)}

@@ -217,9 +217,9 @@ export default function AdminPublicationsPage() {
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
           <div>
             <Link href="/admin" className="text-accent-blue hover:text-accent-cyan text-sm mb-2 inline-block transition-colors">
-              ← Admin Dashboard
+              ← 대시보드
             </Link>
-            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">Publications Management</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">논문 관리</h1>
           </div>
           <button
             onClick={() => {
@@ -575,7 +575,7 @@ export default function AdminPublicationsPage() {
                   상태
                 </th>
                 <th className="px-4 py-3 text-right text-xs font-medium text-text-secondary uppercase tracking-wider w-24 whitespace-nowrap">
-                  Actions
+                  관리
                 </th>
               </tr>
             </thead>

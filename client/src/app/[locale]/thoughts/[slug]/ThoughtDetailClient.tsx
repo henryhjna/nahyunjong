@@ -32,6 +32,12 @@ export default function ThoughtDetailClient({ slug }: { slug: string }) {
   const getContent = () =>
     locale === 'en' && thought?.content_en ? thought.content_en : thought?.content;
 
+  const getCategory = () =>
+    locale === 'en' && thought?.category_en ? thought.category_en : thought?.category;
+
+  const getSubcategory = () =>
+    locale === 'en' && thought?.subcategory_en ? thought.subcategory_en : thought?.subcategory;
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -67,11 +73,11 @@ export default function ThoughtDetailClient({ slug }: { slug: string }) {
             <header className="mb-8">
               {(thought.category || thought.subcategory) && (
                 <div className="flex items-center gap-2 mb-3 text-sm">
-                  {thought.category && <span className="text-accent-blue">{thought.category}</span>}
+                  {thought.category && <span className="text-accent-blue">{getCategory()}</span>}
                   {thought.subcategory && (
                     <>
                       <span className="text-text-tertiary">·</span>
-                      <span className="text-text-tertiary">{thought.subcategory}</span>
+                      <span className="text-text-tertiary">{getSubcategory()}</span>
                     </>
                   )}
                 </div>

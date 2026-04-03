@@ -19,7 +19,9 @@ const initialForm: ThoughtForm = {
   content: '',
   content_en: '',
   category: '',
+  category_en: '',
   subcategory: '',
+  subcategory_en: '',
   cover_image_url: '',
   is_published: false,
   published_at: new Date().toISOString().split('T')[0],
@@ -102,7 +104,9 @@ export default function AdminThoughtsPage() {
       content: thought.content || '',
       content_en: thought.content_en || '',
       category: thought.category || '',
+      category_en: thought.category_en || '',
       subcategory: thought.subcategory || '',
+      subcategory_en: thought.subcategory_en || '',
       cover_image_url: thought.cover_image_url || '',
       is_published: thought.is_published,
       published_at: thought.published_at ? thought.published_at.split('T')[0] : '',
@@ -202,12 +206,35 @@ export default function AdminThoughtsPage() {
                 />
               </div>
               <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">대분류 영문</label>
+                <input
+                  type="text"
+                  value={form.category_en}
+                  onChange={(e) => setForm({ ...form, category_en: e.target.value })}
+                  placeholder="Series, Essay, Column..."
+                  className="input-field w-full"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1">중분류 (시리즈명)</label>
                 <input
                   type="text"
                   value={form.subcategory}
                   onChange={(e) => setForm({ ...form, subcategory: e.target.value })}
                   placeholder="AI시대, 대학교육은 어디로 가나"
+                  className="input-field w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">중분류 영문</label>
+                <input
+                  type="text"
+                  value={form.subcategory_en}
+                  onChange={(e) => setForm({ ...form, subcategory_en: e.target.value })}
+                  placeholder="AI Era: Where is University Education Going?"
                   className="input-field w-full"
                 />
               </div>

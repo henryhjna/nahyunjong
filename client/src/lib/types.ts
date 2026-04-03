@@ -294,7 +294,9 @@ export interface Thought {
   content: string | null;
   content_en: string | null;
   category: string | null;
+  category_en: string | null;
   subcategory: string | null;
+  subcategory_en: string | null;
   cover_image_url: string | null;
   is_published: boolean;
   published_at: string | null;
@@ -311,7 +313,9 @@ export interface ThoughtForm {
   content: string;
   content_en: string;
   category: string;
+  category_en: string;
   subcategory: string;
+  subcategory_en: string;
   cover_image_url: string;
   is_published: boolean;
   published_at: string;

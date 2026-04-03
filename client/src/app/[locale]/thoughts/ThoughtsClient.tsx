@@ -41,6 +41,18 @@ export default function ThoughtsClient() {
       )) as string[])
     : [];
 
+  // Build locale-aware label maps for filter buttons
+  const categoryLabelMap: Record<string, string> = {};
+  for (const cat of categories) {
+    const sample = allThoughts.find((t) => t.category === cat);
+    categoryLabelMap[cat] = sample ? getCategory(sample) || cat : cat;
+  }
+  const subcategoryLabelMap: Record<string, string> = {};
+  for (const sub of subcategories) {
+    const sample = allThoughts.find((t) => t.subcategory === sub);
+    subcategoryLabelMap[sub] = sample ? getSubcategory(sample) || sub : sub;
+  }
+
   // Filter thoughts
   const thoughts = allThoughts.filter((t) => {
     if (selectedCategory && t.category !== selectedCategory) return false;
@@ -58,6 +70,12 @@ export default function ThoughtsClient() {
 
   const getExcerpt = (thought: Thought) =>
     locale === 'en' && thought.excerpt_en ? thought.excerpt_en : thought.excerpt;
+
+  const getCategory = (thought: Thought) =>
+    locale === 'en' && thought.category_en ? thought.category_en : thought.category;
+
+  const getSubcategory = (thought: Thought) =>
+    locale === 'en' && thought.subcategory_en ? thought.subcategory_en : thought.subcategory;
 
   return (
     <div className="min-h-screen bg-background">
@@ -97,7 +115,7 @@ export default function ThoughtsClient() {
                       : 'bg-surface border border-border text-text-secondary hover:text-text-primary'
                   }`}
                 >
-                  {cat}
+                  {categoryLabelMap[cat]}
                 </button>
               ))}
             </div>
@@ -128,7 +146,7 @@ export default function ThoughtsClient() {
                       : 'bg-surface border border-border text-text-tertiary hover:text-text-secondary'
                   }`}
                 >
-                  {sub}
+                  {subcategoryLabelMap[sub]}
                 </button>
               ))}
             </div>
@@ -164,12 +182,12 @@ export default function ThoughtsClient() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-2">
                         {thought.category && (
-                          <span className="text-xs text-accent-blue">{thought.category}</span>
+                          <span className="text-xs text-accent-blue">{getCategory(thought)}</span>
                         )}
                         {thought.subcategory && (
                           <>
                             <span className="text-xs text-text-tertiary">·</span>
-                            <span className="text-xs text-text-tertiary">{thought.subcategory}</span>
+                            <span className="text-xs text-text-tertiary">{getSubcategory(thought)}</span>
                           </>
                         )}
                       </div>
