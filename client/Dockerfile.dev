@@ -9,7 +9,7 @@ RUN npm install -g pnpm
 COPY package.json pnpm-lock.yaml* .npmrc* ./
 
 # Install dependencies
-RUN CI=true pnpm install --shamefully-hoist
+RUN pnpm install --shamefully-hoist --no-frozen-lockfile
 
 # Copy source code
 COPY . .

@@ -208,7 +208,7 @@ export default function AboutClient() {
                       <h3 className="font-medium text-text-primary">{career.position}</h3>
                       {career.is_current && (
                         <span className="px-2 py-0.5 rounded-full bg-status-success/10 text-status-success text-xs">
-                          Current
+                          {t.current}
                         </span>
                       )}
                     </div>

@@ -5,22 +5,15 @@ import { useDictionary } from '@/contexts/DictionaryContext';
 import { motion } from 'framer-motion';
 
 export default function LabClient() {
-  const { dictionary, locale } = useDictionary();
+  const { dictionary } = useDictionary();
   const t = dictionary.lab;
 
-  const capabilities = locale === 'ko'
-    ? [
-        { title: 'Data Analytics', desc: '비즈니스 데이터 분석과 인사이트 도출' },
-        { title: 'ML / AI', desc: '머신러닝과 인공지능 기반 예측 모델 개발' },
-        { title: 'LLM / Agents', desc: '대규모 언어 모델과 AI 에이전트 활용 연구' },
-        { title: 'Robotics', desc: 'Physical AI와 로봇 비즈니스 응용' },
-      ]
-    : [
-        { title: 'Data Analytics', desc: 'Business data analysis and insight generation' },
-        { title: 'ML / AI', desc: 'Predictive model development using machine learning and AI' },
-        { title: 'LLM / Agents', desc: 'Research on large language models and AI agents' },
-        { title: 'Robotics', desc: 'Physical AI and robotics for business applications' },
-      ];
+  const capabilities = [
+    { title: 'Data Analytics', desc: t.dataAnalytics },
+    { title: 'ML / AI', desc: t.mlAi },
+    { title: 'LLM / Agents', desc: t.llmAgents },
+    { title: 'Robotics', desc: t.robotics },
+  ];
 
   return (
     <div className="min-h-screen bg-background">

@@ -48,31 +48,31 @@ export default function Home() {
       key: 'thoughts',
       href: `/${locale}/thoughts`,
       label: nav.thoughts,
-      desc: locale === 'ko' ? '에세이, 칼럼, 생각의 조각들' : 'Essays, columns, and fragments of thought',
+      desc: t.thoughtsDesc,
     },
     {
       key: 'lab',
       href: `/${locale}/lab`,
       label: nav.lab,
-      desc: locale === 'ko' ? 'AI와 비즈니스 응용 연구' : 'AI and Business Application Research',
+      desc: t.labDesc,
     },
     {
       key: 'research',
       href: `/${locale}/research`,
       label: nav.research,
-      desc: locale === 'ko' ? '학술 논문 및 연구 프로젝트' : 'Academic publications and projects',
+      desc: t.researchDesc,
     },
     {
       key: 'books',
       href: `/${locale}/book`,
       label: nav.books,
-      desc: locale === 'ko' ? '저서 목록' : 'Published works',
+      desc: t.booksDesc,
     },
     {
       key: 'about',
       href: `/${locale}/about`,
       label: nav.about,
-      desc: locale === 'ko' ? '이력과 활동' : 'Background and activities',
+      desc: t.aboutDesc,
     },
   ];
 

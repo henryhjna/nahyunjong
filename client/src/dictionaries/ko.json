@@ -11,8 +11,11 @@
   },
   "landing": {
     "explore": "보기",
-    "viewProfile": "소개 보기",
-    "researchInterests": "연구 관심사"
+    "thoughtsDesc": "에세이, 칼럼, 생각의 조각들",
+    "labDesc": "AI와 비즈니스 응용 연구",
+    "researchDesc": "학술 논문 및 연구 프로젝트",
+    "booksDesc": "저서 목록",
+    "aboutDesc": "이력과 활동"
   },
   "thoughts": {
     "title": "생각",
@@ -26,7 +29,11 @@
     "title": "랩",
     "subtitle": "Lab for AI and Business Application",
     "visitLaba": "LABA 사이트 방문",
-    "description": "AI·빅데이터·로보틱스를 비즈니스에 적용하는 연구를 수행합니다."
+    "description": "AI·빅데이터·로보틱스를 비즈니스에 적용하는 연구를 수행합니다.",
+    "dataAnalytics": "비즈니스 데이터 분석과 인사이트 도출",
+    "mlAi": "머신러닝과 인공지능 기반 예측 모델 개발",
+    "llmAgents": "대규모 언어 모델과 AI 에이전트 활용 연구",
+    "robotics": "Physical AI와 로봇 비즈니스 응용"
   },
   "research": {
     "title": "연구",
@@ -38,13 +45,17 @@
     "all": "전체",
     "paper": "논문",
     "report": "보고서",
-    "noResults": "해당 조건의 논문이 없습니다."
+    "noResults": "해당 조건의 논문이 없습니다.",
+    "abstract": "초록",
+    "results": "건"
   },
   "books": {
     "title": "책",
     "subtitle": "저서 목록",
     "authorNote": "저자의 말",
     "purchaseLink": "구매하기",
+    "preview": "미리보기",
+    "description": "책 소개",
     "tableOfContents": "목차",
     "noBooks": "등록된 도서가 없습니다."
   },
@@ -54,9 +65,24 @@
     "education": "학력",
     "career": "경력",
     "awards": "수상",
+    "current": "현재",
     "news": "언론 보도",
     "viewArticle": "기사 보기",
     "noInfo": "등록된 정보가 없습니다."
+  },
+  "news": {
+    "title": "뉴스",
+    "subtitle": "언론 보도 및 미디어 활동",
+    "empty": "등록된 뉴스가 없습니다."
+  },
+  "login": {
+    "title": "관리자 로그인",
+    "email": "이메일",
+    "password": "비밀번호",
+    "submit": "로그인",
+    "submitting": "로그인 중...",
+    "error": "로그인에 실패했습니다.",
+    "backHome": "홈으로 돌아가기"
   },
   "common": {
     "loading": "로딩 중...",

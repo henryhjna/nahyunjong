@@ -149,7 +149,7 @@ export default function BookDetailClient({ id }: BookDetailClientProps) {
                       href={`/${locale}/book/${id}/storybook`}
                       className="inline-flex items-center px-5 py-2 bg-accent-blue text-white rounded-lg hover:bg-accent-blue/90 transition-colors text-sm font-medium"
                     >
-                      {locale === 'ko' ? '미리보기' : 'Preview'}
+                      {t.preview}
                     </Link>
                     {book.purchase_url && (
                       <a
@@ -180,7 +180,7 @@ export default function BookDetailClient({ id }: BookDetailClientProps) {
             {book.description && (
               <div className="bg-surface border border-border rounded-xl p-8 mt-6">
                 <h2 className="text-lg font-bold text-text-primary mb-3">
-                  {locale === 'ko' ? '책 소개' : 'Description'}
+                  {t.description}
                 </h2>
                 <div className="text-text-secondary leading-relaxed whitespace-pre-wrap">
                   {book.description}

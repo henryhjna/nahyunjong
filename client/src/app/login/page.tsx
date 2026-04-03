@@ -38,7 +38,7 @@ export default function LoginPage() {
         className="max-w-md w-full p-8 rounded-xl bg-surface border border-border"
       >
         <h1 className="text-2xl font-bold text-text-primary text-center mb-6">
-          Admin Login
+          관리자 로그인
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">

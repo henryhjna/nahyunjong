@@ -11,8 +11,11 @@
   },
   "landing": {
     "explore": "Explore",
-    "viewProfile": "View Profile",
-    "researchInterests": "Research Interests"
+    "thoughtsDesc": "Essays, columns, and fragments of thought",
+    "labDesc": "AI and Business Application Research",
+    "researchDesc": "Academic publications and projects",
+    "booksDesc": "Published works",
+    "aboutDesc": "Background and activities"
   },
   "thoughts": {
     "title": "Thoughts",
@@ -26,7 +29,11 @@
     "title": "Lab",
     "subtitle": "Lab for AI and Business Application",
     "visitLaba": "Visit LABA",
-    "description": "We research the application of AI, big data, and robotics to business."
+    "description": "We research the application of AI, big data, and robotics to business.",
+    "dataAnalytics": "Business data analysis and insight generation",
+    "mlAi": "Predictive model development using machine learning and AI",
+    "llmAgents": "Research on large language models and AI agents",
+    "robotics": "Physical AI and robotics for business applications"
   },
   "research": {
     "title": "Research",
@@ -38,13 +45,17 @@
     "all": "All",
     "paper": "Paper",
     "report": "Report",
-    "noResults": "No publications match the selected criteria."
+    "noResults": "No publications match the selected criteria.",
+    "abstract": "Abstract",
+    "results": "results"
   },
   "books": {
     "title": "Books",
     "subtitle": "Published works",
     "authorNote": "Author's Note",
     "purchaseLink": "Purchase",
+    "preview": "Preview",
+    "description": "Description",
     "tableOfContents": "Table of Contents",
     "noBooks": "No books available."
   },
@@ -54,9 +65,24 @@
     "education": "Education",
     "career": "Career",
     "awards": "Awards",
+    "current": "Current",
     "news": "Press Coverage",
     "viewArticle": "View Article",
     "noInfo": "No information available."
+  },
+  "news": {
+    "title": "News",
+    "subtitle": "Press coverage and media activities",
+    "empty": "No news articles yet."
+  },
+  "login": {
+    "title": "Admin Login",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Login",
+    "submitting": "Logging in...",
+    "error": "Login failed.",
+    "backHome": "Back to Home"
   },
   "common": {
     "loading": "Loading...",

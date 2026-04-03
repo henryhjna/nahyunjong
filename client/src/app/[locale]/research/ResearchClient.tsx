@@ -238,7 +238,7 @@ export default function ResearchClient() {
 
                 {/* Results Count */}
                 <p className="text-text-tertiary text-sm pt-2">
-                  {filteredPublications.length} results
+                  {filteredPublications.length} {t.results}
                 </p>
               </div>
 
@@ -386,7 +386,7 @@ export default function ResearchClient() {
                                         d="M19 9l-7 7-7-7"
                                       />
                                     </svg>
-                                    Abstract
+                                    {t.abstract}
                                   </button>
                                 )}
                               </div>
@@ -399,7 +399,7 @@ export default function ResearchClient() {
                               >
                                 <div className="p-4 bg-surface-hover rounded-lg">
                                   <h4 className="font-medium text-text-primary mb-2 text-sm">
-                                    Abstract
+                                    {t.abstract}
                                   </h4>
                                   <p className="text-text-secondary text-sm leading-relaxed whitespace-pre-wrap">
                                     {pub.abstract}

@@ -73,8 +73,8 @@ export default function NewsClient() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl font-bold text-text-primary mb-2">News</h1>
-          <p className="text-text-secondary mb-12">Media coverage and press</p>
+          <h1 className="text-4xl font-bold text-text-primary mb-2">{dictionary.news.title}</h1>
+          <p className="text-text-secondary mb-12">{dictionary.news.subtitle}</p>
 
           {loading ? (
             <div className="space-y-4">
@@ -94,7 +94,7 @@ export default function NewsClient() {
             </div>
           ) : news.length === 0 ? (
             <div className="bg-surface border border-border rounded-xl p-12 text-center">
-              <p className="text-text-secondary">No news articles yet.</p>
+              <p className="text-text-secondary">{dictionary.news.empty}</p>
             </div>
           ) : (
             <div className="space-y-3">
