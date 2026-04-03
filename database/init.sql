@@ -351,6 +351,7 @@ CREATE TABLE IF NOT EXISTS thoughts (
   content TEXT,
   content_en TEXT,
   category VARCHAR(100),
+  subcategory VARCHAR(255),
   cover_image_url TEXT,
   is_published BOOLEAN DEFAULT false,
   published_at TIMESTAMP,

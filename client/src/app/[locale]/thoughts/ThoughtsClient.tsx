@@ -11,18 +11,16 @@ import type { Thought } from '@/lib/types';
 export default function ThoughtsClient() {
   const { dictionary, locale } = useDictionary();
   const t = dictionary.thoughts;
-  const [thoughts, setThoughts] = useState<Thought[]>([]);
+  const [allThoughts, setAllThoughts] = useState<Thought[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchThoughts = async () => {
       try {
-        const url = selectedCategory
-          ? `${process.env.NEXT_PUBLIC_API_URL}/api/thoughts?category=${encodeURIComponent(selectedCategory)}`
-          : `${process.env.NEXT_PUBLIC_API_URL}/api/thoughts`;
-        const res = await fetch(url);
-        if (res.ok) setThoughts(await res.json());
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/thoughts`);
+        if (res.ok) setAllThoughts(await res.json());
       } catch (error) {
         console.error('Failed to fetch thoughts:', error);
       } finally {
@@ -30,9 +28,30 @@ export default function ThoughtsClient() {
       }
     };
     fetchThoughts();
-  }, [selectedCategory]);
+  }, []);
 
-  const categories = Array.from(new Set(thoughts.map((t) => t.category).filter(Boolean))) as string[];
+  // Derive categories and subcategories from data
+  const categories = Array.from(new Set(allThoughts.map((t) => t.category).filter(Boolean))) as string[];
+  const subcategories = selectedCategory
+    ? (Array.from(new Set(
+        allThoughts
+          .filter((t) => t.category === selectedCategory)
+          .map((t) => t.subcategory)
+          .filter(Boolean)
+      )) as string[])
+    : [];
+
+  // Filter thoughts
+  const thoughts = allThoughts.filter((t) => {
+    if (selectedCategory && t.category !== selectedCategory) return false;
+    if (selectedSubcategory && t.subcategory !== selectedSubcategory) return false;
+    return true;
+  });
+
+  const handleCategoryClick = (cat: string | null) => {
+    setSelectedCategory(cat);
+    setSelectedSubcategory(null); // reset subcategory when category changes
+  };
 
   const getTitle = (thought: Thought) =>
     locale === 'en' && thought.title_en ? thought.title_en : thought.title;
@@ -54,34 +73,70 @@ export default function ThoughtsClient() {
           <p className="text-text-secondary">{t.subtitle}</p>
         </motion.div>
 
-        {/* Category Filter */}
+        {/* Category Filter (대분류) */}
         {categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-8">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
-                !selectedCategory
-                  ? 'bg-accent-blue text-white'
-                  : 'bg-surface border border-border text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              {t.allCategories}
-            </button>
-            {categories.map((cat) => (
+          <div className="mb-4">
+            <div className="flex flex-wrap gap-2">
               <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => handleCategoryClick(null)}
                 className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
-                  selectedCategory === cat
+                  !selectedCategory
                     ? 'bg-accent-blue text-white'
                     : 'bg-surface border border-border text-text-secondary hover:text-text-primary'
                 }`}
               >
-                {cat}
+                {t.allCategories}
               </button>
-            ))}
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryClick(cat)}
+                  className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                    selectedCategory === cat
+                      ? 'bg-accent-blue text-white'
+                      : 'bg-surface border border-border text-text-secondary hover:text-text-primary'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
         )}
+
+        {/* Subcategory Filter (중분류) */}
+        {subcategories.length > 0 && (
+          <div className="mb-8">
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setSelectedSubcategory(null)}
+                className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
+                  !selectedSubcategory
+                    ? 'bg-text-primary text-background'
+                    : 'bg-surface border border-border text-text-tertiary hover:text-text-secondary'
+                }`}
+              >
+                {t.allCategories}
+              </button>
+              {subcategories.map((sub) => (
+                <button
+                  key={sub}
+                  onClick={() => setSelectedSubcategory(sub)}
+                  className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
+                    selectedSubcategory === sub
+                      ? 'bg-text-primary text-background'
+                      : 'bg-surface border border-border text-text-tertiary hover:text-text-secondary'
+                  }`}
+                >
+                  {sub}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* No subcategory filter gap */}
+        {subcategories.length === 0 && categories.length > 0 && <div className="mb-8" />}
 
         {/* Thoughts List */}
         {loading ? (
@@ -107,9 +162,17 @@ export default function ThoughtsClient() {
                 >
                   <div className="flex items-start gap-4">
                     <div className="flex-1 min-w-0">
-                      {thought.category && (
-                        <span className="text-xs text-accent-blue mb-2 inline-block">{thought.category}</span>
-                      )}
+                      <div className="flex items-center gap-2 mb-2">
+                        {thought.category && (
+                          <span className="text-xs text-accent-blue">{thought.category}</span>
+                        )}
+                        {thought.subcategory && (
+                          <>
+                            <span className="text-xs text-text-tertiary">·</span>
+                            <span className="text-xs text-text-tertiary">{thought.subcategory}</span>
+                          </>
+                        )}
+                      </div>
                       <h2 className="text-xl font-semibold text-text-primary group-hover:text-accent-blue transition-colors mb-2">
                         {getTitle(thought)}
                       </h2>

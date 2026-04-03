@@ -19,6 +19,7 @@ const initialForm: ThoughtForm = {
   content: '',
   content_en: '',
   category: '',
+  subcategory: '',
   cover_image_url: '',
   is_published: false,
   published_at: new Date().toISOString().split('T')[0],
@@ -101,6 +102,7 @@ export default function AdminThoughtsPage() {
       content: thought.content || '',
       content_en: thought.content_en || '',
       category: thought.category || '',
+      subcategory: thought.subcategory || '',
       cover_image_url: thought.cover_image_url || '',
       is_published: thought.is_published,
       published_at: thought.published_at ? thought.published_at.split('T')[0] : '',
@@ -166,7 +168,7 @@ export default function AdminThoughtsPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1">Slug</label>
                 <input
@@ -178,21 +180,34 @@ export default function AdminThoughtsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">카테고리</label>
-                <input
-                  type="text"
-                  value={form.category}
-                  onChange={(e) => setForm({ ...form, category: e.target.value })}
-                  placeholder="에세이, 칼럼, 연재..."
-                  className="input-field w-full"
-                />
-              </div>
-              <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1">발행일</label>
                 <input
                   type="date"
                   value={form.published_at}
                   onChange={(e) => setForm({ ...form, published_at: e.target.value })}
+                  className="input-field w-full"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">대분류</label>
+                <input
+                  type="text"
+                  value={form.category}
+                  onChange={(e) => setForm({ ...form, category: e.target.value })}
+                  placeholder="연재, 에세이, 칼럼..."
+                  className="input-field w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">중분류 (시리즈명)</label>
+                <input
+                  type="text"
+                  value={form.subcategory}
+                  onChange={(e) => setForm({ ...form, subcategory: e.target.value })}
+                  placeholder="AI시대, 대학교육은 어디로 가나"
                   className="input-field w-full"
                 />
               </div>
@@ -294,6 +309,9 @@ export default function AdminThoughtsPage() {
                     </span>
                     {thought.category && (
                       <span className="px-2 py-0.5 rounded text-xs bg-accent-blue/10 text-accent-blue">{thought.category}</span>
+                    )}
+                    {thought.subcategory && (
+                      <span className="px-2 py-0.5 rounded text-xs bg-surface-hover text-text-tertiary">{thought.subcategory}</span>
                     )}
                   </div>
                   <h3 className="font-medium text-text-primary truncate">{thought.title}</h3>

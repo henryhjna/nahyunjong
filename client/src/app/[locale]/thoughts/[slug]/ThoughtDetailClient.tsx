@@ -65,8 +65,16 @@ export default function ThoughtDetailClient({ slug }: { slug: string }) {
 
             {/* Header */}
             <header className="mb-8">
-              {thought.category && (
-                <span className="text-sm text-accent-blue mb-3 inline-block">{thought.category}</span>
+              {(thought.category || thought.subcategory) && (
+                <div className="flex items-center gap-2 mb-3 text-sm">
+                  {thought.category && <span className="text-accent-blue">{thought.category}</span>}
+                  {thought.subcategory && (
+                    <>
+                      <span className="text-text-tertiary">·</span>
+                      <span className="text-text-tertiary">{thought.subcategory}</span>
+                    </>
+                  )}
+                </div>
               )}
               <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
                 {getTitle()}
