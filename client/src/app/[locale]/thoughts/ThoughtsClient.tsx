@@ -30,6 +30,16 @@ export default function ThoughtsClient() {
     fetchThoughts();
   }, []);
 
+  // Locale-aware getters
+  const getTitle = (thought: Thought) =>
+    locale === 'en' && thought.title_en ? thought.title_en : thought.title;
+  const getExcerpt = (thought: Thought) =>
+    locale === 'en' && thought.excerpt_en ? thought.excerpt_en : thought.excerpt;
+  const getCategory = (thought: Thought) =>
+    locale === 'en' && thought.category_en ? thought.category_en : thought.category;
+  const getSubcategory = (thought: Thought) =>
+    locale === 'en' && thought.subcategory_en ? thought.subcategory_en : thought.subcategory;
+
   // Derive categories and subcategories from data
   const categories = Array.from(new Set(allThoughts.map((t) => t.category).filter(Boolean))) as string[];
   const subcategories = selectedCategory
@@ -62,20 +72,8 @@ export default function ThoughtsClient() {
 
   const handleCategoryClick = (cat: string | null) => {
     setSelectedCategory(cat);
-    setSelectedSubcategory(null); // reset subcategory when category changes
+    setSelectedSubcategory(null);
   };
-
-  const getTitle = (thought: Thought) =>
-    locale === 'en' && thought.title_en ? thought.title_en : thought.title;
-
-  const getExcerpt = (thought: Thought) =>
-    locale === 'en' && thought.excerpt_en ? thought.excerpt_en : thought.excerpt;
-
-  const getCategory = (thought: Thought) =>
-    locale === 'en' && thought.category_en ? thought.category_en : thought.category;
-
-  const getSubcategory = (thought: Thought) =>
-    locale === 'en' && thought.subcategory_en ? thought.subcategory_en : thought.subcategory;
 
   return (
     <div className="min-h-screen bg-background">
