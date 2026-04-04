@@ -23,7 +23,9 @@
     "readMore": "Read more",
     "empty": "No posts yet.",
     "allCategories": "All",
-    "publishedAt": "Published"
+    "publishedAt": "Published",
+    "prevPost": "Previous",
+    "nextPost": "Next"
   },
   "lab": {
     "title": "Lab",

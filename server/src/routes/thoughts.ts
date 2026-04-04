@@ -57,7 +57,19 @@ router.get('/:slug', async (req: Request, res: Response) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Thought not found' });
     }
-    res.json(result.rows[0]);
+    const thought = result.rows[0];
+
+    // Fetch prev/next thought info
+    if (thought.prev_id) {
+      const prev = await query('SELECT slug, title, title_en FROM thoughts WHERE id = $1 AND is_published = true', [thought.prev_id]);
+      thought.prev_thought = prev.rows[0] || null;
+    }
+    if (thought.next_id) {
+      const next = await query('SELECT slug, title, title_en FROM thoughts WHERE id = $1 AND is_published = true', [thought.next_id]);
+      thought.next_thought = next.rows[0] || null;
+    }
+
+    res.json(thought);
   } catch (error) {
     console.error('Error fetching thought:', error);
     res.status(500).json({ error: 'Failed to fetch thought' });
@@ -67,7 +79,7 @@ router.get('/:slug', async (req: Request, res: Response) => {
 // Create thought (admin)
 router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    const { title, title_en, slug, excerpt, excerpt_en, content, content_en, category, category_en, subcategory, subcategory_en, cover_image_url, is_published, published_at } = req.body;
+    const { title, title_en, slug, excerpt, excerpt_en, content, content_en, category, category_en, subcategory, subcategory_en, cover_image_url, prev_id, next_id, is_published, published_at } = req.body;
 
     if (!title) {
       return res.status(400).json({ error: 'Title is required' });
@@ -82,9 +94,9 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
     }
 
     const result = await query(
-      `INSERT INTO thoughts (title, title_en, slug, excerpt, excerpt_en, content, content_en, category, category_en, subcategory, subcategory_en, cover_image_url, is_published, published_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
-      [title, title_en || null, finalSlug, excerpt || null, excerpt_en || null, content || null, content_en || null, category || null, category_en || null, subcategory || null, subcategory_en || null, cover_image_url || null, is_published || false, published_at || null]
+      `INSERT INTO thoughts (title, title_en, slug, excerpt, excerpt_en, content, content_en, category, category_en, subcategory, subcategory_en, cover_image_url, prev_id, next_id, is_published, published_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`,
+      [title, title_en || null, finalSlug, excerpt || null, excerpt_en || null, content || null, content_en || null, category || null, category_en || null, subcategory || null, subcategory_en || null, cover_image_url || null, prev_id || null, next_id || null, is_published || false, published_at || null]
     );
 
     res.status(201).json(result.rows[0]);
@@ -98,7 +110,7 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
 router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const { title, title_en, slug, excerpt, excerpt_en, content, content_en, category, category_en, subcategory, subcategory_en, cover_image_url, is_published, published_at } = req.body;
+    const { title, title_en, slug, excerpt, excerpt_en, content, content_en, category, category_en, subcategory, subcategory_en, cover_image_url, prev_id, next_id, is_published, published_at } = req.body;
 
     // Check slug uniqueness (exclude current)
     if (slug) {
@@ -109,9 +121,9 @@ router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
     }
 
     const result = await query(
-      `UPDATE thoughts SET title = $1, title_en = $2, slug = $3, excerpt = $4, excerpt_en = $5, content = $6, content_en = $7, category = $8, category_en = $9, subcategory = $10, subcategory_en = $11, cover_image_url = $12, is_published = $13, published_at = $14
-       WHERE id = $15 RETURNING *`,
-      [title, title_en || null, slug, excerpt || null, excerpt_en || null, content || null, content_en || null, category || null, category_en || null, subcategory || null, subcategory_en || null, cover_image_url || null, is_published || false, published_at || null, id]
+      `UPDATE thoughts SET title = $1, title_en = $2, slug = $3, excerpt = $4, excerpt_en = $5, content = $6, content_en = $7, category = $8, category_en = $9, subcategory = $10, subcategory_en = $11, cover_image_url = $12, prev_id = $13, next_id = $14, is_published = $15, published_at = $16
+       WHERE id = $17 RETURNING *`,
+      [title, title_en || null, slug, excerpt || null, excerpt_en || null, content || null, content_en || null, category || null, category_en || null, subcategory || null, subcategory_en || null, cover_image_url || null, prev_id || null, next_id || null, is_published || false, published_at || null, id]
     );
 
     if (result.rows.length === 0) {

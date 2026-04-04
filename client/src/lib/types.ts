@@ -298,10 +298,14 @@ export interface Thought {
   subcategory: string | null;
   subcategory_en: string | null;
   cover_image_url: string | null;
+  prev_id: number | null;
+  next_id: number | null;
   is_published: boolean;
   published_at: string | null;
   created_at: string;
   updated_at: string;
+  prev_thought?: { slug: string; title: string; title_en: string | null } | null;
+  next_thought?: { slug: string; title: string; title_en: string | null } | null;
 }
 
 export interface ThoughtForm {
@@ -317,6 +321,8 @@ export interface ThoughtForm {
   subcategory: string;
   subcategory_en: string;
   cover_image_url: string;
+  prev_id: number | null;
+  next_id: number | null;
   is_published: boolean;
   published_at: string;
 }

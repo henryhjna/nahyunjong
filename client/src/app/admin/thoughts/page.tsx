@@ -23,6 +23,8 @@ const initialForm: ThoughtForm = {
   subcategory: '',
   subcategory_en: '',
   cover_image_url: '',
+  prev_id: null,
+  next_id: null,
   is_published: false,
   published_at: new Date().toISOString().split('T')[0],
 };
@@ -108,6 +110,8 @@ export default function AdminThoughtsPage() {
       subcategory: thought.subcategory || '',
       subcategory_en: thought.subcategory_en || '',
       cover_image_url: thought.cover_image_url || '',
+      prev_id: thought.prev_id || null,
+      next_id: thought.next_id || null,
       is_published: thought.is_published,
       published_at: thought.published_at ? thought.published_at.split('T')[0] : '',
     });
@@ -287,6 +291,36 @@ export default function AdminThoughtsPage() {
                 onChange={(e) => setForm({ ...form, cover_image_url: e.target.value })}
                 className="input-field w-full"
               />
+            </div>
+
+            {/* Prev/Next linking (optional, for series) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">이전 글 (선택)</label>
+                <select
+                  value={form.prev_id ?? ''}
+                  onChange={(e) => setForm({ ...form, prev_id: e.target.value ? Number(e.target.value) : null })}
+                  className="input-field w-full"
+                >
+                  <option value="">없음</option>
+                  {thoughts.filter((t) => t.id !== editingId).map((t) => (
+                    <option key={t.id} value={t.id}>{t.title}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">다음 글 (선택)</label>
+                <select
+                  value={form.next_id ?? ''}
+                  onChange={(e) => setForm({ ...form, next_id: e.target.value ? Number(e.target.value) : null })}
+                  className="input-field w-full"
+                >
+                  <option value="">없음</option>
+                  {thoughts.filter((t) => t.id !== editingId).map((t) => (
+                    <option key={t.id} value={t.id}>{t.title}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div className="flex items-center gap-4">

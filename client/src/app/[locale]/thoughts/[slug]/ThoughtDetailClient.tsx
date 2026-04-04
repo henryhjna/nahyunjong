@@ -109,6 +109,38 @@ export default function ThoughtDetailClient({ slug }: { slug: string }) {
               className="prose prose-lg dark:prose-invert max-w-none text-text-primary leading-relaxed"
               dangerouslySetInnerHTML={{ __html: getContent() || '' }}
             />
+
+            {/* Prev/Next Navigation */}
+            {(thought.prev_thought || thought.next_thought) && (
+              <nav className="mt-12 pt-8 border-t border-border flex items-stretch gap-4">
+                {thought.prev_thought ? (
+                  <Link
+                    href={`/${locale}/thoughts/${thought.prev_thought.slug}`}
+                    className="flex-1 p-4 rounded-xl border border-border hover:border-border-hover transition-colors group text-left"
+                  >
+                    <span className="text-xs text-text-tertiary">
+                      {dictionary.thoughts.prevPost}
+                    </span>
+                    <p className="text-sm font-medium text-text-primary group-hover:text-accent-blue transition-colors mt-1">
+                      ← {locale === 'en' && thought.prev_thought.title_en ? thought.prev_thought.title_en : thought.prev_thought.title}
+                    </p>
+                  </Link>
+                ) : <div className="flex-1" />}
+                {thought.next_thought ? (
+                  <Link
+                    href={`/${locale}/thoughts/${thought.next_thought.slug}`}
+                    className="flex-1 p-4 rounded-xl border border-border hover:border-border-hover transition-colors group text-right"
+                  >
+                    <span className="text-xs text-text-tertiary">
+                      {dictionary.thoughts.nextPost}
+                    </span>
+                    <p className="text-sm font-medium text-text-primary group-hover:text-accent-blue transition-colors mt-1">
+                      {locale === 'en' && thought.next_thought.title_en ? thought.next_thought.title_en : thought.next_thought.title} →
+                    </p>
+                  </Link>
+                ) : <div className="flex-1" />}
+              </nav>
+            )}
           </motion.article>
         )}
       </main>
