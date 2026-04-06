@@ -16,6 +16,7 @@ import profileRouter from './routes/profile';
 import uploadRouter from './routes/upload';
 import bookStorybookRouter from './routes/bookStorybook';
 import thoughtsRouter from './routes/thoughts';
+import analyticsRouter from './routes/analytics';
 
 dotenv.config();
 
@@ -99,6 +100,7 @@ app.use('/api/lab', labRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/thoughts', thoughtsRouter);
+app.use('/api/analytics', analyticsRouter);
 
 // 업로드된 파일 정적 서빙
 const uploadDir = process.env.UPLOAD_DIR || '/app/uploads';

@@ -7,6 +7,7 @@ import { DictionaryProvider } from '@/contexts/DictionaryContext';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { generatePersonSchema, generateWebsiteSchema } from '@/lib/schema';
 import { siteConfig } from '@/lib/metadata';
+import { PageTracker } from '@/components/PageTracker';
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -70,6 +71,7 @@ export default async function LocaleLayout({
     <>
       <JsonLd data={[personSchema, websiteSchema]} />
       <DictionaryProvider dictionary={dictionary} locale={locale as Locale}>
+        <PageTracker />
         {children}
       </DictionaryProvider>
     </>
