@@ -15,6 +15,8 @@ interface ProfileBasic {
   affiliation: string | null;
   affiliation_en: string | null;
   bio: string | null;
+  bio_en: string | null;
+  email: string | null;
   photo_url: string | null;
   tagline: string | null;
   tagline_en: string | null;

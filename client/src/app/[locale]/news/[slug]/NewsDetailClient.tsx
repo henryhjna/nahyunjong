@@ -9,8 +9,10 @@ import { motion } from 'framer-motion';
 interface NewsDetail {
   id: number;
   title: string;
+  title_en: string | null;
   slug: string;
   content: string | null;
+  content_en: string | null;
   source: string | null;
   source_url: string | null;
   image_url: string | null;
@@ -24,6 +26,7 @@ interface NewsDetailClientProps {
 
 export default function NewsDetailClient({ slug }: NewsDetailClientProps) {
   const { dictionary, locale } = useDictionary();
+  const l = (ko: string | null | undefined, en: string | null | undefined) => locale === 'en' && en ? en : ko;
   const [news, setNews] = useState<NewsDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -95,7 +98,7 @@ export default function NewsDetailClient({ slug }: NewsDetailClientProps) {
 
             {/* Title */}
             <h1 className="text-3xl font-bold text-text-primary mb-4 leading-tight">
-              {news.title}
+              {l(news.title, news.title_en)}
             </h1>
 
             {/* Date and source */}
@@ -121,7 +124,7 @@ export default function NewsDetailClient({ slug }: NewsDetailClientProps) {
             {/* Content */}
             {news.content && (
               <div className="text-text-primary leading-relaxed whitespace-pre-wrap mb-8">
-                {news.content}
+                {l(news.content, news.content_en)}
               </div>
             )}
 

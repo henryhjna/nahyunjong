@@ -13,7 +13,9 @@ interface Book {
   subtitle: string | null;
   subtitle_en: string | null;
   authors: string;
+  authors_en: string | null;
   publisher: string | null;
+  publisher_en: string | null;
   published_date: string | null;
   isbn: string | null;
   cover_image_url: string | null;
@@ -129,10 +131,10 @@ export default function BookClient() {
                     {(book.subtitle || book.subtitle_en) && (
                       <p className="text-text-secondary text-sm mb-2 line-clamp-1">{l(book.subtitle, book.subtitle_en)}</p>
                     )}
-                    <p className="text-text-tertiary text-sm mb-1">{book.authors}</p>
+                    <p className="text-text-tertiary text-sm mb-1">{l(book.authors, book.authors_en)}</p>
                     <p className="text-text-muted text-sm">
-                      {book.publisher && `${book.publisher}`}
-                      {book.publisher && book.published_date && ' · '}
+                      {(book.publisher || book.publisher_en) && `${l(book.publisher, book.publisher_en)}`}
+                      {(book.publisher || book.publisher_en) && book.published_date && ' · '}
                       {formatDate(book.published_date)}
                     </p>
                     {(book.description || book.description_en) && (

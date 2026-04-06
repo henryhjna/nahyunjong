@@ -32,9 +32,13 @@
     "subtitle": "Lab for AI and Business Application",
     "visitLaba": "Visit LABA",
     "description": "We research the application of AI, big data, and robotics to business.",
+    "dataAnalyticsTitle": "Data Analytics",
     "dataAnalytics": "Business data analysis and insight generation",
+    "mlAiTitle": "ML / AI",
     "mlAi": "Predictive model development using machine learning and AI",
+    "llmAgentsTitle": "LLM / Agents",
     "llmAgents": "Research on large language models and AI agents",
+    "roboticsTitle": "Robotics",
     "robotics": "Physical AI and robotics for business applications"
   },
   "research": {

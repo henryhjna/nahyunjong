@@ -32,9 +32,13 @@
     "subtitle": "Lab for AI and Business Application",
     "visitLaba": "LABA 사이트 방문",
     "description": "AI·빅데이터·로보틱스를 비즈니스에 적용하는 연구를 수행합니다.",
+    "dataAnalyticsTitle": "데이터 분석",
     "dataAnalytics": "비즈니스 데이터 분석과 인사이트 도출",
+    "mlAiTitle": "ML / AI",
     "mlAi": "머신러닝과 인공지능 기반 예측 모델 개발",
+    "llmAgentsTitle": "LLM / 에이전트",
     "llmAgents": "대규모 언어 모델과 AI 에이전트 활용 연구",
+    "roboticsTitle": "로보틱스",
     "robotics": "Physical AI와 로봇 비즈니스 응용"
   },
   "research": {

@@ -13,7 +13,9 @@ interface BookDetail {
   subtitle: string | null;
   subtitle_en: string | null;
   authors: string;
+  authors_en: string | null;
   publisher: string | null;
+  publisher_en: string | null;
   published_date: string | null;
   isbn: string | null;
   cover_image_url: string | null;
@@ -143,8 +145,8 @@ export default function BookDetailClient({ id }: BookDetailClientProps) {
                   )}
 
                   <div className="space-y-1 text-sm text-text-secondary mb-6">
-                    <p>{book.authors}</p>
-                    {book.publisher && <p>{book.publisher}</p>}
+                    <p>{l(book.authors, book.authors_en)}</p>
+                    {(book.publisher || book.publisher_en) && <p>{l(book.publisher, book.publisher_en)}</p>}
                     {book.published_date && <p>{formatDate(book.published_date)}</p>}
                     {book.isbn && <p>ISBN {book.isbn}</p>}
                   </div>

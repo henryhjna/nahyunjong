@@ -9,10 +9,10 @@ export default function LabClient() {
   const t = dictionary.lab;
 
   const capabilities = [
-    { title: 'Data Analytics', desc: t.dataAnalytics },
-    { title: 'ML / AI', desc: t.mlAi },
-    { title: 'LLM / Agents', desc: t.llmAgents },
-    { title: 'Robotics', desc: t.robotics },
+    { title: t.dataAnalyticsTitle, desc: t.dataAnalytics },
+    { title: t.mlAiTitle, desc: t.mlAi },
+    { title: t.llmAgentsTitle, desc: t.llmAgents },
+    { title: t.roboticsTitle, desc: t.robotics },
   ];
 
   return (

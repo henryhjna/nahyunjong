@@ -14,7 +14,9 @@ const initialForm: BookForm = {
   subtitle: '',
   subtitle_en: '',
   authors: '',
+  authors_en: '',
   publisher: '',
+  publisher_en: '',
   published_date: '',
   isbn: '',
   cover_image_url: '',
@@ -115,7 +117,9 @@ export default function AdminBooksPage() {
       subtitle: book.subtitle || '',
       subtitle_en: book.subtitle_en || '',
       authors: book.authors,
+      authors_en: book.authors_en || '',
       publisher: book.publisher || '',
+      publisher_en: book.publisher_en || '',
       published_date: book.published_date ? book.published_date.split('T')[0] : '',
       isbn: book.isbn || '',
       cover_image_url: book.cover_image_url || '',
@@ -296,6 +300,21 @@ export default function AdminBooksPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-text-secondary mb-1">
+                    저자 (영문)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.authors_en}
+                    onChange={(e) => setForm({ ...form, authors_en: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="Author name (English)"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
                     출판사
                   </label>
                   <input
@@ -304,6 +323,18 @@ export default function AdminBooksPage() {
                     onChange={(e) => setForm({ ...form, publisher: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
                     placeholder="출판사명"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
+                    출판사 (영문)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.publisher_en}
+                    onChange={(e) => setForm({ ...form, publisher_en: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="Publisher (English)"
                   />
                 </div>
               </div>

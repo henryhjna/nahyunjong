@@ -132,7 +132,9 @@ export interface Book {
   subtitle: string | null;
   subtitle_en: string | null;
   authors: string;
+  authors_en: string | null;
   publisher: string | null;
+  publisher_en: string | null;
   published_date: string | null;
   isbn: string | null;
   cover_image_url: string | null;
@@ -155,7 +157,9 @@ export interface BookForm {
   subtitle: string;
   subtitle_en: string;
   authors: string;
+  authors_en: string;
   publisher: string;
+  publisher_en: string;
   published_date: string;
   isbn: string;
   cover_image_url: string;
