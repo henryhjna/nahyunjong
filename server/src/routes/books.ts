@@ -9,7 +9,7 @@ router.get('/', async (req: Request, res: Response) => {
   try {
     const result = await query(
       `SELECT id, title, title_en, subtitle, subtitle_en, authors, authors_en, publisher, publisher_en, published_date, isbn,
-              cover_image_url, description, description_en, table_of_contents, table_of_contents_en, purchase_url, order_index
+              cover_image_url, description, description_en, table_of_contents, table_of_contents_en, purchase_url, author_note, author_note_en, order_index
        FROM books
        WHERE is_published = true
        ORDER BY order_index ASC, published_date DESC`
@@ -40,7 +40,7 @@ router.get('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     const result = await query(
       `SELECT id, title, title_en, subtitle, subtitle_en, authors, authors_en, publisher, publisher_en, published_date, isbn,
-              cover_image_url, description, description_en, table_of_contents, table_of_contents_en, purchase_url
+              cover_image_url, description, description_en, table_of_contents, table_of_contents_en, purchase_url, author_note, author_note_en
        FROM books
        WHERE id = $1 AND is_published = true`,
       [id]
