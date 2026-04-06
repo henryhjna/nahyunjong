@@ -168,25 +168,7 @@ export default function AboutClient() {
                       {(edu.field || edu.field_en) && <span>{l(edu.field, edu.field_en)}</span>}
                     </div>
                     <h3 className="text-text-primary mt-0.5">
-                      {locale === 'en' && edu.institution_en ? (
-                        <>
-                          {edu.institution_en}
-                          {edu.institution && (
-                            <span className="text-text-tertiary text-sm ml-2">
-                              ({edu.institution})
-                            </span>
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          {edu.institution || edu.institution_en}
-                          {edu.institution && edu.institution_en && (
-                            <span className="text-text-tertiary text-sm ml-2">
-                              ({edu.institution_en})
-                            </span>
-                          )}
-                        </>
-                      )}
+                      {l(edu.institution, edu.institution_en)}
                     </h3>
                     {(edu.year_start || edu.year_end) && (
                       <p className="text-sm text-text-tertiary mt-0.5">
@@ -227,25 +209,7 @@ export default function AboutClient() {
                       )}
                     </div>
                     <p className="text-text-secondary text-sm mt-0.5">
-                      {locale === 'en' && career.organization_en ? (
-                        <>
-                          {career.organization_en}
-                          {career.organization && (
-                            <span className="text-text-tertiary ml-2">
-                              ({career.organization})
-                            </span>
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          {career.organization || career.organization_en}
-                          {career.organization && career.organization_en && (
-                            <span className="text-text-tertiary ml-2">
-                              ({career.organization_en})
-                            </span>
-                          )}
-                        </>
-                      )}
+                      {l(career.organization, career.organization_en)}
                     </p>
                     {(career.year_start || career.year_end) && (
                       <p className="text-sm text-text-tertiary mt-0.5">
