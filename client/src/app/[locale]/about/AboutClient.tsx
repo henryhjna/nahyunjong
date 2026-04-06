@@ -7,8 +7,9 @@ import { useState, useEffect } from 'react';
 import type { Profile, NewsItem } from '@/lib/types';
 
 export default function AboutClient() {
-  const { dictionary } = useDictionary();
+  const { dictionary, locale } = useDictionary();
   const t = dictionary.about;
+  const l = (ko: string | null | undefined, en: string | null | undefined) => locale === 'en' && en ? en : ko;
 
   const [profile, setProfile] = useState<Profile | null>(null);
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -94,7 +95,7 @@ export default function AboutClient() {
 
               {(profile?.affiliation || profile?.title) && (
                 <p className="text-text-secondary mt-2">
-                  {profile?.affiliation}{profile?.affiliation && profile?.title ? ' ' : ''}{profile?.title}
+                  {l(profile?.affiliation, profile?.affiliation_en)}{profile?.affiliation && profile?.title ? ' ' : ''}{l(profile?.title, profile?.title_en)}
                 </p>
               )}
 
@@ -130,7 +131,7 @@ export default function AboutClient() {
               {/* Bio */}
               {(profile?.bio_detail || profile?.bio) && (
                 <p className="text-text-secondary leading-relaxed mt-4">
-                  {profile.bio_detail || profile.bio}
+                  {l(profile.bio_detail || profile.bio, profile.bio_detail_en || profile.bio_en)}
                 </p>
               )}
 
@@ -163,15 +164,28 @@ export default function AboutClient() {
                     className="border-l-2 border-accent-blue pl-4"
                   >
                     <div className="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
-                      <span className="font-medium text-text-primary">{edu.degree}</span>
-                      {edu.field && <span>{edu.field}</span>}
+                      <span className="font-medium text-text-primary">{l(edu.degree, edu.degree_en)}</span>
+                      {(edu.field || edu.field_en) && <span>{l(edu.field, edu.field_en)}</span>}
                     </div>
                     <h3 className="text-text-primary mt-0.5">
-                      {edu.institution || edu.institution_en}
-                      {edu.institution && edu.institution_en && (
-                        <span className="text-text-tertiary text-sm ml-2">
-                          ({edu.institution_en})
-                        </span>
+                      {locale === 'en' && edu.institution_en ? (
+                        <>
+                          {edu.institution_en}
+                          {edu.institution && (
+                            <span className="text-text-tertiary text-sm ml-2">
+                              ({edu.institution})
+                            </span>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          {edu.institution || edu.institution_en}
+                          {edu.institution && edu.institution_en && (
+                            <span className="text-text-tertiary text-sm ml-2">
+                              ({edu.institution_en})
+                            </span>
+                          )}
+                        </>
                       )}
                     </h3>
                     {(edu.year_start || edu.year_end) && (
@@ -183,8 +197,8 @@ export default function AboutClient() {
                           : edu.year_start}
                       </p>
                     )}
-                    {edu.description && (
-                      <p className="text-sm text-text-secondary mt-1">{edu.description}</p>
+                    {(edu.description || edu.description_en) && (
+                      <p className="text-sm text-text-secondary mt-1">{l(edu.description, edu.description_en)}</p>
                     )}
                   </div>
                 ))}
@@ -205,7 +219,7 @@ export default function AboutClient() {
                     className="border-l-2 border-accent-blue pl-4"
                   >
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-medium text-text-primary">{career.position}</h3>
+                      <h3 className="font-medium text-text-primary">{l(career.position, career.position_en)}</h3>
                       {career.is_current && (
                         <span className="px-2 py-0.5 rounded-full bg-status-success/10 text-status-success text-xs">
                           {t.current}
@@ -213,11 +227,24 @@ export default function AboutClient() {
                       )}
                     </div>
                     <p className="text-text-secondary text-sm mt-0.5">
-                      {career.organization || career.organization_en}
-                      {career.organization && career.organization_en && (
-                        <span className="text-text-tertiary ml-2">
-                          ({career.organization_en})
-                        </span>
+                      {locale === 'en' && career.organization_en ? (
+                        <>
+                          {career.organization_en}
+                          {career.organization && (
+                            <span className="text-text-tertiary ml-2">
+                              ({career.organization})
+                            </span>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          {career.organization || career.organization_en}
+                          {career.organization && career.organization_en && (
+                            <span className="text-text-tertiary ml-2">
+                              ({career.organization_en})
+                            </span>
+                          )}
+                        </>
                       )}
                     </p>
                     {(career.year_start || career.year_end) && (
@@ -229,8 +256,8 @@ export default function AboutClient() {
                           : ''}
                       </p>
                     )}
-                    {career.description && (
-                      <p className="text-sm text-text-secondary mt-1">{career.description}</p>
+                    {(career.description || career.description_en) && (
+                      <p className="text-sm text-text-secondary mt-1">{l(career.description, career.description_en)}</p>
                     )}
                   </div>
                 ))}
@@ -250,17 +277,17 @@ export default function AboutClient() {
                     key={award.id}
                     className="border-l-2 border-accent-blue pl-4"
                   >
-                    <h3 className="font-medium text-text-primary">{award.title}</h3>
+                    <h3 className="font-medium text-text-primary">{l(award.title, award.title_en)}</h3>
                     <div className="flex flex-wrap items-center gap-2 text-sm mt-0.5">
-                      {award.organization && (
-                        <span className="text-text-secondary">{award.organization}</span>
+                      {(award.organization || award.organization_en) && (
+                        <span className="text-text-secondary">{l(award.organization, award.organization_en)}</span>
                       )}
                       {award.year && (
                         <span className="text-text-tertiary">{award.year}</span>
                       )}
                     </div>
-                    {award.description && (
-                      <p className="text-sm text-text-secondary mt-1">{award.description}</p>
+                    {(award.description || award.description_en) && (
+                      <p className="text-sm text-text-secondary mt-1">{l(award.description, award.description_en)}</p>
                     )}
                   </div>
                 ))}
@@ -286,7 +313,7 @@ export default function AboutClient() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
                         <h3 className="font-medium text-text-primary group-hover:text-accent-blue transition-colors truncate">
-                          {item.title}
+                          {l(item.title, item.title_en)}
                         </h3>
                         <div className="flex items-center gap-2 mt-1 text-xs text-text-tertiary">
                           {item.source && <span>{item.source}</span>}

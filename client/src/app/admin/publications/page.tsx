@@ -11,7 +11,9 @@ const initialForm: PublicationForm = {
   title: '',
   title_en: '',
   authors: '',
+  authors_en: '',
   journal: '',
+  journal_en: '',
   journal_tier: '',
   publication_type: 'paper',
   year: new Date().getFullYear(),
@@ -20,6 +22,7 @@ const initialForm: PublicationForm = {
   pages: '',
   doi: '',
   abstract: '',
+  abstract_en: '',
   pdf_url: '',
   is_published: true,
   categories: []
@@ -128,7 +131,9 @@ export default function AdminPublicationsPage() {
       title: pub.title || '',
       title_en: pub.title_en || '',
       authors: pub.authors,
+      authors_en: pub.authors_en || '',
       journal: pub.journal || '',
+      journal_en: pub.journal_en || '',
       journal_tier: pub.journal_tier || '',
       publication_type: pub.publication_type || 'paper',
       year: pub.year,
@@ -137,6 +142,7 @@ export default function AdminPublicationsPage() {
       pages: pub.pages || '',
       doi: pub.doi || '',
       abstract: pub.abstract || '',
+      abstract_en: pub.abstract_en || '',
       pdf_url: pub.pdf_url || '',
       is_published: pub.is_published,
       categories: pub.categories || []
@@ -307,21 +313,35 @@ export default function AdminPublicationsPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">
-                  저자 *
-                </label>
-                <input
-                  type="text"
-                  value={form.authors}
-                  onChange={(e) => setForm({ ...form, authors: e.target.value })}
-                  required
-                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
-                  placeholder="나현종, 홍길동, Kim, J."
-                />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
+                    저자 *
+                  </label>
+                  <input
+                    type="text"
+                    value={form.authors}
+                    onChange={(e) => setForm({ ...form, authors: e.target.value })}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="나현종, 홍길동"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
+                    저자 (영문)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.authors_en}
+                    onChange={(e) => setForm({ ...form, authors_en: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="Na, H., Kim, J."
+                  />
+                </div>
               </div>
 
-              <div className="grid md:grid-cols-4 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-text-secondary mb-1">
                     저널명
@@ -331,9 +351,24 @@ export default function AdminPublicationsPage() {
                     value={form.journal}
                     onChange={(e) => setForm({ ...form, journal: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="한국회계학회지"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
+                    저널명 (영문)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.journal_en}
+                    onChange={(e) => setForm({ ...form, journal_en: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
                     placeholder="Journal of Accounting Research"
                   />
                 </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-text-secondary mb-1">
                     등급
@@ -519,6 +554,19 @@ export default function AdminPublicationsPage() {
                   rows={4}
                   className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
                   placeholder="논문 초록"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  초록 (영문)
+                </label>
+                <textarea
+                  value={form.abstract_en}
+                  onChange={(e) => setForm({ ...form, abstract_en: e.target.value })}
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                  placeholder="Abstract (English)"
                 />
               </div>
 

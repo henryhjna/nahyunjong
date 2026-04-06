@@ -10,14 +10,18 @@ import type { Book, BookForm } from '@/lib/types';
 
 const initialForm: BookForm = {
   title: '',
+  title_en: '',
   subtitle: '',
+  subtitle_en: '',
   authors: '',
   publisher: '',
   published_date: '',
   isbn: '',
   cover_image_url: '',
   description: '',
+  description_en: '',
   table_of_contents: '',
+  table_of_contents_en: '',
   purchase_url: '',
   author_note: '',
   author_note_en: '',
@@ -107,14 +111,18 @@ export default function AdminBooksPage() {
   const handleEdit = (book: Book) => {
     setForm({
       title: book.title,
+      title_en: book.title_en || '',
       subtitle: book.subtitle || '',
+      subtitle_en: book.subtitle_en || '',
       authors: book.authors,
       publisher: book.publisher || '',
       published_date: book.published_date ? book.published_date.split('T')[0] : '',
       isbn: book.isbn || '',
       cover_image_url: book.cover_image_url || '',
       description: book.description || '',
+      description_en: book.description_en || '',
       table_of_contents: book.table_of_contents || '',
+      table_of_contents_en: book.table_of_contents_en || '',
       purchase_url: book.purchase_url || '',
       author_note: book.author_note || '',
       author_note_en: book.author_note_en || '',
@@ -233,6 +241,21 @@ export default function AdminBooksPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-text-secondary mb-1">
+                    제목 (영문)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.title_en}
+                    onChange={(e) => setForm({ ...form, title_en: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="Book title (English)"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
                     부제목
                   </label>
                   <input
@@ -241,6 +264,18 @@ export default function AdminBooksPage() {
                     onChange={(e) => setForm({ ...form, subtitle: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
                     placeholder="부제목 (선택)"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
+                    부제목 (영문)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.subtitle_en}
+                    onChange={(e) => setForm({ ...form, subtitle_en: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="Subtitle (English)"
                   />
                 </div>
               </div>
@@ -369,6 +404,19 @@ export default function AdminBooksPage() {
 
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1">
+                  책 소개 (영문)
+                </label>
+                <textarea
+                  value={form.description_en}
+                  onChange={(e) => setForm({ ...form, description_en: e.target.value })}
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
+                  placeholder="Book description (English)"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
                   목차
                 </label>
                 <textarea
@@ -377,6 +425,19 @@ export default function AdminBooksPage() {
                   rows={6}
                   className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
                   placeholder="1장. 서론&#10;2장. 본론&#10;..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  목차 (영문)
+                </label>
+                <textarea
+                  value={form.table_of_contents_en}
+                  onChange={(e) => setForm({ ...form, table_of_contents_en: e.target.value })}
+                  rows={6}
+                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
+                  placeholder="Chapter 1. Introduction&#10;Chapter 2. ..."
                 />
               </div>
 

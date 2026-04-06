@@ -10,9 +10,9 @@ router.get('/', async (req: Request, res: Response) => {
     const { year, tier, type, category } = req.query;
 
     let sql = `
-      SELECT p.id, p.title, p.title_en, p.authors, p.journal, p.journal_tier,
+      SELECT p.id, p.title, p.title_en, p.authors, p.authors_en, p.journal, p.journal_en, p.journal_tier,
              p.publication_type, p.year, p.volume, p.issue, p.pages, p.doi,
-             p.abstract, p.pdf_url,
+             p.abstract, p.abstract_en, p.pdf_url,
              COALESCE(array_agg(pc.category) FILTER (WHERE pc.category IS NOT NULL), '{}') as categories
       FROM publications p
       LEFT JOIN publication_categories pc ON p.id = pc.publication_id
@@ -75,9 +75,9 @@ router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await query(
-      `SELECT p.id, p.title, p.title_en, p.authors, p.journal, p.journal_tier,
+      `SELECT p.id, p.title, p.title_en, p.authors, p.authors_en, p.journal, p.journal_en, p.journal_tier,
               p.publication_type, p.year, p.volume, p.issue, p.pages, p.doi,
-              p.abstract, p.pdf_url,
+              p.abstract, p.abstract_en, p.pdf_url,
               COALESCE(array_agg(pc.category) FILTER (WHERE pc.category IS NOT NULL), '{}') as categories
        FROM publications p
        LEFT JOIN publication_categories pc ON p.id = pc.publication_id
@@ -126,8 +126,8 @@ router.get('/admin/:id', requireAuth, async (req: AuthRequest, res: Response) =>
 router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const {
-      title, title_en, authors, journal, journal_tier, publication_type, year,
-      volume, issue, pages, doi, abstract, pdf_url, is_published, categories
+      title, title_en, authors, authors_en, journal, journal_en, journal_tier, publication_type, year,
+      volume, issue, pages, doi, abstract, abstract_en, pdf_url, is_published, categories
     } = req.body;
 
     // Validate: at least one title required
@@ -141,12 +141,12 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
 
     // Insert publication
     const result = await query(
-      `INSERT INTO publications (title, title_en, authors, journal, journal_tier, publication_type, year,
-                                 volume, issue, pages, doi, abstract, pdf_url, is_published)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+      `INSERT INTO publications (title, title_en, authors, authors_en, journal, journal_en, journal_tier, publication_type, year,
+                                 volume, issue, pages, doi, abstract, abstract_en, pdf_url, is_published)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
        RETURNING *`,
-      [title || null, title_en || null, authors, journal, journal_tier, publication_type || 'paper', year,
-       volume, issue, pages, doi, abstract, pdf_url, is_published ?? true]
+      [title || null, title_en || null, authors, authors_en || null, journal, journal_en || null, journal_tier, publication_type || 'paper', year,
+       volume, issue, pages, doi, abstract, abstract_en || null, pdf_url, is_published ?? true]
     );
 
     const publication = result.rows[0];
@@ -180,8 +180,8 @@ router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
     const {
-      title, title_en, authors, journal, journal_tier, publication_type, year,
-      volume, issue, pages, doi, abstract, pdf_url, is_published, categories
+      title, title_en, authors, authors_en, journal, journal_en, journal_tier, publication_type, year,
+      volume, issue, pages, doi, abstract, abstract_en, pdf_url, is_published, categories
     } = req.body;
 
     // Check if at least one title will exist after update
@@ -194,23 +194,26 @@ router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
        SET title = $1,
            title_en = $2,
            authors = COALESCE($3, authors),
-           journal = $4,
-           journal_tier = $5,
-           publication_type = COALESCE($6, publication_type),
-           year = COALESCE($7, year),
-           volume = $8,
-           issue = $9,
-           pages = $10,
-           doi = $11,
-           abstract = $12,
-           pdf_url = $13,
-           is_published = COALESCE($14, is_published),
+           authors_en = $4,
+           journal = $5,
+           journal_en = $6,
+           journal_tier = $7,
+           publication_type = COALESCE($8, publication_type),
+           year = COALESCE($9, year),
+           volume = $10,
+           issue = $11,
+           pages = $12,
+           doi = $13,
+           abstract = $14,
+           abstract_en = $15,
+           pdf_url = $16,
+           is_published = COALESCE($17, is_published),
            updated_at = NOW()
-       WHERE id = $15
+       WHERE id = $18
        RETURNING *`,
-      [title || null, title_en || null, authors, journal || null, journal_tier || null,
+      [title || null, title_en || null, authors, authors_en || null, journal || null, journal_en || null, journal_tier || null,
        publication_type, year, volume || null, issue || null, pages || null,
-       doi || null, abstract || null, pdf_url || null, is_published, id]
+       doi || null, abstract || null, abstract_en || null, pdf_url || null, is_published, id]
     );
 
     if (result.rows.length === 0) {

@@ -1,5 +1,4 @@
 // Common shared types for the application
-// Centralizes type definitions to avoid duplication across pages
 
 // ============================================
 // Profile & About Related Types
@@ -8,33 +7,41 @@
 export interface Education {
   id: number;
   degree: string;
+  degree_en: string | null;
   field: string | null;
+  field_en: string | null;
   institution: string;
   institution_en: string | null;
   year_start: number | null;
   year_end: number | null;
   description: string | null;
+  description_en: string | null;
   sort_order: number;
 }
 
 export interface Career {
   id: number;
   position: string;
+  position_en: string | null;
   organization: string;
   organization_en: string | null;
   year_start: number | null;
   year_end: number | null;
   is_current: boolean;
   description: string | null;
+  description_en: string | null;
   sort_order: number;
 }
 
 export interface Award {
   id: number;
   title: string;
+  title_en: string | null;
   organization: string | null;
+  organization_en: string | null;
   year: number | null;
   description: string | null;
+  description_en: string | null;
   sort_order: number;
 }
 
@@ -43,15 +50,21 @@ export interface ProfileBasic {
   name: string;
   name_en: string | null;
   title: string | null;
+  title_en: string | null;
   affiliation: string | null;
+  affiliation_en: string | null;
   email: string | null;
   photo_url: string | null;
   bio: string | null;
+  bio_en: string | null;
+  tagline: string | null;
+  tagline_en: string | null;
   research_interests: string[] | null;
 }
 
 export interface Profile extends ProfileBasic {
   bio_detail: string | null;
+  bio_detail_en: string | null;
   education: Education[];
   career: Career[];
   awards: Award[];
@@ -68,7 +81,9 @@ export interface Publication {
   title: string | null;
   title_en: string | null;
   authors: string;
+  authors_en: string | null;
   journal: string | null;
+  journal_en: string | null;
   journal_tier: string | null;
   publication_type: PublicationType;
   year: number;
@@ -77,6 +92,7 @@ export interface Publication {
   pages: string | null;
   doi: string | null;
   abstract: string | null;
+  abstract_en: string | null;
   pdf_url: string | null;
   is_published: boolean;
   categories: string[];
@@ -88,7 +104,9 @@ export interface PublicationForm {
   title: string;
   title_en: string;
   authors: string;
+  authors_en: string;
   journal: string;
+  journal_en: string;
   journal_tier: string;
   publication_type: PublicationType;
   year: number;
@@ -97,6 +115,7 @@ export interface PublicationForm {
   pages: string;
   doi: string;
   abstract: string;
+  abstract_en: string;
   pdf_url: string;
   is_published: boolean;
   categories: string[];
@@ -109,14 +128,18 @@ export interface PublicationForm {
 export interface Book {
   id: number;
   title: string;
+  title_en: string | null;
   subtitle: string | null;
+  subtitle_en: string | null;
   authors: string;
   publisher: string | null;
   published_date: string | null;
   isbn: string | null;
   cover_image_url: string | null;
   description: string | null;
+  description_en: string | null;
   table_of_contents: string | null;
+  table_of_contents_en: string | null;
   purchase_url: string | null;
   author_note: string | null;
   author_note_en: string | null;
@@ -128,14 +151,18 @@ export interface Book {
 
 export interface BookForm {
   title: string;
+  title_en: string;
   subtitle: string;
+  subtitle_en: string;
   authors: string;
   publisher: string;
   published_date: string;
   isbn: string;
   cover_image_url: string;
   description: string;
+  description_en: string;
   table_of_contents: string;
+  table_of_contents_en: string;
   purchase_url: string;
   author_note: string;
   author_note_en: string;
@@ -250,8 +277,10 @@ export interface MemberForm {
 export interface NewsItem {
   id: number;
   title: string;
+  title_en: string | null;
   slug: string;
   content: string | null;
+  content_en: string | null;
   source: string | null;
   source_url: string | null;
   image_url: string | null;
@@ -272,7 +301,9 @@ export interface RepresentativeNews {
 
 export interface NewsForm {
   title: string;
+  title_en: string;
   content: string;
+  content_en: string;
   source: string;
   source_url: string;
   image_url: string;

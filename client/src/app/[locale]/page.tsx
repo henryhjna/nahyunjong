@@ -11,7 +11,9 @@ interface ProfileBasic {
   name: string;
   name_en: string | null;
   title: string | null;
+  title_en: string | null;
   affiliation: string | null;
+  affiliation_en: string | null;
   bio: string | null;
   photo_url: string | null;
   tagline: string | null;
@@ -106,7 +108,7 @@ export default function Home() {
               )}
 
               <p className="text-sm text-text-tertiary">
-                {profile?.affiliation} {profile?.title}
+                {locale === 'en' && profile?.affiliation_en ? profile.affiliation_en : profile?.affiliation} {locale === 'en' && profile?.title_en ? profile.title_en : profile?.title}
               </p>
             </>
           )}

@@ -9,13 +9,16 @@ import { motion } from 'framer-motion';
 interface Book {
   id: number;
   title: string;
+  title_en: string | null;
   subtitle: string | null;
+  subtitle_en: string | null;
   authors: string;
   publisher: string | null;
   published_date: string | null;
   isbn: string | null;
   cover_image_url: string | null;
   description: string | null;
+  description_en: string | null;
   purchase_url: string | null;
 }
 
@@ -28,6 +31,7 @@ function formatDate(dateString: string | null) {
 export default function BookClient() {
   const { dictionary, locale } = useDictionary();
   const t = dictionary.books;
+  const l = (ko: string | null | undefined, en: string | null | undefined) => locale === 'en' && en ? en : ko;
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -120,10 +124,10 @@ export default function BookClient() {
 
                   <div className="flex-1 min-w-0">
                     <h2 className="text-lg font-semibold text-text-primary mb-1 line-clamp-2">
-                      {book.title}
+                      {l(book.title, book.title_en)}
                     </h2>
-                    {book.subtitle && (
-                      <p className="text-text-secondary text-sm mb-2 line-clamp-1">{book.subtitle}</p>
+                    {(book.subtitle || book.subtitle_en) && (
+                      <p className="text-text-secondary text-sm mb-2 line-clamp-1">{l(book.subtitle, book.subtitle_en)}</p>
                     )}
                     <p className="text-text-tertiary text-sm mb-1">{book.authors}</p>
                     <p className="text-text-muted text-sm">
@@ -131,9 +135,9 @@ export default function BookClient() {
                       {book.publisher && book.published_date && ' · '}
                       {formatDate(book.published_date)}
                     </p>
-                    {book.description && (
+                    {(book.description || book.description_en) && (
                       <p className="text-text-tertiary text-sm mt-3 line-clamp-2 leading-relaxed">
-                        {book.description}
+                        {l(book.description, book.description_en)}
                       </p>
                     )}
                     {book.purchase_url && (

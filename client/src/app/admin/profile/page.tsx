@@ -11,33 +11,41 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface Education {
   id?: number;
   degree: string;
+  degree_en: string;
   field: string;
+  field_en: string;
   institution: string;
   institution_en: string;
   year_start: number | null;
   year_end: number | null;
   description: string;
+  description_en: string;
   sort_order: number;
 }
 
 interface Career {
   id?: number;
   position: string;
+  position_en: string;
   organization: string;
   organization_en: string;
   year_start: number | null;
   year_end: number | null;
   is_current: boolean;
   description: string;
+  description_en: string;
   sort_order: number;
 }
 
 interface Award {
   id?: number;
   title: string;
+  title_en: string;
   organization: string;
+  organization_en: string;
   year: number | null;
   description: string;
+  description_en: string;
   sort_order: number;
 }
 
@@ -46,11 +54,15 @@ interface Profile {
   name: string;
   name_en: string;
   title: string;
+  title_en: string;
   affiliation: string;
+  affiliation_en: string;
   email: string;
   photo_url: string;
   bio: string;
+  bio_en: string;
   bio_detail: string;
+  bio_detail_en: string;
   research_interests: string[];
   tagline: string;
   tagline_en: string;
@@ -117,11 +129,15 @@ export default function AdminProfilePage() {
           name: profile.name,
           name_en: profile.name_en,
           title: profile.title,
+          title_en: profile.title_en,
           affiliation: profile.affiliation,
+          affiliation_en: profile.affiliation_en,
           email: profile.email,
           photo_url: profile.photo_url,
           bio: profile.bio,
+          bio_en: profile.bio_en,
           bio_detail: profile.bio_detail,
+          bio_detail_en: profile.bio_detail_en,
           research_interests: profile.research_interests,
         }),
       });
@@ -398,11 +414,29 @@ export default function AdminProfilePage() {
                   />
                 </div>
                 <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">소속 (영문)</label>
+                  <input
+                    type="text"
+                    value={profile.affiliation_en || ''}
+                    onChange={(e) => setProfile({ ...profile, affiliation_en: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                  />
+                </div>
+                <div>
                   <label className="block text-sm font-medium text-text-secondary mb-2">직함</label>
                   <input
                     type="text"
                     value={profile.title || ''}
                     onChange={(e) => setProfile({ ...profile, title: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">직함 (영문)</label>
+                  <input
+                    type="text"
+                    value={profile.title_en || ''}
+                    onChange={(e) => setProfile({ ...profile, title_en: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
                   />
                 </div>
@@ -459,10 +493,30 @@ export default function AdminProfilePage() {
               </div>
 
               <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">간단 소개 (영문)</label>
+                <textarea
+                  value={profile.bio_en || ''}
+                  onChange={(e) => setProfile({ ...profile, bio_en: e.target.value })}
+                  rows={3}
+                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
+                />
+              </div>
+
+              <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">상세 소개 (About 페이지용)</label>
                 <textarea
                   value={profile.bio_detail || ''}
                   onChange={(e) => setProfile({ ...profile, bio_detail: e.target.value })}
+                  rows={5}
+                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">상세 소개 (영문)</label>
+                <textarea
+                  value={profile.bio_detail_en || ''}
+                  onChange={(e) => setProfile({ ...profile, bio_detail_en: e.target.value })}
                   rows={5}
                   className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors resize-none"
                 />
@@ -505,7 +559,7 @@ export default function AdminProfilePage() {
               <button
                 onClick={() => setEducationModal({
                   open: true,
-                  data: { degree: '', field: '', institution: '', institution_en: '', year_start: null, year_end: null, description: '', sort_order: 0 }
+                  data: { degree: '', degree_en: '', field: '', field_en: '', institution: '', institution_en: '', year_start: null, year_end: null, description: '', description_en: '', sort_order: 0 }
                 })}
                 className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:bg-accent-blue/90 transition-all"
               >
@@ -567,7 +621,7 @@ export default function AdminProfilePage() {
               <button
                 onClick={() => setCareerModal({
                   open: true,
-                  data: { position: '', organization: '', organization_en: '', year_start: null, year_end: null, is_current: false, description: '', sort_order: 0 }
+                  data: { position: '', position_en: '', organization: '', organization_en: '', year_start: null, year_end: null, is_current: false, description: '', description_en: '', sort_order: 0 }
                 })}
                 className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:bg-accent-blue/90 transition-all"
               >
@@ -629,7 +683,7 @@ export default function AdminProfilePage() {
               <button
                 onClick={() => setAwardModal({
                   open: true,
-                  data: { title: '', organization: '', year: null, description: '', sort_order: 0 }
+                  data: { title: '', title_en: '', organization: '', organization_en: '', year: null, description: '', description_en: '', sort_order: 0 }
                 })}
                 className="px-4 py-2 rounded-xl bg-accent-blue text-white text-sm font-medium hover:bg-accent-blue/90 transition-all"
               >
@@ -762,11 +816,33 @@ function EducationModal({
               />
             </div>
             <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">학위 (영문)</label>
+              <input
+                type="text"
+                value={form.degree_en}
+                onChange={(e) => setForm({ ...form, degree_en: e.target.value })}
+                placeholder="e.g., Ph.D."
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
               <label className="block text-sm font-medium text-text-secondary mb-1">전공</label>
               <input
                 type="text"
                 value={form.field}
                 onChange={(e) => setForm({ ...form, field: e.target.value })}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">전공 (영문)</label>
+              <input
+                type="text"
+                value={form.field_en}
+                onChange={(e) => setForm({ ...form, field_en: e.target.value })}
                 className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
               />
             </div>
@@ -811,6 +887,27 @@ function EducationModal({
                 value={form.year_end || ''}
                 onChange={(e) => setForm({ ...form, year_end: e.target.value ? parseInt(e.target.value) : null })}
                 className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">설명</label>
+              <textarea
+                value={form.description}
+                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                rows={2}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">설명 (영문)</label>
+              <textarea
+                value={form.description_en}
+                onChange={(e) => setForm({ ...form, description_en: e.target.value })}
+                rows={2}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none resize-none"
               />
             </div>
           </div>
@@ -880,14 +977,25 @@ function CareerModal({
         </h3>
 
         <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">직위</label>
-            <input
-              type="text"
-              value={form.position}
-              onChange={(e) => setForm({ ...form, position: e.target.value })}
-              className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">직위</label>
+              <input
+                type="text"
+                value={form.position}
+                onChange={(e) => setForm({ ...form, position: e.target.value })}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">직위 (영문)</label>
+              <input
+                type="text"
+                value={form.position_en}
+                onChange={(e) => setForm({ ...form, position_en: e.target.value })}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
           </div>
 
           <div>
@@ -943,6 +1051,27 @@ function CareerModal({
             />
             <span className="text-sm text-text-secondary">현재 재직 중</span>
           </label>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">설명</label>
+              <textarea
+                value={form.description}
+                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                rows={2}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">설명 (영문)</label>
+              <textarea
+                value={form.description_en}
+                onChange={(e) => setForm({ ...form, description_en: e.target.value })}
+                rows={2}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none resize-none"
+              />
+            </div>
+          </div>
 
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">정렬 순서</label>
@@ -1009,24 +1138,46 @@ function AwardModal({
         </h3>
 
         <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">수상명</label>
-            <input
-              type="text"
-              value={form.title}
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">수상명</label>
+              <input
+                type="text"
+                value={form.title}
+                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">수상명 (영문)</label>
+              <input
+                type="text"
+                value={form.title_en}
+                onChange={(e) => setForm({ ...form, title_en: e.target.value })}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">수여 기관</label>
-            <input
-              type="text"
-              value={form.organization}
-              onChange={(e) => setForm({ ...form, organization: e.target.value })}
-              className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">수여 기관</label>
+              <input
+                type="text"
+                value={form.organization}
+                onChange={(e) => setForm({ ...form, organization: e.target.value })}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">수여 기관 (영문)</label>
+              <input
+                type="text"
+                value={form.organization_en}
+                onChange={(e) => setForm({ ...form, organization_en: e.target.value })}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none"
+              />
+            </div>
           </div>
 
           <div>
@@ -1039,14 +1190,25 @@ function AwardModal({
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">설명</label>
-            <textarea
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
-              rows={3}
-              className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none resize-none"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">설명</label>
+              <textarea
+                value={form.description}
+                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                rows={3}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">설명 (영문)</label>
+              <textarea
+                value={form.description_en}
+                onChange={(e) => setForm({ ...form, description_en: e.target.value })}
+                rows={3}
+                className="w-full px-4 py-2 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none resize-none"
+              />
+            </div>
           </div>
 
           <div>

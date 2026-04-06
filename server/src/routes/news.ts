@@ -280,7 +280,7 @@ router.get('/admin/:id', requireAuth, async (req: AuthRequest, res: Response) =>
 // Create news (admin only)
 router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    const { title, content, source, source_url, image_url, published_at, is_published } = req.body;
+    const { title, title_en, content, content_en, source, source_url, image_url, published_at, is_published } = req.body;
 
     if (!title || !published_at) {
       return res.status(400).json({ error: 'Title and published_at are required' });
@@ -310,10 +310,10 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
     }
 
     const result = await query(
-      `INSERT INTO news (title, slug, content, source, source_url, image_url, published_at, is_published)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      `INSERT INTO news (title, title_en, slug, content, content_en, source, source_url, image_url, published_at, is_published)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
        RETURNING *`,
-      [title, slug, content, source, source_url, image_url, published_at, is_published || false]
+      [title, title_en, slug, content, content_en, source, source_url, image_url, published_at, is_published || false]
     );
 
     res.status(201).json(result.rows[0]);
@@ -327,7 +327,7 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
 router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const { title, content, source, source_url, image_url, published_at, is_published } = req.body;
+    const { title, title_en, content, content_en, source, source_url, image_url, published_at, is_published } = req.body;
 
     // If title changed, update slug
     let slugUpdate = '';
@@ -348,16 +348,18 @@ router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
     const result = await query(
       `UPDATE news
        SET title = COALESCE($${paramIndex}, title),
-           content = COALESCE($${paramIndex + 1}, content),
-           source = COALESCE($${paramIndex + 2}, source),
-           source_url = COALESCE($${paramIndex + 3}, source_url),
-           image_url = COALESCE($${paramIndex + 4}, image_url),
-           published_at = COALESCE($${paramIndex + 5}, published_at),
-           is_published = COALESCE($${paramIndex + 6}, is_published)
+           title_en = $${paramIndex + 1},
+           content = COALESCE($${paramIndex + 2}, content),
+           content_en = $${paramIndex + 3},
+           source = COALESCE($${paramIndex + 4}, source),
+           source_url = COALESCE($${paramIndex + 5}, source_url),
+           image_url = COALESCE($${paramIndex + 6}, image_url),
+           published_at = COALESCE($${paramIndex + 7}, published_at),
+           is_published = COALESCE($${paramIndex + 8}, is_published)
            ${slugUpdate}
-       WHERE id = $${paramIndex + 7}
+       WHERE id = $${paramIndex + 9}
        RETURNING *`,
-      [...values, title, content, source, source_url, image_url, published_at, is_published, id]
+      [...values, title, title_en, content, content_en, source, source_url, image_url, published_at, is_published, id]
     );
 
     if (result.rows.length === 0) {

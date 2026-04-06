@@ -9,14 +9,18 @@ import { motion } from 'framer-motion';
 interface BookDetail {
   id: number;
   title: string;
+  title_en: string | null;
   subtitle: string | null;
+  subtitle_en: string | null;
   authors: string;
   publisher: string | null;
   published_date: string | null;
   isbn: string | null;
   cover_image_url: string | null;
   description: string | null;
+  description_en: string | null;
   table_of_contents: string | null;
+  table_of_contents_en: string | null;
   purchase_url: string | null;
   author_note: string | null;
   author_note_en: string | null;
@@ -29,6 +33,7 @@ interface BookDetailClientProps {
 export default function BookDetailClient({ id }: BookDetailClientProps) {
   const { dictionary, locale } = useDictionary();
   const t = dictionary.books;
+  const l = (ko: string | null | undefined, en: string | null | undefined) => locale === 'en' && en ? en : ko;
   const [book, setBook] = useState<BookDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -131,10 +136,10 @@ export default function BookDetailClient({ id }: BookDetailClientProps) {
                 {/* Info */}
                 <div className="flex-1">
                   <h1 className="text-2xl font-bold text-text-primary mb-1">
-                    {book.title}
+                    {l(book.title, book.title_en)}
                   </h1>
-                  {book.subtitle && (
-                    <p className="text-lg text-text-secondary mb-4">{book.subtitle}</p>
+                  {(book.subtitle || book.subtitle_en) && (
+                    <p className="text-lg text-text-secondary mb-4">{l(book.subtitle, book.subtitle_en)}</p>
                   )}
 
                   <div className="space-y-1 text-sm text-text-secondary mb-6">
@@ -177,23 +182,23 @@ export default function BookDetailClient({ id }: BookDetailClientProps) {
             </div>
 
             {/* Description */}
-            {book.description && (
+            {(book.description || book.description_en) && (
               <div className="bg-surface border border-border rounded-xl p-8 mt-6">
                 <h2 className="text-lg font-bold text-text-primary mb-3">
                   {t.description}
                 </h2>
                 <div className="text-text-secondary leading-relaxed whitespace-pre-wrap">
-                  {book.description}
+                  {l(book.description, book.description_en)}
                 </div>
               </div>
             )}
 
             {/* Table of Contents */}
-            {book.table_of_contents && (
+            {(book.table_of_contents || book.table_of_contents_en) && (
               <div className="bg-surface border border-border rounded-xl p-8 mt-6">
                 <h2 className="text-lg font-bold text-text-primary mb-3">{t.tableOfContents}</h2>
                 <div className="text-text-secondary leading-relaxed whitespace-pre-wrap">
-                  {book.table_of_contents}
+                  {l(book.table_of_contents, book.table_of_contents_en)}
                 </div>
               </div>
             )}

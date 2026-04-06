@@ -10,7 +10,9 @@ interface Publication {
   title: string | null;
   title_en: string | null;
   authors: string;
+  authors_en: string | null;
   journal: string | null;
+  journal_en: string | null;
   journal_tier: string | null;
   publication_type: 'paper' | 'report';
   year: number;
@@ -19,6 +21,7 @@ interface Publication {
   pages: string | null;
   doi: string | null;
   abstract: string | null;
+  abstract_en: string | null;
   pdf_url: string | null;
   categories: string[];
 }
@@ -32,8 +35,9 @@ const tierColors: Record<string, string> = {
 };
 
 export default function ResearchClient() {
-  const { dictionary } = useDictionary();
+  const { dictionary, locale } = useDictionary();
   const t = dictionary.research;
+  const l = (ko: string | null | undefined, en: string | null | undefined) => locale === 'en' && en ? en : ko;
 
   const [publications, setPublications] = useState<Publication[]>([]);
   const [loading, setLoading] = useState(true);
@@ -265,18 +269,18 @@ export default function ResearchClient() {
                               <div className="flex justify-between items-start gap-4">
                                 <div className="flex-1 min-w-0">
                                   <h3 className="text-base font-semibold text-text-primary mb-1">
-                                    {pub.title || pub.title_en}
+                                    {locale === 'en' && pub.title_en ? pub.title_en : (pub.title || pub.title_en)}
                                   </h3>
                                   {pub.title && pub.title_en && pub.title !== pub.title_en && (
                                     <p className="text-text-tertiary text-sm mb-2 italic">
-                                      {pub.title_en}
+                                      {locale === 'en' ? pub.title : pub.title_en}
                                     </p>
                                   )}
-                                  <p className="text-text-secondary text-sm mb-2">{pub.authors}</p>
+                                  <p className="text-text-secondary text-sm mb-2">{l(pub.authors, pub.authors_en)}</p>
                                   <p className="text-text-tertiary text-sm">
-                                    {pub.journal && (
+                                    {(pub.journal || pub.journal_en) && (
                                       <span className="font-medium text-text-secondary">
-                                        {pub.journal}
+                                        {l(pub.journal, pub.journal_en)}
                                       </span>
                                     )}
                                     {pub.volume && `, Vol. ${pub.volume}`}
@@ -366,7 +370,7 @@ export default function ResearchClient() {
                                     PDF
                                   </a>
                                 )}
-                                {pub.abstract && (
+                                {(pub.abstract || pub.abstract_en) && (
                                   <button
                                     onClick={() => toggleAbstract(pub.id)}
                                     className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
@@ -402,7 +406,7 @@ export default function ResearchClient() {
                                     {t.abstract}
                                   </h4>
                                   <p className="text-text-secondary text-sm leading-relaxed whitespace-pre-wrap">
-                                    {pub.abstract}
+                                    {l(pub.abstract, pub.abstract_en)}
                                   </p>
                                 </div>
                               </div>

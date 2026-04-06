@@ -8,8 +8,10 @@ import { motion } from 'framer-motion';
 interface RelatedNews {
   id: number;
   title: string;
+  title_en: string | null;
   slug: string;
   content: string | null;
+  content_en: string | null;
   source: string | null;
   source_url: string | null;
   image_url: string | null;
@@ -19,8 +21,10 @@ interface RelatedNews {
 interface NewsItem {
   id: number;
   title: string;
+  title_en: string | null;
   slug: string;
   content: string | null;
+  content_en: string | null;
   source: string | null;
   source_url: string | null;
   image_url: string | null;
@@ -30,7 +34,8 @@ interface NewsItem {
 }
 
 export default function NewsClient() {
-  const { dictionary } = useDictionary();
+  const { dictionary, locale } = useDictionary();
+  const l = (ko: string | null | undefined, en: string | null | undefined) => locale === 'en' && en ? en : ko;
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -109,7 +114,7 @@ export default function NewsClient() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <h2 className="text-base font-semibold text-text-primary truncate group-hover:text-accent-blue transition-colors">
-                        {item.title}
+                        {l(item.title, item.title_en)}
                       </h2>
                       {item.related_news && item.related_news.length > 0 && (
                         <span className="flex-shrink-0 px-1.5 py-0.5 text-xs font-medium text-text-tertiary bg-surface-hover rounded">

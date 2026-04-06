@@ -9,7 +9,9 @@ import type { NewsItem, RepresentativeNews, NewsForm } from '@/lib/types';
 
 const initialForm: NewsForm = {
   title: '',
+  title_en: '',
   content: '',
+  content_en: '',
   source: '',
   source_url: '',
   image_url: '',
@@ -159,7 +161,9 @@ export default function AdminNewsPage() {
   const handleEdit = (item: NewsItem) => {
     setForm({
       title: item.title,
+      title_en: item.title_en || '',
       content: item.content || '',
+      content_en: item.content_en || '',
       source: item.source || '',
       source_url: item.source_url || '',
       image_url: item.image_url || '',
@@ -336,18 +340,32 @@ export default function AdminNewsPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">
-                  제목 *
-                </label>
-                <input
-                  type="text"
-                  value={form.title}
-                  onChange={(e) => setForm({ ...form, title: e.target.value })}
-                  required
-                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
-                  placeholder="뉴스 제목"
-                />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
+                    제목 *
+                  </label>
+                  <input
+                    type="text"
+                    value={form.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="뉴스 제목"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-1">
+                    제목 (영문)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.title_en}
+                    onChange={(e) => setForm({ ...form, title_en: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                    placeholder="News title (English)"
+                  />
+                </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -423,6 +441,19 @@ export default function AdminNewsPage() {
                   rows={4}
                   className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
                   placeholder="뉴스 내용 또는 요약"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  내용/요약 (영문)
+                </label>
+                <textarea
+                  value={form.content_en}
+                  onChange={(e) => setForm({ ...form, content_en: e.target.value })}
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
+                  placeholder="News content or summary (English)"
                 />
               </div>
 

@@ -8,8 +8,8 @@ const router = express.Router();
 router.get('/', async (req: Request, res: Response) => {
   try {
     const result = await query(
-      `SELECT id, title, subtitle, authors, publisher, published_date, isbn,
-              cover_image_url, description, table_of_contents, purchase_url, order_index
+      `SELECT id, title, title_en, subtitle, subtitle_en, authors, publisher, published_date, isbn,
+              cover_image_url, description, description_en, table_of_contents, table_of_contents_en, purchase_url, order_index
        FROM books
        WHERE is_published = true
        ORDER BY order_index ASC, published_date DESC`
@@ -39,8 +39,8 @@ router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await query(
-      `SELECT id, title, subtitle, authors, publisher, published_date, isbn,
-              cover_image_url, description, table_of_contents, purchase_url
+      `SELECT id, title, title_en, subtitle, subtitle_en, authors, publisher, published_date, isbn,
+              cover_image_url, description, description_en, table_of_contents, table_of_contents_en, purchase_url
        FROM books
        WHERE id = $1 AND is_published = true`,
       [id]
@@ -78,8 +78,8 @@ router.get('/admin/:id', requireAuth, async (req: AuthRequest, res: Response) =>
 router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const {
-      title, subtitle, authors, publisher, published_date,
-      isbn, cover_image_url, description, table_of_contents,
+      title, title_en, subtitle, subtitle_en, authors, publisher, published_date,
+      isbn, cover_image_url, description, description_en, table_of_contents, table_of_contents_en,
       purchase_url, is_published, order_index
     } = req.body;
 
@@ -88,13 +88,13 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
     }
 
     const result = await query(
-      `INSERT INTO books (title, subtitle, authors, publisher, published_date,
-                          isbn, cover_image_url, description, table_of_contents,
+      `INSERT INTO books (title, title_en, subtitle, subtitle_en, authors, publisher, published_date,
+                          isbn, cover_image_url, description, description_en, table_of_contents, table_of_contents_en,
                           purchase_url, is_published, order_index)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
        RETURNING *`,
-      [title, subtitle, authors, publisher, published_date,
-       isbn, cover_image_url, description, table_of_contents,
+      [title, title_en, subtitle, subtitle_en, authors, publisher, published_date,
+       isbn, cover_image_url, description, description_en, table_of_contents, table_of_contents_en,
        purchase_url, is_published ?? true, order_index ?? 0]
     );
 
@@ -110,29 +110,33 @@ router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
     const {
-      title, subtitle, authors, publisher, published_date,
-      isbn, cover_image_url, description, table_of_contents,
+      title, title_en, subtitle, subtitle_en, authors, publisher, published_date,
+      isbn, cover_image_url, description, description_en, table_of_contents, table_of_contents_en,
       purchase_url, is_published, order_index
     } = req.body;
 
     const result = await query(
       `UPDATE books
        SET title = COALESCE($1, title),
-           subtitle = COALESCE($2, subtitle),
-           authors = COALESCE($3, authors),
-           publisher = COALESCE($4, publisher),
-           published_date = COALESCE($5, published_date),
-           isbn = COALESCE($6, isbn),
-           cover_image_url = COALESCE($7, cover_image_url),
-           description = COALESCE($8, description),
-           table_of_contents = COALESCE($9, table_of_contents),
-           purchase_url = COALESCE($10, purchase_url),
-           is_published = COALESCE($11, is_published),
-           order_index = COALESCE($12, order_index)
-       WHERE id = $13
+           title_en = $2,
+           subtitle = COALESCE($3, subtitle),
+           subtitle_en = $4,
+           authors = COALESCE($5, authors),
+           publisher = COALESCE($6, publisher),
+           published_date = COALESCE($7, published_date),
+           isbn = COALESCE($8, isbn),
+           cover_image_url = COALESCE($9, cover_image_url),
+           description = COALESCE($10, description),
+           description_en = $11,
+           table_of_contents = COALESCE($12, table_of_contents),
+           table_of_contents_en = $13,
+           purchase_url = COALESCE($14, purchase_url),
+           is_published = COALESCE($15, is_published),
+           order_index = COALESCE($16, order_index)
+       WHERE id = $17
        RETURNING *`,
-      [title, subtitle, authors, publisher, published_date,
-       isbn, cover_image_url, description, table_of_contents,
+      [title, title_en, subtitle, subtitle_en, authors, publisher, published_date,
+       isbn, cover_image_url, description, description_en, table_of_contents, table_of_contents_en,
        purchase_url, is_published, order_index, id]
     );
 

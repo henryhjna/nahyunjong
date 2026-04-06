@@ -52,7 +52,7 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/basic', async (req: Request, res: Response) => {
   try {
     const result = await query(
-      'SELECT id, name, name_en, title, affiliation, email, photo_url, bio, research_interests, tagline, tagline_en FROM professor_profile ORDER BY id LIMIT 1'
+      'SELECT id, name, name_en, title, title_en, affiliation, affiliation_en, email, photo_url, bio, bio_en, research_interests, tagline, tagline_en FROM professor_profile ORDER BY id LIMIT 1'
     );
 
     if (result.rows.length === 0) {
@@ -70,7 +70,7 @@ router.get('/basic', async (req: Request, res: Response) => {
 router.put('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const {
-      name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests, tagline, tagline_en
+      name, name_en, title, title_en, affiliation, affiliation_en, email, photo_url, bio, bio_en, bio_detail, bio_detail_en, research_interests, tagline, tagline_en
     } = req.body;
 
     // Get existing profile id
@@ -79,10 +79,10 @@ router.put('/', requireAuth, async (req: AuthRequest, res: Response) => {
     if (existingProfile.rows.length === 0) {
       // Create new profile if none exists
       const result = await query(
-        `INSERT INTO professor_profile (name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests, tagline, tagline_en)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        `INSERT INTO professor_profile (name, name_en, title, title_en, affiliation, affiliation_en, email, photo_url, bio, bio_en, bio_detail, bio_detail_en, research_interests, tagline, tagline_en)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
          RETURNING *`,
-        [name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests || [], tagline, tagline_en]
+        [name, name_en, title, title_en, affiliation, affiliation_en, email, photo_url, bio, bio_en, bio_detail, bio_detail_en, research_interests || [], tagline, tagline_en]
       );
       return res.json(result.rows[0]);
     }
@@ -93,18 +93,22 @@ router.put('/', requireAuth, async (req: AuthRequest, res: Response) => {
        SET name = COALESCE($1, name),
            name_en = $2,
            title = $3,
-           affiliation = $4,
-           email = $5,
-           photo_url = $6,
-           bio = $7,
-           bio_detail = $8,
-           research_interests = COALESCE($9, research_interests),
-           tagline = $10,
-           tagline_en = $11,
+           title_en = $4,
+           affiliation = $5,
+           affiliation_en = $6,
+           email = $7,
+           photo_url = $8,
+           bio = $9,
+           bio_en = $10,
+           bio_detail = $11,
+           bio_detail_en = $12,
+           research_interests = COALESCE($13, research_interests),
+           tagline = $14,
+           tagline_en = $15,
            updated_at = NOW()
-       WHERE id = $12
+       WHERE id = $16
        RETURNING *`,
-      [name, name_en, title, affiliation, email, photo_url, bio, bio_detail, research_interests, tagline, tagline_en, profileId]
+      [name, name_en, title, title_en, affiliation, affiliation_en, email, photo_url, bio, bio_en, bio_detail, bio_detail_en, research_interests, tagline, tagline_en, profileId]
     );
 
     res.json(result.rows[0]);
@@ -119,7 +123,7 @@ router.put('/', requireAuth, async (req: AuthRequest, res: Response) => {
 // Add education (admin only)
 router.post('/education', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    const { degree, field, institution, institution_en, year_start, year_end, description, sort_order } = req.body;
+    const { degree, degree_en, field, field_en, institution, institution_en, year_start, year_end, description, description_en, sort_order } = req.body;
 
     // Get profile id
     const profileResult = await query('SELECT id FROM professor_profile ORDER BY id LIMIT 1');
@@ -129,10 +133,10 @@ router.post('/education', requireAuth, async (req: AuthRequest, res: Response) =
     const profileId = profileResult.rows[0].id;
 
     const result = await query(
-      `INSERT INTO professor_education (profile_id, degree, field, institution, institution_en, year_start, year_end, description, sort_order)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      `INSERT INTO professor_education (profile_id, degree, degree_en, field, field_en, institution, institution_en, year_start, year_end, description, description_en, sort_order)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
        RETURNING *`,
-      [profileId, degree, field, institution, institution_en, year_start, year_end, description, sort_order || 0]
+      [profileId, degree, degree_en, field, field_en, institution, institution_en, year_start, year_end, description, description_en, sort_order || 0]
     );
 
     res.status(201).json(result.rows[0]);
@@ -146,21 +150,24 @@ router.post('/education', requireAuth, async (req: AuthRequest, res: Response) =
 router.put('/education/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const { degree, field, institution, institution_en, year_start, year_end, description, sort_order } = req.body;
+    const { degree, degree_en, field, field_en, institution, institution_en, year_start, year_end, description, description_en, sort_order } = req.body;
 
     const result = await query(
       `UPDATE professor_education
        SET degree = COALESCE($1, degree),
-           field = $2,
-           institution = COALESCE($3, institution),
-           institution_en = $4,
-           year_start = $5,
-           year_end = $6,
-           description = $7,
-           sort_order = COALESCE($8, sort_order)
-       WHERE id = $9
+           degree_en = $2,
+           field = $3,
+           field_en = $4,
+           institution = COALESCE($5, institution),
+           institution_en = $6,
+           year_start = $7,
+           year_end = $8,
+           description = $9,
+           description_en = $10,
+           sort_order = COALESCE($11, sort_order)
+       WHERE id = $12
        RETURNING *`,
-      [degree, field, institution, institution_en, year_start, year_end, description, sort_order, id]
+      [degree, degree_en, field, field_en, institution, institution_en, year_start, year_end, description, description_en, sort_order, id]
     );
 
     if (result.rows.length === 0) {
@@ -196,7 +203,7 @@ router.delete('/education/:id', requireAuth, async (req: AuthRequest, res: Respo
 // Add career (admin only)
 router.post('/career', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    const { position, organization, organization_en, year_start, year_end, is_current, description, sort_order } = req.body;
+    const { position, position_en, organization, organization_en, year_start, year_end, is_current, description, description_en, sort_order } = req.body;
 
     // Get profile id
     const profileResult = await query('SELECT id FROM professor_profile ORDER BY id LIMIT 1');
@@ -206,10 +213,10 @@ router.post('/career', requireAuth, async (req: AuthRequest, res: Response) => {
     const profileId = profileResult.rows[0].id;
 
     const result = await query(
-      `INSERT INTO professor_career (profile_id, position, organization, organization_en, year_start, year_end, is_current, description, sort_order)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      `INSERT INTO professor_career (profile_id, position, position_en, organization, organization_en, year_start, year_end, is_current, description, description_en, sort_order)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        RETURNING *`,
-      [profileId, position, organization, organization_en, year_start, year_end, is_current || false, description, sort_order || 0]
+      [profileId, position, position_en, organization, organization_en, year_start, year_end, is_current || false, description, description_en, sort_order || 0]
     );
 
     res.status(201).json(result.rows[0]);
@@ -223,21 +230,23 @@ router.post('/career', requireAuth, async (req: AuthRequest, res: Response) => {
 router.put('/career/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const { position, organization, organization_en, year_start, year_end, is_current, description, sort_order } = req.body;
+    const { position, position_en, organization, organization_en, year_start, year_end, is_current, description, description_en, sort_order } = req.body;
 
     const result = await query(
       `UPDATE professor_career
        SET position = COALESCE($1, position),
-           organization = COALESCE($2, organization),
-           organization_en = $3,
-           year_start = $4,
-           year_end = $5,
-           is_current = COALESCE($6, is_current),
-           description = $7,
-           sort_order = COALESCE($8, sort_order)
-       WHERE id = $9
+           position_en = $2,
+           organization = COALESCE($3, organization),
+           organization_en = $4,
+           year_start = $5,
+           year_end = $6,
+           is_current = COALESCE($7, is_current),
+           description = $8,
+           description_en = $9,
+           sort_order = COALESCE($10, sort_order)
+       WHERE id = $11
        RETURNING *`,
-      [position, organization, organization_en, year_start, year_end, is_current, description, sort_order, id]
+      [position, position_en, organization, organization_en, year_start, year_end, is_current, description, description_en, sort_order, id]
     );
 
     if (result.rows.length === 0) {
@@ -273,7 +282,7 @@ router.delete('/career/:id', requireAuth, async (req: AuthRequest, res: Response
 // Add award (admin only)
 router.post('/awards', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    const { title, organization, year, description, sort_order } = req.body;
+    const { title, title_en, organization, organization_en, year, description, description_en, sort_order } = req.body;
 
     // Get profile id
     const profileResult = await query('SELECT id FROM professor_profile ORDER BY id LIMIT 1');
@@ -283,10 +292,10 @@ router.post('/awards', requireAuth, async (req: AuthRequest, res: Response) => {
     const profileId = profileResult.rows[0].id;
 
     const result = await query(
-      `INSERT INTO professor_awards (profile_id, title, organization, year, description, sort_order)
-       VALUES ($1, $2, $3, $4, $5, $6)
+      `INSERT INTO professor_awards (profile_id, title, title_en, organization, organization_en, year, description, description_en, sort_order)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
        RETURNING *`,
-      [profileId, title, organization, year, description, sort_order || 0]
+      [profileId, title, title_en, organization, organization_en, year, description, description_en, sort_order || 0]
     );
 
     res.status(201).json(result.rows[0]);
@@ -300,18 +309,21 @@ router.post('/awards', requireAuth, async (req: AuthRequest, res: Response) => {
 router.put('/awards/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const { title, organization, year, description, sort_order } = req.body;
+    const { title, title_en, organization, organization_en, year, description, description_en, sort_order } = req.body;
 
     const result = await query(
       `UPDATE professor_awards
        SET title = COALESCE($1, title),
-           organization = $2,
-           year = $3,
-           description = $4,
-           sort_order = COALESCE($5, sort_order)
-       WHERE id = $6
+           title_en = $2,
+           organization = $3,
+           organization_en = $4,
+           year = $5,
+           description = $6,
+           description_en = $7,
+           sort_order = COALESCE($8, sort_order)
+       WHERE id = $9
        RETURNING *`,
-      [title, organization, year, description, sort_order, id]
+      [title, title_en, organization, organization_en, year, description, description_en, sort_order, id]
     );
 
     if (result.rows.length === 0) {
