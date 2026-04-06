@@ -269,13 +269,8 @@ export default function ResearchClient() {
                               <div className="flex justify-between items-start gap-4">
                                 <div className="flex-1 min-w-0">
                                   <h3 className="text-base font-semibold text-text-primary mb-1">
-                                    {locale === 'en' && pub.title_en ? pub.title_en : (pub.title || pub.title_en)}
+                                    {l(pub.title, pub.title_en) || pub.title_en || pub.title}
                                   </h3>
-                                  {pub.title && pub.title_en && pub.title !== pub.title_en && (
-                                    <p className="text-text-tertiary text-sm mb-2 italic">
-                                      {locale === 'en' ? pub.title : pub.title_en}
-                                    </p>
-                                  )}
                                   <p className="text-text-secondary text-sm mb-2">{l(pub.authors, pub.authors_en)}</p>
                                   <p className="text-text-tertiary text-sm">
                                     {(pub.journal || pub.journal_en) && (
