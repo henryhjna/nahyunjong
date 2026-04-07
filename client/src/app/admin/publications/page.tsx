@@ -463,16 +463,16 @@ export default function AdminPublicationsPage() {
                 />
               </div>
 
-              {/* 연구 분야 카테고리 */}
+              {/* 키워드/태그 카테고리 */}
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-1">
-                  연구 분야 (복수 선택 가능)
+                  키워드/태그 (복수 선택 가능)
                 </label>
 
                 {/* 기존 카테고리 선택 */}
                 {existingCategories.length > 0 && (
                   <div className="mb-3 p-3 bg-surface rounded-xl border border-border">
-                    <p className="text-xs text-text-secondary mb-2">기존 연구분야 클릭하여 선택:</p>
+                    <p className="text-xs text-text-secondary mb-2">기존 키워드 클릭하여 선택:</p>
                     <div className="flex flex-wrap gap-2">
                       {existingCategories.map((cat) => (
                         <button
@@ -510,7 +510,7 @@ export default function AdminPublicationsPage() {
                       }
                     }}
                     className="flex-1 px-4 py-3 rounded-xl bg-surface border border-border text-text-primary focus:border-accent-blue focus:outline-none transition-colors"
-                    placeholder="새 연구분야 입력 후 Enter 또는 추가 버튼"
+                    placeholder="새 키워드 입력 후 Enter 또는 추가 버튼"
                   />
                   <button
                     type="button"
@@ -524,7 +524,7 @@ export default function AdminPublicationsPage() {
                 {/* 선택된 카테고리 */}
                 {form.categories.length > 0 && (
                   <div className="flex flex-wrap gap-2 p-3 bg-accent-blue/10 rounded-xl border border-accent-blue/20">
-                    <span className="text-xs text-accent-blue w-full mb-1">선택된 연구분야:</span>
+                    <span className="text-xs text-accent-blue w-full mb-1">선택된 키워드:</span>
                     {form.categories.map((cat) => (
                       <span
                         key={cat}

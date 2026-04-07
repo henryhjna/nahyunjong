@@ -26,7 +26,8 @@ interface Publication {
   categories: string[];
 }
 
-const tierColors: Record<string, string> = {
+// Unused but kept for reference
+const _tierColors: Record<string, string> = {
   SSCI: 'bg-accent-purple/20 text-accent-purple border-accent-purple/30',
   SCI: 'bg-accent-blue/20 text-accent-blue border-accent-blue/30',
   SCIE: 'bg-accent-blue/20 text-accent-blue border-accent-blue/30',
@@ -43,7 +44,6 @@ export default function ResearchClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>('all');
-  const [selectedTier, setSelectedTier] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
@@ -80,12 +80,10 @@ export default function ResearchClient() {
   };
 
   const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
-  const tiers = [...new Set(publications.map((p) => p.journal_tier).filter(Boolean))];
   const categories = [...new Set(publications.flatMap((p) => p.categories || []))].sort();
 
   const filteredPublications = publications.filter((p) => {
     if (selectedYear !== 'all' && p.year !== parseInt(selectedYear)) return false;
-    if (selectedTier !== 'all' && p.journal_tier !== selectedTier) return false;
     if (selectedType !== 'all' && p.publication_type !== selectedType) return false;
     if (selectedCategory !== 'all' && !(p.categories || []).includes(selectedCategory)) return false;
     return true;
@@ -186,33 +184,7 @@ export default function ResearchClient() {
                   </div>
                 </div>
 
-                {/* Tier Filter */}
-                <div>
-                  <span className="text-sm text-text-tertiary mb-2 block">{t.filterByTier}</span>
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      onClick={() => setSelectedTier('all')}
-                      className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
-                        selectedTier === 'all' ? chipActive : chipInactive
-                      }`}
-                    >
-                      {t.all}
-                    </button>
-                    {tiers.map((tier) => (
-                      <button
-                        key={tier}
-                        onClick={() => setSelectedTier(tier!)}
-                        className={`px-3 py-1.5 rounded-full text-sm transition-all duration-200 ${
-                          selectedTier === tier ? chipActive : chipInactive
-                        }`}
-                      >
-                        {tier}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Category Filter */}
+                {/* Keyword Filter */}
                 {categories.length > 0 && (
                   <div>
                     <span className="text-sm text-text-tertiary mb-2 block">{t.filterByCategory}</span>
@@ -305,15 +277,6 @@ export default function ResearchClient() {
                                   >
                                     {pub.publication_type === 'paper' ? t.paper : t.report}
                                   </span>
-                                  {pub.journal_tier && (
-                                    <span
-                                      className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                                        tierColors[pub.journal_tier] || tierColors['Other']
-                                      }`}
-                                    >
-                                      {pub.journal_tier}
-                                    </span>
-                                  )}
                                 </div>
                               </div>
 
