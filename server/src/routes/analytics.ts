@@ -84,4 +84,17 @@ router.get('/summary', requireAuth, async (req: AuthRequest, res: Response) => {
   }
 });
 
+// Purge own visits by IP hash (admin only)
+router.delete('/purge-my-views', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const ip = req.headers['x-forwarded-for']?.toString().split(',')[0] || req.ip || '';
+    const ipHash = hashIp(ip);
+    const result = await query('DELETE FROM page_views WHERE ip_hash = $1', [ipHash]);
+    res.json({ deleted: result.rowCount });
+  } catch (error) {
+    console.error('Error purging views:', error);
+    res.status(500).json({ error: 'Failed to purge' });
+  }
+});
+
 export default router;

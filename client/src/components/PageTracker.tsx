@@ -10,9 +10,16 @@ export function PageTracker() {
     // Extract locale from path
     const locale = pathname.startsWith('/en') ? 'en' : 'ko';
 
-    // Don't track admin/API paths, or logged-in admin
+    // Don't track admin/API paths
     if (pathname.startsWith('/admin') || pathname.startsWith('/api')) return;
-    if (typeof window !== 'undefined' && localStorage.getItem('authToken')) return;
+
+    // Permanent exclusion: once admin logs in, this flag stays forever
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('authToken')) {
+        localStorage.setItem('analytics_exclude', 'true');
+      }
+      if (localStorage.getItem('analytics_exclude') === 'true') return;
+    }
 
     const sendPageview = async () => {
       try {

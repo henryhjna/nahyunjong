@@ -68,20 +68,40 @@ export default function AdminAnalyticsPage() {
               </Link>
               <h1 className="text-3xl font-bold text-text-primary">방문자 통계</h1>
             </div>
-            <div className="flex gap-2">
-              {[7, 30, 90].map((d) => (
-                <button
-                  key={d}
-                  onClick={() => setDays(d)}
-                  className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
-                    days === d
-                      ? 'bg-accent-blue text-white'
-                      : 'bg-surface border border-border text-text-secondary hover:text-text-primary'
-                  }`}
-                >
-                  {d}일
-                </button>
-              ))}
+            <div className="flex items-center gap-3">
+              <div className="flex gap-2">
+                {[7, 30, 90].map((d) => (
+                  <button
+                    key={d}
+                    onClick={() => setDays(d)}
+                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                      days === d
+                        ? 'bg-accent-blue text-white'
+                        : 'bg-surface border border-border text-text-secondary hover:text-text-primary'
+                    }`}
+                  >
+                    {d}일
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={async () => {
+                  if (!confirm('현재 IP의 모든 방문 기록을 삭제합니다. 계속?')) return;
+                  const token = localStorage.getItem('authToken');
+                  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/analytics/purge-my-views`, {
+                    method: 'DELETE',
+                    headers: { Authorization: `Bearer ${token}` },
+                  });
+                  if (res.ok) {
+                    const { deleted } = await res.json();
+                    alert(`${deleted}건 삭제됨`);
+                    fetchAnalytics();
+                  }
+                }}
+                className="px-3 py-1.5 rounded-full text-sm border border-border text-text-tertiary hover:text-status-error hover:border-status-error/30 transition-colors"
+              >
+                내 기록 제거
+              </button>
             </div>
           </div>
 
