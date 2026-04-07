@@ -110,6 +110,35 @@ export default function ThoughtDetailClient({ slug }: { slug: string }) {
               dangerouslySetInnerHTML={{ __html: getContent() || '' }}
             />
 
+            {/* Attachments */}
+            {thought.attachments && thought.attachments.length > 0 && (
+              <div className="mt-8 p-5 rounded-xl bg-surface border border-border">
+                <h3 className="text-sm font-medium text-text-secondary mb-3">
+                  {locale === 'ko' ? '관련 자료' : 'Related Materials'}
+                </h3>
+                <div className="space-y-2">
+                  {thought.attachments.map((att) => (
+                    <a
+                      key={att.id}
+                      href={att.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-sm text-text-primary hover:text-accent-blue transition-colors"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {att.type === 'file' ? (
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        ) : (
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        )}
+                      </svg>
+                      {locale === 'en' && att.title_en ? att.title_en : (att.title || att.url)}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Prev/Next Navigation */}
             {(thought.prev_thought || thought.next_thought) && (
               <nav className="mt-12 pt-8 border-t border-border flex items-stretch gap-4">

@@ -69,6 +69,10 @@ router.get('/:slug', async (req: Request, res: Response) => {
       thought.next_thought = next.rows[0] || null;
     }
 
+    // Fetch attachments
+    const attachments = await query('SELECT * FROM thought_attachments WHERE thought_id = $1 ORDER BY order_index ASC', [thought.id]);
+    thought.attachments = attachments.rows;
+
     res.json(thought);
   } catch (error) {
     console.error('Error fetching thought:', error);
@@ -149,6 +153,49 @@ router.delete('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   } catch (error) {
     console.error('Error deleting thought:', error);
     res.status(500).json({ error: 'Failed to delete thought' });
+  }
+});
+
+// Get attachments for a thought (admin)
+router.get('/:id/attachments', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await query('SELECT * FROM thought_attachments WHERE thought_id = $1 ORDER BY order_index ASC', [id]);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching attachments:', error);
+    res.status(500).json({ error: 'Failed to fetch attachments' });
+  }
+});
+
+// Add attachment (admin)
+router.post('/:id/attachments', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { type, url, title, title_en, order_index } = req.body;
+    if (!url) return res.status(400).json({ error: 'URL is required' });
+
+    const result = await query(
+      'INSERT INTO thought_attachments (thought_id, type, url, title, title_en, order_index) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [id, type || 'link', url, title || null, title_en || null, order_index || 0]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error('Error adding attachment:', error);
+    res.status(500).json({ error: 'Failed to add attachment' });
+  }
+});
+
+// Delete attachment (admin)
+router.delete('/attachments/:attachmentId', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const { attachmentId } = req.params;
+    const result = await query('DELETE FROM thought_attachments WHERE id = $1 RETURNING id', [attachmentId]);
+    if (result.rows.length === 0) return res.status(404).json({ error: 'Attachment not found' });
+    res.json({ message: 'Attachment deleted' });
+  } catch (error) {
+    console.error('Error deleting attachment:', error);
+    res.status(500).json({ error: 'Failed to delete attachment' });
   }
 });
 

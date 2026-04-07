@@ -341,6 +341,17 @@ export interface Thought {
   updated_at: string;
   prev_thought?: { slug: string; title: string; title_en: string | null } | null;
   next_thought?: { slug: string; title: string; title_en: string | null } | null;
+  attachments?: ThoughtAttachment[];
+}
+
+export interface ThoughtAttachment {
+  id: number;
+  thought_id: number;
+  type: 'link' | 'file';
+  url: string;
+  title: string | null;
+  title_en: string | null;
+  order_index: number;
 }
 
 export interface ThoughtForm {

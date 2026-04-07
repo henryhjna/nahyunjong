@@ -10,8 +10,9 @@ export function PageTracker() {
     // Extract locale from path
     const locale = pathname.startsWith('/en') ? 'en' : 'ko';
 
-    // Don't track admin or API paths
+    // Don't track admin/API paths, or logged-in admin
     if (pathname.startsWith('/admin') || pathname.startsWith('/api')) return;
+    if (typeof window !== 'undefined' && localStorage.getItem('authToken')) return;
 
     const sendPageview = async () => {
       try {

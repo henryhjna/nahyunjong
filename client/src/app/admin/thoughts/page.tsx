@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { useAuth } from '@/contexts/AuthContext';
-import type { Thought, ThoughtForm } from '@/lib/types';
+import type { Thought, ThoughtForm, ThoughtAttachment } from '@/lib/types';
 import dynamic from 'next/dynamic';
 
 const TiptapEditor = dynamic(() => import('@/components/TiptapEditor'), { ssr: false });
@@ -38,6 +38,8 @@ export default function AdminThoughtsPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [form, setForm] = useState<ThoughtForm>(initialForm);
   const [submitting, setSubmitting] = useState(false);
+  const [attachments, setAttachments] = useState<ThoughtAttachment[]>([]);
+  const [newAttachment, setNewAttachment] = useState({ type: 'link' as 'link' | 'file', url: '', title: '', title_en: '' });
 
   useEffect(() => {
     if (!authLoading && !isAdmin) router.push('/login');
@@ -117,6 +119,39 @@ export default function AdminThoughtsPage() {
     });
     setEditingId(thought.id);
     setShowForm(true);
+    fetchAttachments(thought.id);
+  };
+
+  const fetchAttachments = async (thoughtId: number) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/thoughts/${thoughtId}/attachments`, { headers: getAuthHeaders() });
+      if (res.ok) setAttachments(await res.json());
+    } catch {}
+  };
+
+  const addAttachment = async () => {
+    if (!editingId || !newAttachment.url) return;
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/thoughts/${editingId}/attachments`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(newAttachment),
+      });
+      if (res.ok) {
+        setNewAttachment({ type: 'link', url: '', title: '', title_en: '' });
+        fetchAttachments(editingId);
+      }
+    } catch {}
+  };
+
+  const deleteAttachment = async (attachmentId: number) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/thoughts/attachments/${attachmentId}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders(),
+      });
+      if (res.ok && editingId) fetchAttachments(editingId);
+    } catch {}
   };
 
   const handleDelete = async (id: number) => {
@@ -292,6 +327,75 @@ export default function AdminThoughtsPage() {
                 className="input-field w-full"
               />
             </div>
+
+            {/* Attachments (only visible when editing an existing thought) */}
+            {editingId && (
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">첨부파일 / 링크</label>
+
+                {/* Existing attachments */}
+                {attachments.length > 0 && (
+                  <div className="space-y-2 mb-3">
+                    {attachments.map((att) => (
+                      <div key={att.id} className="flex items-center gap-3 p-3 rounded-lg bg-surface-hover text-sm">
+                        <span className="px-2 py-0.5 rounded text-xs bg-accent-blue/10 text-accent-blue">
+                          {att.type === 'file' ? '파일' : '링크'}
+                        </span>
+                        <span className="flex-1 truncate text-text-primary">{att.title || att.url}</span>
+                        {att.title_en && <span className="text-text-tertiary truncate">{att.title_en}</span>}
+                        <button
+                          type="button"
+                          onClick={() => deleteAttachment(att.id)}
+                          className="text-status-error hover:text-status-error/80 text-xs flex-shrink-0"
+                        >
+                          삭제
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Add new attachment */}
+                <div className="flex flex-wrap gap-2 items-end">
+                  <select
+                    value={newAttachment.type}
+                    onChange={(e) => setNewAttachment({ ...newAttachment, type: e.target.value as 'link' | 'file' })}
+                    className="input-field w-24"
+                  >
+                    <option value="link">링크</option>
+                    <option value="file">파일</option>
+                  </select>
+                  <input
+                    type="text"
+                    value={newAttachment.url}
+                    onChange={(e) => setNewAttachment({ ...newAttachment, url: e.target.value })}
+                    placeholder="URL"
+                    className="input-field flex-1 min-w-[200px]"
+                  />
+                  <input
+                    type="text"
+                    value={newAttachment.title}
+                    onChange={(e) => setNewAttachment({ ...newAttachment, title: e.target.value })}
+                    placeholder="제목"
+                    className="input-field w-36"
+                  />
+                  <input
+                    type="text"
+                    value={newAttachment.title_en}
+                    onChange={(e) => setNewAttachment({ ...newAttachment, title_en: e.target.value })}
+                    placeholder="Title (EN)"
+                    className="input-field w-36"
+                  />
+                  <button
+                    type="button"
+                    onClick={addAttachment}
+                    className="px-4 py-2 bg-accent-blue text-white rounded-lg hover:bg-accent-blue/90 text-sm"
+                  >
+                    추가
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Prev/Next linking (optional, for series) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
