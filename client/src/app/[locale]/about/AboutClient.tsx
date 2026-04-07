@@ -261,18 +261,14 @@ export default function AboutClient() {
 
           {/* News Section */}
           {news.length > 0 && (() => {
-            // Group news: representative items with their sub-items
-            const representatives = news.filter((n) => n.is_representative);
-            const subItems = news.filter((n) => !n.is_representative);
-
             return (
               <section>
                 <h2 className="text-2xl font-bold text-text-primary mb-6">
                   {t?.news ?? 'Press Coverage'}
                 </h2>
                 <div className="space-y-3">
-                  {representatives.map((item) => {
-                    const related = subItems.filter((s) => s.group_id === item.id);
+                  {news.map((item: any) => {
+                    const related = (item.related_news || []).filter((r: any) => r.id != null);
                     return (
                       <div key={item.id}>
                         <a
@@ -285,6 +281,9 @@ export default function AboutClient() {
                             <div className="flex-1 min-w-0">
                               <h3 className="font-medium text-text-primary group-hover:text-accent-blue transition-colors">
                                 {l(item.title, item.title_en)}
+                                {related.length > 0 && (
+                                  <span className="ml-2 text-xs text-text-tertiary font-normal">+{related.length}</span>
+                                )}
                               </h3>
                               <div className="flex items-center gap-2 mt-1 text-xs text-text-tertiary">
                                 {item.source && <span>{item.source}</span>}
@@ -296,10 +295,9 @@ export default function AboutClient() {
                             </svg>
                           </div>
                         </a>
-                        {/* Related sub-items */}
                         {related.length > 0 && (
                           <div className="ml-4 mt-1 space-y-1 border-l-2 border-border pl-4">
-                            {related.map((sub) => (
+                            {related.map((sub: any) => (
                               <a
                                 key={sub.id}
                                 href={sub.source_url || '#'}

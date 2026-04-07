@@ -168,15 +168,17 @@ router.get('/', async (req: Request, res: Response) => {
     // Single query to get all representative news with their related news
     const result = await query(
       `SELECT
-         n.id, n.title, n.slug, n.content, n.source, n.source_url, n.image_url,
+         n.id, n.title, n.title_en, n.slug, n.content, n.content_en, n.source, n.source_url, n.image_url,
          n.published_at, n.created_at, n.group_id, n.is_representative,
          COALESCE(
            json_agg(
              json_build_object(
                'id', r.id,
                'title', r.title,
+               'title_en', r.title_en,
                'slug', r.slug,
                'content', r.content,
+               'content_en', r.content_en,
                'source', r.source,
                'source_url', r.source_url,
                'image_url', r.image_url,
